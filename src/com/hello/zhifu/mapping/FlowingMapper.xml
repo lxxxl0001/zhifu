@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hello.zhifu.dao.FlowingMapper">
+  <resultMap id="BaseResultMap" type="com.hello.zhifu.model.Flowing">
+    <id column="flowid" property="flowid" jdbcType="BIGINT" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="termNum" property="termNum" jdbcType="BIGINT" />
+    <result column="carNum" property="carNum" jdbcType="INTEGER" />
+    <result column="buyAmount" property="buyAmount" jdbcType="DOUBLE" />
+    <result column="haveAmount" property="haveAmount"	jdbcType="DOUBLE" />
+    <result column="isPay" property="isPay" jdbcType="INTEGER" />
+    <result column="isOpen" property="isOpen" jdbcType="INTEGER" />
+    <result column="isSend" property="isSend" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="findList" resultMap="BaseResultMap">
+      select * from flowing
+      <where>${where}</where>
+      <if test="order != null and order != ''" >
+        order by ${order}
+      </if>     
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+      select * from flowing where flowid = #{flowid,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.hello.zhifu.model.Flowing" useGeneratedKeys="true" keyProperty="flowid">
+    insert into flowing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="termNum != null" >
+        termNum,
+      </if>
+      <if test="carNum != null" >
+        carNum,
+      </if>
+      <if test="buyAmount != null" >
+        buyAmount,
+      </if>
+      <if test="haveAmount != null" >
+        haveAmount,
+      </if>
+      <if test="isPay != null" >
+        isPay,
+      </if>
+      <if test="isOpen != null" >
+        isOpen,
+      </if>
+      <if test="isSend != null" >
+        isSend,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="termNum != null" >
+        #{termNum,jdbcType=BIGINT},
+      </if>
+      <if test="carNum != null" >
+        #{carNum,jdbcType=INTEGER},
+      </if>
+      <if test="buyAmount != null" >
+        #{buyAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="haveAmount != null" >
+        #{haveAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="isPay != null" >
+        #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="isSend != null" >
+        #{isSend,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hello.zhifu.model.Flowing" >
+    update flowing
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="termNum != null" >
+        termNum = #{termNum,jdbcType=DOUBLE},
+      </if>
+      <if test="buyAmount != null" >
+        carNum = #{carNum,jdbcType=INTEGER},
+      </if>
+      <if test="buyAmount != null" >
+        buyAmount = #{buyAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="haveAmount != null" >
+        haveAmount = #{haveAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="isPay != null" >
+        isPay = #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="isOpen != null" >
+        isOpen = #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="isSend != null" >
+        isSend = #{isSend,jdbcType=INTEGER},
+      </if>
+    </set>
+    where flowid = #{flowid,jdbcType=BIGINT}
+  </update>
+</mapper>

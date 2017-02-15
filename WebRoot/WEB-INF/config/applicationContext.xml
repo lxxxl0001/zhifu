@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:context="http://www.springframework.org/schema/context">
+
+	<!-- 自动扫描(自动注入) -->
+	<context:component-scan base-package="com.hello.zhifu.service" />
+	<!-- 开启定时任务 -->
+	<task:annotation-driven />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" 
+				value="jdbc:mysql://localhost:3306/saiche?useUnicode=true&amp;characterEncoding=UTF8&amp;zeroDateTimeBehavior=convertToNull"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="123.com"></property>
+		<!--initialSize: 初始化连接 -->
+		<property name="initialSize" value="5" />
+		<!--maxIdle: 最大空闲连接 -->
+		<property name="maxIdle" value="10" />
+		<!--minIdle: 最小空闲连接 -->
+		<property name="minIdle" value="5" />
+		<!--maxActive: 最大连接数量 --> 
+		<property name="maxActive" value="15" />
+		<!--removeAbandoned: 是否自动回收超时连接 -->
+		<property name="removeAbandoned" value="true" />
+		<!--removeAbandonedTimeout: 超时时间(以秒数为单位) -->
+		<property name="removeAbandonedTimeout" value="180" />
+		<!--maxWait: 超时等待时间以毫秒为单位 6000毫秒/1000等于60秒 -->
+		<property name="maxWait" value="3000" />
+		<property name="validationQuery">
+			<value>SELECT 1</value>
+		</property>
+		<property name="testOnBorrow">
+			<value>true</value>
+		</property>
+	</bean>
+	
+	<!-- myBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
+		<property name="mapperLocations" value="classpath:com/hello/zhifu/mapping/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.hello.zhifu.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 注解方式配置事物 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+	<!-- 拦截器方式配置事物 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="append*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="repair" propagation="REQUIRED" />
+			<tx:method name="delAndRepair" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="SUPPORTS" />
+			<tx:method name="find*" propagation="SUPPORTS" />
+			<tx:method name="load*" propagation="SUPPORTS" />
+			<tx:method name="search*" propagation="SUPPORTS" />
+			<tx:method name="datagrid*" propagation="SUPPORTS" />
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="transactionPointcut" expression="execution(* com.hello.zhifu.service..*Impl.*(..))" />
+		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
+	</aop:config>
+	
+</beans>

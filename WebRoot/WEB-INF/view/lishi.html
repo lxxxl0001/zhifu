@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>北京赛车往期记录</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no" />
+
+<script type="text/javascript"
+	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${base}/assets/layui/layui.js"></script>
+<script type="text/javascript"
+	src="${base}/assets/layer/layer.js"></script>
+<script type="text/javascript" src="${base}/assets/award.js"></script>
+<link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
+<link rel="stylesheet" href="${base}/assets/style/css/style.css">
+<link rel="stylesheet" href="${base}/assets/style/css/lishi.css">
+</head>
+<body>
+	<div class="daojishi">
+		<div class="fl">
+			<em id="period"></em>期开奖剩余：<span id="time"></span>
+		</div>
+		<div class="fr">
+			<input type="date" name="dateData" id="dateData" onchange="Search()">
+		</div>
+	</div>
+	<div class="tabletop-sp">
+		<table width="100%">
+			<tbody>
+				<tr>
+					<td width="14%">期号</td>
+					<td width="14%">时间</td>
+					<td>开奖号码</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div style="height:80px;">
+	</div>
+	<div class="openlist">
+		<ul id="historyList">
+		</ul>
+	</div>
+	<div class="footer-nav">
+		<ul class="layui-nav">
+		  <li class="layui-nav-item"><a href="touzhu">首页</a></li>
+		  <li class="layui-nav-item"><a href="zhibo">直播</a></li>
+		  <li class="layui-nav-item layui-this"><a href="javascript:;">往期</a></li>
+		  <li class="layui-nav-item"><a href="erweima">代理</a></li>
+		  <li class="layui-nav-item"><a href="geren">我的</a></li>
+		</ul>
+	</div>
+<script type="text/javascript">
+//搜索
+function Search() {
+	getHistoryData($("#dateData").val());
+	return false;
+}
+
+function getHistoryData(date) {
+	layer.open({type: 2,time: 1});
+	$.getJSON("getHistoryData.do", {date:date,t:Math.random()}, function (result) {
+        if(result&&result.rows){
+        	var j = 0;
+        	var html = '';
+        	for(var i in result.rows){
+        		var data = result.rows[i];
+        		var no = data.awardNumbers.split(',');
+        		var clsName = "even";
+                if (j%2==0) {
+                    clsName = "odd";
+                }
+        		html += '<li class="' + clsName + '">';
+				html += '<table width="100%">';
+				html += '<tr>';
+        		html += '<td width="14%">' + data.termNum +'期</td>';
+				html += '<td width="14%">'+ data.awardDate.substring(10, 16)+'</td>';	
+                html += '<td class="nums">';			
+				html += '<i class="no' + no[0] + '">' + no[0] + '</i>';
+				html += '<i class="no' + no[1] + '">' + no[1] + '</i>';
+				html += '<i class="no' + no[2] + '">' + no[2] + '</i>';
+				html += '<i class="no' + no[3] + '">' + no[3] + '</i>';
+				html += '<i class="no' + no[4] + '">' + no[4] + '</i>';
+				html += '<i class="no' + no[5] + '">' + no[5] + '</i>';
+				html += '<i class="no' + no[6] + '">' + no[6] + '</i>';
+				html += '<i class="no' + no[7] + '">' + no[7] + '</i>';
+				html += '<i class="no' + no[8] + '">' + no[8] + '</i>';
+				html += '<i class="no' + no[9] + '">' + no[9] + '</i>';
+                html += '</td>';
+                html += '</tr>';
+				html += '</table>';
+				html += '</li>';
+                j++;
+        	}
+        	$("#historyList").html(html);
+        }else {
+			 $("#historyList").html("<li>对不起，今天暂无数据，请按日期检索！</li>");
+		}
+    });
+}
+</script>
+</body>
+</html>

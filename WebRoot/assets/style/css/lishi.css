@@ -1,0 +1,41 @@
+
+.nums i{display:inline-block;margin-right:2px;width:21px;height:21px;line-height:21px;text-align:center;font-size:14px;color:#fff;-webkit-border-radius:2px;border-radius:2px;
+    text-shadow:#555 1px 0 0,#555 0 1px 0,#555 -1px 0 0,#555 0 -1px 0;
+    -webkit-text-shadow:#555 1px 0 0,#555 0 1px 0,#555 -1px 0 0,#555 0 -1px 0;
+    -moz-text-shadow:#555 1px 0 0,#555 0 1px 0,#555 -1px 0 0,#555 0 -1px 0;
+    *filter: Glow(color=#555, strength=1);
+	font-weight:bolder ; font-style:italic; 
+}
+
+.nums .no1 {
+	background: #FFCC00;
+}
+.nums .no2 {
+	background:#0089ff;
+}
+.nums .no3 {
+	background:#4d4d4d;
+}
+.nums .no4 {
+	background:#ff7300;
+}
+.nums .no5 {
+	background: #3399CC;
+}
+.nums .no6 {
+	background:#5200ff;
+}
+.nums .no7 {
+	background: #bbb;
+}
+.nums .no8 {
+	background:#ff0000;
+}
+.nums .no9 {
+	background:#760000;
+}
+.nums .no10 {
+	background:#28c200;
+}
+
+

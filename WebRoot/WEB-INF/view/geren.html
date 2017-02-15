@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>个人中心</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no" />
+
+<script type="text/javascript"
+	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${base}/assets/layui/layui.js"></script>
+<script type="text/javascript"
+	src="${base}/assets/layer/layer.js"></script>
+<script type="text/javascript" src="${base}/assets/award.js"></script>
+<link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
+<link rel="stylesheet" href="${base}/assets/style/css/style.css">
+<link rel="stylesheet" href="${base}/assets/style/css/lishi.css">
+</head>
+
+<body>
+	<div class="usertop">
+		<img alt="" class="img-circle" src="${base}/assets/style/images/avatar.png">
+		<p>ID:${user.userid!}</p>
+	</div>
+	<div class="userinfo">
+		<table class="layui-table" lay-even="" lay-skin="row">
+			<tr>
+				<td>${user.money!}<br/>余额</td>
+				<td>${user.agent!}<br/>佣金</td>
+				<td>${user.agent!}<br/>中奖</td>
+			</tr>
+		</table>
+	</div>
+	<div class="userhead">
+		<table class="layui-table" lay-even="" lay-skin="nob">
+			<thead>
+				<tr>
+					<th>期号</th>
+					<th>车号</th>
+					<th>投入</th>
+					<th>中奖</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<div style="height:205px;">
+	</div>
+	<div class="openlist">
+		<table id="flowlist" class="layui-table" lay-even="" lay-skin="nob">
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+	<div class="footer-nav">
+		<ul class="layui-nav">
+			<li class="layui-nav-item"><a href="touzhu">首页</a></li>
+			<li class="layui-nav-item"><a href="zhibo">直播</a></li>
+			<li class="layui-nav-item"><a href="lishi">往期</a></li>
+			<li class="layui-nav-item"><a href="erweima">代理</a></li>
+			<li class="layui-nav-item layui-this"><a href="javascript:;">我的</a></li>
+		</ul>
+	</div>
+<script type="text/javascript">
+function getHistoryData(date) {
+	layer.open({type: 2,time: 1});
+	$.getJSON("getFlowing.do", {userid:${user.userid},t:Math.random()}, function (rows) {
+	    if(rows){
+	    	var html = '';
+	    	for(var i in rows){
+	    		var data = rows[i];
+				html += '<tr>';
+	    		html += '<td style="width:10%;">' + data.termNum +'期</td>';
+				html += '<td style="width:10%;">' + data.carNum+'</td>';	
+				html += '<td style="width:10%;">' + data.buyAmount +'</td>';
+				html += '<td style="width:10%;">' + data.haveAmount +'</td>';
+	            html += '</tr>';
+	    	}
+	    	$("#flowlist tbody").html(html);
+	    }else {
+			$("#flowlist tbody").html("<tr><td>暂无数据！</td></tr>");
+		}
+	});
+}
+</script>
+</body>
+</html>

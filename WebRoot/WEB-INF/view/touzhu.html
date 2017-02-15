@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>北京赛车欢乐无限</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no" />
+
+<script type="text/javascript"
+	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${base}/assets/layer/layer.js"></script>
+<script type="text/javascript" src="${base}/assets/bets.js"></script>
+<link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
+<link rel="stylesheet" href="${base}/assets/style/css/style.css">
+<link rel="stylesheet" href="${base}/assets/style/css/lishi.css">
+</head>
+<body>
+	<div class="daojishi">
+		<div class="fl">
+			<em id="period"></em>期开奖剩余：<span id="time"></span>
+		</div>
+	</div>
+	<div style="height:40px;">
+		<input id="userid" type="hidden" value="${userid!0}">
+	</div>
+	<div class="carlist">
+		<ul class="kaij-mylist">
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no1">1</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car1"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="1">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no2">2</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car2"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="2">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no3">3</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car3"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="3">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no4">4</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car4"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="4">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no5">5</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car5"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="5">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no6">6</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car6"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="6">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no7">7</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car7"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="7">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no8">8</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car8"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="8">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no9">9</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car9"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="9">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+			<li class="kaij-mylist-li">
+				<div class="kaij-mylist-l nums">
+					<i class="ui-logo no10">10</i>
+				</div>
+				<div class="kaij-mylist-r">
+					<div class="itm-time">
+						<div class="itm-tit car10"></div>
+						<div class="spinner">
+							<button class="decrease">-</button>
+							<input type="text" class="spinner value" disabled="disabled"
+								value="10" data="10">
+							<button class="increase">+</button>
+						</div>
+						<button
+							class="sub-btn layui-btn layui-btn-small">加油</button>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="footer-nav">
+		<ul class="layui-nav">
+			<li class="layui-nav-item layui-this"><a href="javascript:;">首页</a></li>
+			<li class="layui-nav-item"><a href="zhibo">直播</a></li>
+			<li class="layui-nav-item"><a href="lishi">往期</a></li>
+			<li class="layui-nav-item"><a href="erweima">代理</a></li>
+			<li class="layui-nav-item"><a href="geren">我的</a></li>
+		</ul>
+	</div>
+<script type="text/javascript">
+	function onBridgeReady(){
+	   WeixinJSBridge.invoke(
+	       'getBrandWCPayRequest', {
+	           "appId" ： "wx2421b1c4370ec43b",     // 公众号名称，由商户传入
+	           "timeStamp"：" 1395712654",         // 时间戳，自1970年以来的秒数
+	           "nonceStr" ： "e61463f8efa94090b1f366cccfbbb444", // 随机串
+	           "package" ： "prepay_id=u802345jgfjsdfgsdg888",     
+	           "signType" ： "MD5",         // 微信签名方式：
+	           "paySign" ： "70EA570631E4BB79628FBCA90534C63FF7FADD89" // 微信签名
+	       },
+	       function(res){     
+	           if(res.err_msg == "get_brand_wcpay_request：ok" ) {}     // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回
+																		// ok，但并不保证它绝对可靠。
+	       }
+	   ); 
+	}
+	
+	if (typeof WeixinJSBridge == "undefined"){
+	   if( document.addEventListener ){
+	       document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+	   }else if (document.attachEvent){
+	       document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+	       document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+	   }
+	}else{
+	   onBridgeReady();
+	}
+</script>
+</body>
+</html>

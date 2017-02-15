@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hello.zhifu.dao.AwardMapper">
+  <resultMap id="BaseResultMap" type="com.hello.zhifu.model.Award">
+    <id column="termNum" property="termNum" jdbcType="BIGINT" />
+    <result column="awardDate" property="awardDate" jdbcType="DATE" />
+    <result column="awardTime" property="awardTime"	jdbcType="BIGINT" />
+    <result column="nextTime" property="nextTime" jdbcType="BIGINT" />
+    <result column="awardNumbers" property="awardNumbers" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="current" resultMap="BaseResultMap">
+      select * from award where termNum = (select max(termNum) from award)
+  </select>
+  <select id="findList" resultMap="BaseResultMap">
+      select * from award
+      <where>${where}</where>
+      <if test="order != null and order != ''" >
+        order by ${order}
+      </if>     
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+      select * from award where termNum = #{termNum,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.hello.zhifu.model.Award" useGeneratedKeys="true" keyProperty="termNum">
+    insert into award
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="termNum != null" >
+        termNum,
+      </if>
+      <if test="awardDate != null" >
+        awardDate,
+      </if>
+      <if test="awardTime != null" >
+        awardTime,
+      </if>
+      <if test="nextTime != null" >
+        nextTime,
+      </if>
+      <if test="awardNumbers != null" >
+        awardNumbers,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="termNum != null" >
+        #{termNum,jdbcType=BIGINT},
+      </if>
+      <if test="awardDate != null" >
+        #{awardDate,jdbcType=DATE},
+      </if>
+      <if test="awardTime != null" >
+        #{awardTime,jdbcType=BIGINT},
+      </if>
+      <if test="nextTime != null" >
+        #{nextTime,jdbcType=BIGINT},
+      </if>
+      <if test="awardNumbers != null" >
+        #{awardNumbers,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.hello.zhifu.model.Award" >
+    update award
+    <set >
+      <if test="awardDate != null" >
+        awardDate = #{awardDate,jdbcType=DATE},
+      </if>
+      <if test="awardTime != null" >
+        awardTime = #{awardTime,jdbcType=BIGINT},
+      </if>
+      <if test="nextTime != null" >
+        nextTime = #{nextTime,jdbcType=BIGINT},
+      </if>
+      <if test="awardNumbers != null" >
+        awardNumbers = #{awardNumbers,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where termNum = #{termNum,jdbcType=BIGINT}
+  </update>
+</mapper>
