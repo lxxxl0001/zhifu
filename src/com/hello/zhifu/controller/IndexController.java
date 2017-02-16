@@ -68,7 +68,7 @@ public class IndexController {
 	
 	@RequestMapping(value = "/error404", method = RequestMethod.GET)
 	public String error404(HttpServletRequest request, HttpServletResponse response) {
-		return "error404";
+		return "error";
 	}
 	
 	@ResponseBody
