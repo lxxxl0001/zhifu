@@ -32,7 +32,7 @@ import com.hello.zhifu.utils.SettingsUtil;
 import com.hello.zhifu.utils.WeChatUtils;
 
 @Controller
-@RequestMapping("/jsapi")
+@RequestMapping("/test")
 public class TestPayController {
 	
 	private static final String appid = SettingsUtil.getInstance().getString("wx.appid");
