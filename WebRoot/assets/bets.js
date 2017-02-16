@@ -66,8 +66,8 @@ function showCountDown(afterTime, period) {
     	$(".sub-btn").addClass("layui-btn-disabled");
     	$(".sub-btn").attr("disabled","disabled");
     }else{
-    	$(".sub-btn").addClass("layui-btn-disabled");
-    	$(".sub-btn").attr("disabled","disabled");
+    	$(".sub-btn").removeClass("layui-btn-disabled");
+		$(".sub-btn").removeAttr("disabled");
     }
 	if (hh < 10) {
 		hh = "0" + hh;
