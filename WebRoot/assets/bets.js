@@ -137,6 +137,13 @@ function callpay(json){
 	WeixinJSBridge.invoke('getBrandWCPayRequest',json,
         function(res){
             alert(res.err_msg);
+            if(res){
+				layer.open({title: ['第'+$("#period").html()+'期：',
+				'background-color:#f9f9f9; color:#444;'],content:'<div>加油成功！</div>',time: 2});	
+			}else{
+				layer.open({title: ['第'+$("#period").html()+'期：',
+				'background-color:#f9f9f9; color:#444;'],content:'<div>您来晚了！已经开奖</div>',time: 2});	
+			}
         }
     );
 }
