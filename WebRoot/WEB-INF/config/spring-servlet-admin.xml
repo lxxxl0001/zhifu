@@ -13,6 +13,7 @@
 	
 	<mvc:interceptors>
 		<bean class="com.hello.zhifu.interceptor.CommonInterceptor"/>
+		<bean class="com.hello.zhifu.interceptor.LoginInterceptor"/>
 		<mvc:interceptor>
 			<mvc:mapping path="/erweima"/>
             <mvc:mapping path="/touzhu"/>
