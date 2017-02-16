@@ -59,7 +59,7 @@
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
         <property name="exceptionMappings">  
             <props>  
-                <prop key="com.hello.zhifu.utils.NoException">redirect:/web/login.html</prop>
+                <prop key="com.hello.zhifu.utils.NoException">redirect:/web/login</prop>
             </props>  
         </property>  
     </bean>
