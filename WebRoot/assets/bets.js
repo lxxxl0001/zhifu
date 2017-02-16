@@ -65,6 +65,9 @@ function showCountDown(afterTime, period) {
 	if (hh < 1) {
     	$(".sub-btn").addClass("layui-btn-disabled");
     	$(".sub-btn").attr("disabled","disabled");
+    }else{
+    	$(".sub-btn").addClass("layui-btn-disabled");
+    	$(".sub-btn").attr("disabled","disabled");
     }
 	if (hh < 10) {
 		hh = "0" + hh;
@@ -112,14 +115,16 @@ function initEvent(){
                     alert("您的微信版本低于5.0无法使用微信支付。");
                     return;
                 }
-				callpay({
+				layer.open({title: ['第'+$("#period").html()+'期：',
+				'background-color:#f9f9f9; color:#444;'],content:'<div>加油成功！</div>',time: 2});	
+				/*callpay({
                     "appId" : ""+data.appId.toString(), //公众号名称，由商户传入  
                     "timeStamp" : ""+data.timeStamp.toString(), //时间戳，自 1970 年以来的秒数  
                     "nonceStr" : ""+data.nonceStr.toString(), //随机串  
                     "package" : ""+data.packageValue.toString(), //商品包信息
                     "signType" : ""+data.signType.toString(), //微信签名方式:  
                     "paySign" : ""+data.paySign.toString() //微信签名  
-                });
+                });*/
 			});
 		}
 	});
