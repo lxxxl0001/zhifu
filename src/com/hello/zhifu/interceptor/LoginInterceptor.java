@@ -19,11 +19,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object arg2) throws Exception {
 
-		String base = request.getContextPath();
 		String requestUrl = request.getRequestURI();
-		if(requestUrl.endsWith(base+"/")){
-			return true;
-		}
 		if (null != allowUrls && allowUrls.length >= 1) {
 			for (String urls : allowUrls) {
 				if (requestUrl.contains(urls)) {
