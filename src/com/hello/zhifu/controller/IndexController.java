@@ -62,6 +62,16 @@ public class IndexController {
 		return "error";
 	}
 	
+	@RequestMapping(value = "/adm", method = RequestMethod.GET)
+	public String admin(HttpServletRequest request, HttpServletResponse response) {
+		return "adm/setting";
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(HttpServletRequest request, HttpServletResponse response) {
+		return "adm/login";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/MP_verify_1yfOUvVbbuMnR3UR.txt", method = RequestMethod.GET)
 	public String verify(HttpServletRequest request, HttpServletResponse response) {
