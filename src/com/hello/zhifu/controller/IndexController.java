@@ -29,7 +29,7 @@ public class IndexController {
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
 		//更新上级id
-		if (user != null && user.getParent() == null) {
+		if (user.getParent() == null && user.getUserid() != pid) {
 			user.setParent(pid);
 			userInfoService.update(user);
 		}
