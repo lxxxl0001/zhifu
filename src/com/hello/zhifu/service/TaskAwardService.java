@@ -74,7 +74,7 @@ public class TaskAwardService {
 			Integer element = awardNum.get(i);
 			awardNumbers+=","+element.toString();
 			
-			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element, null);
+			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element+" and isPay=1", null);
 			for (Flowing flow : flowlist) {
 				if (i == 0) {
 					flow.setIsOpen(1);
