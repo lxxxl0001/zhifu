@@ -217,3 +217,44 @@ overflow:hidden;
 .article .title{ font-size:17px; text-align:center; height:25px; line-height:25px; }
 .article .info { text-align:center; font-size:12px; color:#888; border-bottom:1px dashed #ddd}
 .article .content{ padding:5px; line-height:30px; color:#444}
+
+
+.progress {
+    border: 0;
+    background-image: none;
+    filter: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.progress {
+    height: 20px;
+    margin: 8px 0;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+.progress > .progress-bar-success {
+    background-color: #45b6af;
+}
+.progress-bar {
+    float: left;
+    width: 0;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #fff;
+    text-align: center;
+    background-color: #428bca;
+    -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.15);
+    -webkit-transition: width .6s ease;
+    -o-transition: width .6s ease;
+    transition: width .6s ease;
+}
+.progress .ui-logo {
+	float: left;
+}
