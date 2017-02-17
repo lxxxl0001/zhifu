@@ -28,7 +28,7 @@ public class IndexController {
 	public String touzhu(Integer pid, ModelMap map, HttpServletRequest request) {
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
-		//更新上级id
+		//更新上级id上级id不能是自己
 		if (user.getParent() == null && user.getUserid() != pid) {
 			user.setParent(pid);
 			userInfoService.update(user);
