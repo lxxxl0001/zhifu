@@ -14,6 +14,7 @@ import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.service.IAwardService;
 import com.hello.zhifu.service.IUserInfoService;
 import com.hello.zhifu.utils.CookieUtils;
+import com.hello.zhifu.utils.SettingsUtil;
 
 @Controller
 public class IndexController {
@@ -36,6 +37,8 @@ public class IndexController {
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
 		map.put("user", user);
+		String domain = SettingsUtil.getInstance().getString("domain");
+		map.put("domain", domain);
 		return "erweima";
 	}
 	
