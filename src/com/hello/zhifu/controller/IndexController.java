@@ -1,12 +1,5 @@
 package com.hello.zhifu.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,12 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.service.IAwardService;
 import com.hello.zhifu.service.IUserInfoService;
 import com.hello.zhifu.utils.CookieUtils;
-import com.hello.zhifu.utils.WeChatUtils;
 
 @Controller
 public class IndexController {
