@@ -6,6 +6,7 @@ public class UserInfo {
 	private String openid;
 	private Double money;
 	private Double agent;
+	private Integer parent;
 	
 	public Integer getUserid() {
 		return userid;
@@ -31,6 +32,11 @@ public class UserInfo {
 	public void setAgent(Double agent) {
 		this.agent = agent;
 	}
-	
-	
+	public Integer getParent() {
+		return parent;
+	}
+	public void setParent(Integer parent) {
+		this.parent = parent;
+	}
+
 }
