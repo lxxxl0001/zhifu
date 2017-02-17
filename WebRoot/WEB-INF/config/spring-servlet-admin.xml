@@ -13,14 +13,6 @@
 	
 	<mvc:interceptors>
 		<bean class="com.hello.zhifu.interceptor.CommonInterceptor"/>
-		<bean class="com.hello.zhifu.interceptor.LoginInterceptor">
-			<property name="allowUrls">
-				<list>
-					<!-- 如果请求中包含以下路径，则不进行拦截 -->
-					<value>/login</value>
-				</list>
-			</property>
-		</bean>
 		<mvc:interceptor>
 			<mvc:mapping path="/erweima"/>
             <mvc:mapping path="/touzhu"/>
@@ -28,8 +20,6 @@
             <bean class="com.hello.zhifu.interceptor.OAuth2Interceptor"/>
         </mvc:interceptor>
 	</mvc:interceptors>
-	
-	
 	
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
@@ -55,14 +45,6 @@
 		class="org.springframework.http.converter.StringHttpMessageConverter">
 		<constructor-arg value="UTF-8" />
 	</bean> 
-
-	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
-        <property name="exceptionMappings">  
-            <props>  
-                <prop key="com.hello.zhifu.utils.NoException">redirect:/web/login</prop>
-            </props>  
-        </property>  
-    </bean>
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
