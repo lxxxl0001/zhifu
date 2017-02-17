@@ -11,10 +11,14 @@
 
 <script type="text/javascript"
 	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
-<script type="text/javascript" src="${base}/assets/layer/layer.js"></script>
+<script type="text/javascript"
+	src="//cdn.bootcss.com/noUiSlider/9.2.0/nouislider.js"></script>
+<link rel="stylesheet"
+	href="//cdn.bootcss.com/noUiSlider/9.2.0/nouislider.css">
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
 <link rel="stylesheet" href="${base}/assets/style/css/style.css">
 <link rel="stylesheet" href="${base}/assets/style/css/lishi.css">
+<script type="text/javascript" src="${base}/assets/layer/layer.js"></script>
 </head>
 <body>
 	<div class="daojishi">
@@ -22,8 +26,7 @@
 			<em id="period"></em>期开奖剩余：<span id="time"></span>
 		</div>
 	</div>
-	<div style="height:40px;">
-	</div>
+	<div style="height:40px;"></div>
 	<div class="datalist">
 		<div class="progress nums">
 			<i class="ui-logo no1">1</i>
@@ -86,5 +89,54 @@
 			</div>
 		</div>
 	</div>
+	<div class="form-body" style="text-align: center;">
+		<div class="form-group" style="margin: 0 10px;">
+			<label style="width: 8%">比率：</label>
+			<div style="width: 85%;float: right;">
+				<div class="noUi-control noUi-success" id="slider_0"></div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label style="width: 8%">第一名：</label>
+			<input type="password" > 
+			<input type="button" value="保存">
+		</div>
+		<div class="form-group">
+			<label style="width: 8%">第二名：</label>
+			<input type="password" > 
+			<input type="button" value="保存">
+		</div>
+		<div class="form-group">
+			<label style="width: 8%">第三名：</label>
+			<input type="password" > 
+			<input type="button" value="保存">
+		</div>
+		<div class="form-group">
+			<label style="width: 8%">第四名：</label>
+			<input type="password" > 
+			<input type="button" value="保存">
+		</div>
+		<div class="form-group">
+			<label style="width: 8%">第五名：</label>
+			<input type="password" > 
+			<input type="button" value="保存">
+		</div>
+	</div>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+
+			var slider = document.getElementById('slider_0');
+
+			noUiSlider.create(slider, {
+				start: 20,
+				connect: true,
+				step: 20,
+				range: {
+					'min': 0,
+					'max': 100
+				}
+			});
+		});
+	</script>
 </body>
 </html>
