@@ -25,9 +25,14 @@ public class IndexController {
 	private IAwardService awardService;
 	
 	@RequestMapping(value = "/touzhu", method = RequestMethod.GET)
-	public String touzhu(Integer uid, ModelMap map, HttpServletRequest request) {
+	public String touzhu(Integer pid, ModelMap map, HttpServletRequest request) {
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
+		//更新上级id
+		if (user != null && user.getParent() == null) {
+			user.setParent(pid);
+			userInfoService.update(user);
+		}
 		map.put("userid", user.getUserid());
 		return "touzhu";
 	}
@@ -36,7 +41,7 @@ public class IndexController {
 	public String erweima(ModelMap map, HttpServletRequest request) {
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
-		map.put("user", user);
+		map.put("userid", user.getUserid());
 		String domain = SettingsUtil.getInstance().getString("domain");
 		map.put("domain", domain);
 		return "erweima";
