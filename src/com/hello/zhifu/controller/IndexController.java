@@ -64,6 +64,10 @@ public class IndexController {
 	
 	@RequestMapping(value = "/adm", method = RequestMethod.GET)
 	public String admin(HttpServletRequest request, HttpServletResponse response) {
+		Object user = request.getSession().getAttribute("user");
+		if (user == null) {
+			return "adm/login";
+		}
 		return "adm/setting";
 	}
 	
