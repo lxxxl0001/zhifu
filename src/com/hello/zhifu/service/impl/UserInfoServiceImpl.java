@@ -27,7 +27,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 			if (userInfo == null) {
 				userInfo = new UserInfo();
 				userInfo.setOpenid(openid);
-				userInfo.setMoney(10000d);
+				userInfo.setMoney(0d);
 				userInfo.setAgent(0d);
 				userInfoMapper.insert(userInfo);
 			}
