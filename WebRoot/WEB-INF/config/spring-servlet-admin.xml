@@ -13,7 +13,14 @@
 	
 	<mvc:interceptors>
 		<bean class="com.hello.zhifu.interceptor.CommonInterceptor"/>
-		<ref bean="LoginInterceptor" />
+		<bean class="com.hello.zhifu.interceptor.LoginInterceptor">
+			<property name="allowUrls">
+				<list>
+					<!-- 如果请求中包含以下路径，则不进行拦截 -->
+					<value>/login</value>
+				</list>
+			</property>
+		</bean>
 		<mvc:interceptor>
 			<mvc:mapping path="/erweima"/>
             <mvc:mapping path="/touzhu"/>
@@ -22,14 +29,7 @@
         </mvc:interceptor>
 	</mvc:interceptors>
 	
-	<bean id="LoginInterceptor" class="com.hello.zhifu.interceptor.LoginInterceptor">
-		<property name="allowUrls">
-			<list>
-				<!-- 如果请求中包含以下路径，则不进行拦截 -->
-				<value>/login</value>
-			</list>
-		</property>
-	</bean>
+	
 	
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
