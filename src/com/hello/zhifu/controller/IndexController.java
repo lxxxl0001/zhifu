@@ -74,7 +74,25 @@ public class IndexController {
 	public String admin(HttpServletRequest request, HttpServletResponse response) {
 		Object user = request.getSession().getAttribute("user");
 		if (user == null) {
-			return "adm/login";
+			//return "adm/login";
+		}
+		return "adm/setting";
+	}
+	
+	@RequestMapping(value = "/setagent", method = RequestMethod.GET)
+	public String setagent(HttpServletRequest request, HttpServletResponse response) {
+		Object user = request.getSession().getAttribute("user");
+		if (user == null) {
+			//return "adm/login";
+		}
+		return "adm/setagent";
+	}
+	
+	@RequestMapping(value = "/setrate", method = RequestMethod.GET)
+	public String setrate(HttpServletRequest request, HttpServletResponse response) {
+		Object user = request.getSession().getAttribute("user");
+		if (user == null) {
+			//return "adm/login";
 		}
 		return "adm/setting";
 	}
