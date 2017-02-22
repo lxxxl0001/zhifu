@@ -94,7 +94,7 @@ public class IndexController {
 		if (user == null) {
 			//return "adm/login";
 		}
-		return "adm/setting";
+		return "adm/setrate";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
