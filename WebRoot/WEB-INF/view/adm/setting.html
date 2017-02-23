@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>参数设置</title>
+<title>比率设置</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
@@ -23,105 +23,107 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="daojishi">
+		<div class="row daojishi">
 			<div class="fl">
 				<em id="period"></em>期开奖剩余：<span id="time"></span>
 			</div>
 		</div>
 		<div class="row" style="height:40px;"></div>
 		<div class="row">
-			<div class="progress nums">
-				<i class="ui-logo no1">1</i>
-				<div class="progress-bar no1" style="width: 40%">
-					<span class="sr-only"> 40% </span>
+			<div class="col-xs-12">
+				<div class="progress nums">
+					<i class="ui-logo no1">1</i>
+					<div class="progress-bar no1" style="width: 40%">
+						<span class="sr-only"> 40% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no2">2</i>
-				<div class="progress-bar no2" style="width: 20%">
-					<span class="sr-only"> 20% </span>
+				<div class="progress nums">
+					<i class="ui-logo no2">2</i>
+					<div class="progress-bar no2" style="width: 20%">
+						<span class="sr-only"> 20% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no3">3</i>
-				<div class="progress-bar no3" style="width: 60%">
-					<span class="sr-only"> 60% </span>
+				<div class="progress nums">
+					<i class="ui-logo no3">3</i>
+					<div class="progress-bar no3" style="width: 60%">
+						<span class="sr-only"> 60% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no4">4</i>
-				<div class="progress-bar no4" style="width: 80%">
-					<span class="sr-only"> 80% </span>
+				<div class="progress nums">
+					<i class="ui-logo no4">4</i>
+					<div class="progress-bar no4" style="width: 80%">
+						<span class="sr-only"> 80% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no5">5</i>
-				<div class="progress-bar no5" style="width: 40%">
-					<span class="sr-only"> 40% </span>
+				<div class="progress nums">
+					<i class="ui-logo no5">5</i>
+					<div class="progress-bar no5" style="width: 40%">
+						<span class="sr-only"> 40% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no6">6</i>
-				<div class="progress-bar no6" style="width: 20%">
-					<span class="sr-only"> 20% </span>
+				<div class="progress nums">
+					<i class="ui-logo no6">6</i>
+					<div class="progress-bar no6" style="width: 20%">
+						<span class="sr-only"> 20% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no7">7</i>
-				<div class="progress-bar no7" style="width: 60%">
-					<span class="sr-only"> 60% </span>
+				<div class="progress nums">
+					<i class="ui-logo no7">7</i>
+					<div class="progress-bar no7" style="width: 60%">
+						<span class="sr-only"> 60% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no8">8</i>
-				<div class="progress-bar no8" style="width: 80%">
-					<span class="sr-only"> 80% </span>
+				<div class="progress nums">
+					<i class="ui-logo no8">8</i>
+					<div class="progress-bar no8" style="width: 80%">
+						<span class="sr-only"> 80% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no9">9</i>
-				<div class="progress-bar no9" style="width: 60%">
-					<span class="sr-only"> 60% </span>
+				<div class="progress nums">
+					<i class="ui-logo no9">9</i>
+					<div class="progress-bar no9" style="width: 60%">
+						<span class="sr-only"> 60% </span>
+					</div>
 				</div>
-			</div>
-			<div class="progress nums">
-				<i class="ui-logo no10">10</i>
-				<div class="progress-bar no10" style="width: 80%">
-					<span class="sr-only"> 80% </span>
+				<div class="progress nums">
+					<i class="ui-logo no10">10</i>
+					<div class="progress-bar no10" style="width: 80%">
+						<span class="sr-only"> 80% </span>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row" style="height:20px;"></div>
-		<div class="row">
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label class="col-xs-3 control-label">比&nbsp;&nbsp;率：</label>
-					<div class="col-xs-8" style="padding-top: 8px;">
-						<div class="noUi-control noUi-success" id="slider_0"></div>
-					</div>
-				</div>
+		<div>
+			<label class="col-xs-2 control-label">比&nbsp;&nbsp;率：</label>
+			<div class="col-xs-10" style="padding-top: 8px;">
+				<div class="noUi-control noUi-success" id="slider_0"></div>
 			</div>
 		</div>
-		<div class="row">
-			<nav class="navbar navbar-default navbar-fixed-bottom">
-				<div class="btn-group btn-group-justified">
-					<div class="btn-group">
-						<a class="btn btn-default" href="adm">比率设置</a>
-					</div>
-					<div class="btn-group">
-						<a class="btn btn-default" href="setrate">倍率设置</a>
-					</div>
-					<div class="btn-group">
-						<a class="btn btn-default" href="setagent">代理设置</a>
-					</div>
-				</div>
-			</nav>
+		<div>
+			<div class="col-xs-offset-2 col-xs-10" style="text-align: center;">
+				<div id="sliderValue"></div>
+			</div>
 		</div>
+		<nav class="navbar navbar-default navbar-fixed-bottom">
+			<div class="btn-group btn-group-justified">
+				<div class="btn-group">
+					<a class="btn btn-default" href="adm">比率设置</a>
+				</div>
+				<div class="btn-group">
+					<a class="btn btn-default" href="setrate">倍率设置</a>
+				</div>
+				<div class="btn-group">
+					<a class="btn btn-default" href="setagent">代理设置</a>
+				</div>
+			</div>
+		</nav>
 	</div>
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 
 			var slider = document.getElementById('slider_0');
+			var sliderValue = document.getElementById('sliderValue');
 
 			noUiSlider.create(slider, {
 				start : 20,
@@ -131,6 +133,10 @@
 					'min' : 0,
 					'max' : 100
 				}
+			});
+			
+			slider.noUiSlider.on('update', function( values, handle ){
+				sliderValue.innerHTML = Number(values[handle])+"%";
 			});
 		});
 	</script>
