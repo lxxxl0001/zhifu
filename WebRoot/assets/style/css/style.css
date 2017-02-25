@@ -261,5 +261,6 @@ overflow:hidden;
 .control-label {
     padding-top: 5px;
     margin-bottom: 0;
-    padding-left: 0px;
+    text-align: right;
+    padding-right: 0px;
 }
