@@ -10,7 +10,7 @@ public interface SettingMapper {
 
 	public Setting selectByPrimaryKey(Integer mkey);
 	
-	public Integer update(Setting flowing);
+	public Integer update(Setting setting);
 	
 	public List<Setting> findList(@Param("where")String where, @Param("order")String order);
 }
