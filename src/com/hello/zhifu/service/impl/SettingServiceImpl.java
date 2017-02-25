@@ -3,11 +3,13 @@ package com.hello.zhifu.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hello.zhifu.dao.SettingMapper;
 import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.service.ISettingService;
 
+@Service
 public class SettingServiceImpl implements ISettingService {
 
 	@Autowired
