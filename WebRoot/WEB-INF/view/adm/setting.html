@@ -102,7 +102,7 @@
 		</div>
 		<div>
 			<div class="col-xs-offset-2 col-xs-10" style="text-align: center;">
-				<div id="sliderValue"></div>
+				<div><label id="sliderValue"></label>%</div>
 			</div>
 		</div>
 		<nav class="navbar navbar-default navbar-fixed-bottom">
@@ -126,7 +126,7 @@
 			var sliderValue = document.getElementById('sliderValue');
 
 			noUiSlider.create(slider, {
-				start : 20,
+				start : 0,
 				connect : true,
 				step : 20,
 				range : {
@@ -136,7 +136,7 @@
 			});
 			
 			slider.noUiSlider.on('update', function( values, handle ){
-				sliderValue.innerHTML = Number(values[handle])+"%";
+				sliderValue.innerHTML = Number(values[handle]);
 			});
 		});
 	</script>
