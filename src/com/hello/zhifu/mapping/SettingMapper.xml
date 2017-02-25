@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hello.zhifu.dao.SettingMapper">
+  <resultMap id="BaseResultMap" type="com.hello.zhifu.model.Setting">
+    <id column="mkey" property="mkey" jdbcType="INTEGER" />
+    <result column="mvalue" property="mvalue" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="findList" resultMap="BaseResultMap">
+      select * from setting
+      <where>${where}</where>
+      <if test="order != null and order != ''" >
+        order by ${order}
+      </if>     
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+      select * from setting where mkey = #{mkey,jdbcType=INTEGER}
+  </select>
+  <update id="update" parameterType="com.hello.zhifu.model.Setting" >
+    update setting
+    <set >
+      <if test="mvalue != null" >
+        mvalue = #{mvalue,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where mkey = #{mkey,jdbcType=INTEGER}
+  </update>
+</mapper>
