@@ -75,7 +75,7 @@ body{font-size:15px;line-height:1.5;-webkit-text-size-adjust:none;font-family:"M
 .list-arrow {display:inline-block;width:8px;height:13px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAZCAMAAAAPIl6bAAAAPFBMVEUAAACqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqrflK3yAAAAE3RSTlMABfPSnUwxEeTDq4xxXSMa3Ld+czkDMQAAAGBJREFUGNONkUsOgCAMBfkjIAi++9/VrRMSI8sJnbavpgdr8ILKRXLqSCTRuUiSpm6SXFSptkH+j7qTDK9mqV5ameomP1hW5bcfdNS3Y0x0wRyYlLtwW+axJ0bdV+rbXR5fhwQRmUSAmAAAAABJRU5ErkJggg==") no-repeat 0 0;background-size:8px;}
 
 .daojishi{position:fixed;left:0;overflow:hidden;background:#fff; height:40px; line-height:40px;width:100%; margin:0 auto;z-index:88888px;border-bottom:1px solid #d9d9d9;z-index:100;}
-.daojishi .fl { font-size:16px; margin-left:10px}
+.daojishi .fl { font-size:16px; margin-left:15px}
 .daojishi .fr { margin-right:15px; margin-top:2px}
 .daojishi span{ color:#c31616; padding-right:13px;}
 

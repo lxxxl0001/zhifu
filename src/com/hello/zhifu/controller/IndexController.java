@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hello.zhifu.model.Award;
 import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.model.UserInfo;
+import com.hello.zhifu.service.IAwardService;
 import com.hello.zhifu.service.ISettingService;
 import com.hello.zhifu.service.IUserInfoService;
 import com.hello.zhifu.utils.CookieUtils;
@@ -24,6 +26,8 @@ public class IndexController {
 	private IUserInfoService userInfoService;
 	@Autowired
 	private ISettingService settingService;
+	@Autowired
+	private IAwardService awardService;
 	
 	@RequestMapping(value = "/touzhu", method = RequestMethod.GET)
 	public String touzhu(Integer pid, ModelMap map, HttpServletRequest request) {
@@ -92,6 +96,11 @@ public class IndexController {
 		if (user == null) {
 			//return "adm/login";
 		}
+		Long nowTime = System.currentTimeMillis();
+		Award award = awardService.current();
+		map.put("period", award.getTermNum()+1);
+		Long afterTime = award.getNextTime() - nowTime;
+		map.put("afterTime", afterTime>0?afterTime:0);
 		Setting key9= settingService.selectByPrimaryKey(9);
 		map.put("key9", key9.getMvalue());
 		return "adm/setting";

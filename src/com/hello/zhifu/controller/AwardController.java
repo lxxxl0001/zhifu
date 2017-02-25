@@ -98,28 +98,17 @@ public class AwardController {
 	public Map<String, Object> getAwardTimes(Integer uid) {	
 		Map<String, Object> data = new HashMap<String, Object>();
 		Long nowTime = System.currentTimeMillis();
-		data.put("time", nowTime);
-		data.put("firstPeriod", "596772");//当天第一期期号
-		data.put("apiVersion", 1);
 		//当前
 		Award award = awardService.current();
 		Map<String, Object> current = new HashMap<String, Object>();
-		current.put("awardTime", DateUtils.date2Str(award.getAwardDate(),DateUtils.datetimeFormat));
 		current.put("periodNumber", award.getTermNum());
-		current.put("fullPeriodNumber", award.getTermNum());
-		current.put("periodNumberStr",  award.getTermNum().toString());
-		current.put("awardTimeInterval", 0);
-		current.put("awardNumbers", award.getAwardNumbers());
 		data.put("current", current);
 		//下次
 		Map<String, Object> next = new HashMap<String, Object>();
-		Date awardTime = DateUtils.getDate(award.getNextTime());
-		next.put("awardTime", DateUtils.date2Str(awardTime,DateUtils.datetimeFormat));
 		next.put("periodNumber", award.getTermNum()+1);
 		//页面刷新不需要，开奖动画
-		Long interval = award.getNextTime() - nowTime + 10 * 1000;
-		next.put("awardTimeInterval", interval);
-
+		Long interval = award.getNextTime() - nowTime;
+		next.put("awardTimeInterval", interval>0?interval:interval);
 		data.put("next", next);
 		return data;
 	}
