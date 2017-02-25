@@ -87,11 +87,13 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/adm", method = RequestMethod.GET)
-	public String admin(HttpServletRequest request, HttpServletResponse response) {
+	public String admin(ModelMap map, HttpServletRequest request) {
 		Object user = request.getSession().getAttribute("user");
 		if (user == null) {
 			//return "adm/login";
 		}
+		Setting key9= settingService.selectByPrimaryKey(9);
+		map.put("key9", key9.getMvalue());
 		return "adm/setting";
 	}
 	
