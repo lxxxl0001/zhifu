@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.hello.zhifu.model.Award;
 import com.hello.zhifu.model.Flowing;
+import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.service.IAwardService;
 import com.hello.zhifu.service.IFlowingService;
+import com.hello.zhifu.service.ISettingService;
 import com.hello.zhifu.service.IUserInfoService;
 import com.hello.zhifu.utils.DateUtils;
 import com.hello.zhifu.utils.WeChatUtils;
@@ -38,6 +40,8 @@ public class AwardController {
 	private IFlowingService flowService;
 	@Autowired
 	private IUserInfoService userInfoService;
+	@Autowired
+	private ISettingService settingService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/getData.do", method = RequestMethod.GET)
@@ -177,6 +181,12 @@ public class AwardController {
 			}
 		}
 		return params;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/savevalue.do", method = RequestMethod.POST)
+	public Boolean savevalue(Setting data) {	
+		return settingService.update(data)>0;
 	}
 	
 	@ResponseBody

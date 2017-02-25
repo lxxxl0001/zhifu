@@ -30,42 +30,47 @@
 					<div class="form-group">
 						<label class="col-xs-4 control-label">第一名：</label>
 						<div class="col-xs-5">
-							<input class="form-control input-small input-sm" type="number">
+							<input id="key1" class="form-control input-small input-sm"
+								type="number" value="${key1!0}">
 						</div>
-						<input class="sub-btn layui-btn layui-btn-small" type="button"
-							value="保存">
+						<input id="btn1" class="sub-btn layui-btn layui-btn-small"
+							type="button" value="保存">
 					</div>
 					<div class="form-group">
 						<label class="col-xs-4 control-label">第二名：</label>
 						<div class="col-xs-5">
-							<input class="form-control input-small input-sm" type="number">
+							<input id="key2" class="form-control input-small input-sm"
+								type="number" value="${key2!}">
 						</div>
-						<input class="sub-btn layui-btn layui-btn-small" type="button"
-							value="保存">
+						<input id="btn2" class="sub-btn layui-btn layui-btn-small"
+							type="button" value="保存">
 					</div>
 					<div class="form-group">
 						<label class="col-xs-4 control-label">第三名：</label>
 						<div class="col-xs-5">
-							<input class="form-control input-small input-sm" type="number">
+							<input id="key3" class="form-control input-small input-sm"
+								type="number" value="${key3!}">
 						</div>
-						<input class="sub-btn layui-btn layui-btn-small" type="button"
-							value="保存">
+						<input id="btn3" class="sub-btn layui-btn layui-btn-small"
+							type="button" value="保存">
 					</div>
 					<div class="form-group">
 						<label class="col-xs-4 control-label">第四名：</label>
 						<div class="col-xs-5">
-							<input class="form-control input-small input-sm" type="number">
+							<input id="key4" class="form-control input-small input-sm"
+								type="number" value="${key4!}">
 						</div>
-						<input class="sub-btn layui-btn layui-btn-small" type="button"
-							value="保存">
+						<input id="btn4" class="sub-btn layui-btn layui-btn-small"
+							type="button" value="保存">
 					</div>
 					<div class="form-group">
 						<label class="col-xs-4 control-label">第五名：</label>
 						<div class="col-xs-5">
-							<input class="form-control input-small input-sm" type="number">
+							<input id="key5" class="form-control input-small input-sm"
+								type="number" value="${key5!}">
 						</div>
-						<input class="sub-btn layui-btn layui-btn-small" type="button"
-							value="保存">
+						<input id="btn5" class="sub-btn layui-btn layui-btn-small"
+							type="button" value="保存">
 					</div>
 				</div>
 			</div>
@@ -85,7 +90,21 @@
 		</nav>
 	</div>
 	<script type="text/javascript">
-		
+		jQuery(document).ready(function() {
+			$(".sub-btn").on('click', function() {
+				var mkey = $(this).attr("id").substr(3);
+				var mvalue = $("#key" + mkey).val();
+				$.post("savevalue.do", {
+					'mkey' : mkey,
+					'mvalue' : mvalue
+				}, function(data) {
+					layer.open({
+						content : '<div>保存成功！</div>',
+						time : 2
+					});
+				});
+			});
+		});
 	</script>
 </body>
 </html>

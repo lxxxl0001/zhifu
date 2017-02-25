@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.model.UserInfo;
-import com.hello.zhifu.service.IAwardService;
+import com.hello.zhifu.service.ISettingService;
 import com.hello.zhifu.service.IUserInfoService;
 import com.hello.zhifu.utils.CookieUtils;
 import com.hello.zhifu.utils.SettingsUtil;
@@ -22,7 +23,7 @@ public class IndexController {
 	@Autowired
 	private IUserInfoService userInfoService;
 	@Autowired
-	private IAwardService awardService;
+	private ISettingService settingService;
 	
 	@RequestMapping(value = "/touzhu", method = RequestMethod.GET)
 	public String touzhu(Integer pid, ModelMap map, HttpServletRequest request) {
@@ -95,20 +96,36 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/setagent", method = RequestMethod.GET)
-	public String setagent(HttpServletRequest request, HttpServletResponse response) {
+	public String setagent(ModelMap map, HttpServletRequest request) {
 		Object user = request.getSession().getAttribute("user");
 		if (user == null) {
 			//return "adm/login";
 		}
+		Setting key6= settingService.selectByPrimaryKey(6);
+		map.put("key6", key6.getMvalue());
+		Setting key7= settingService.selectByPrimaryKey(7);
+		map.put("key7", key7.getMvalue());
+		Setting key8= settingService.selectByPrimaryKey(8);
+		map.put("key8", key8.getMvalue());
 		return "adm/setagent";
 	}
 	
 	@RequestMapping(value = "/setrate", method = RequestMethod.GET)
-	public String setrate(HttpServletRequest request, HttpServletResponse response) {
+	public String setrate(ModelMap map, HttpServletRequest request) {
 		Object user = request.getSession().getAttribute("user");
 		if (user == null) {
 			//return "adm/login";
 		}
+		Setting key1= settingService.selectByPrimaryKey(1);
+		map.put("key1", key1.getMvalue());
+		Setting key2= settingService.selectByPrimaryKey(2);
+		map.put("key2", key2.getMvalue());
+		Setting key3= settingService.selectByPrimaryKey(3);
+		map.put("key3", key3.getMvalue());
+		Setting key4= settingService.selectByPrimaryKey(4);
+		map.put("key4", key4.getMvalue());
+		Setting key5= settingService.selectByPrimaryKey(5);
+		map.put("key5", key5.getMvalue());
 		return "adm/setrate";
 	}
 	
