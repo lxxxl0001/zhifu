@@ -101,7 +101,9 @@ public class AwardController {
 		//当前
 		Award award = awardService.current();
 		Map<String, Object> current = new HashMap<String, Object>();
+		current.put("awardTime", DateUtils.date2Str(award.getAwardDate(),DateUtils.datetimeFormat));
 		current.put("periodNumber", award.getTermNum());
+		current.put("awardNumbers", award.getAwardNumbers());
 		data.put("current", current);
 		//下次
 		Map<String, Object> next = new HashMap<String, Object>();
@@ -130,7 +132,8 @@ public class AwardController {
 			poFlow.setUserid(flow.getUserid());
 			poFlow.setTermNum(flow.getTermNum());
 			poFlow.setCarNum(flow.getCarNum());
-			poFlow.setBuyAmount(flow.getBuyAmount());
+			Integer s = WeChatUtils.buildRandom(4);
+			poFlow.setBuyAmount(Double.parseDouble(s.toString()));
 			poFlow.setHaveAmount(0d);
 			poFlow.setIsPay(0);
 			poFlow.setIsOpen(0);
