@@ -2,8 +2,10 @@ package com.hello.zhifu.service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.hello.zhifu.model.Award;
 import com.hello.zhifu.model.Flowing;
+import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.utils.DateUtils;
 
 @Component("taskAward")
@@ -20,8 +23,8 @@ public class TaskAwardService {
 	private IAwardService awardService;
 	@Autowired
 	private IFlowingService flowService;
-	
-	private List<Integer> awardNum;
+	@Autowired
+	private ISettingService settingService;
 	
 	@Scheduled(cron = "0 0/3 9-23 * * ?") 
 	public void DrawAwardJob(){
@@ -57,47 +60,65 @@ public class TaskAwardService {
 	}
 	
 	private String getNumbers(Long termNum) {
-		awardNum = new ArrayList<Integer>();
-		awardNum.add(1);
-		awardNum.add(2);
-		awardNum.add(3);
-		awardNum.add(4);
-		awardNum.add(5);
-		awardNum.add(6);
-		awardNum.add(7);
-		awardNum.add(8);
-		awardNum.add(9);
-		awardNum.add(10);
-		Collections.shuffle(awardNum);
+		
+		Setting key1 = settingService.selectByPrimaryKey(1);
+		Setting key2 = settingService.selectByPrimaryKey(2);
+		Setting key3 = settingService.selectByPrimaryKey(3);
+		Setting key4 = settingService.selectByPrimaryKey(4);
+		Setting key5 = settingService.selectByPrimaryKey(5);
+		
+		Integer[] temp = {1,2,3,4,5,6,7,8,9,10};
+		List<Integer> temNum = Arrays.asList(temp);
+		
+		List<Integer> awardNum = new ArrayList<Integer>();
+		Map<Integer, Integer> rNumber = flowService.getNumberMap(termNum);
+		//移除买了的没买的放前面
+		for (Map.Entry<Integer, Integer> entry : rNumber.entrySet()) {
+			temNum.remove(entry.getKey());
+		}
+		Collections.shuffle(temNum);
+		//购买为零的放前面
+		awardNum.addAll(temNum);
+		for (Map.Entry<Integer, Integer> entry : rNumber.entrySet()) {
+			awardNum.add(entry.getKey());
+		}
+		
+		//根据参数调整位置
+		Setting key9 = settingService.selectByPrimaryKey(9);
+		key9.setMvalue(0d);
+		settingService.update(key9);
+		
+		
 		String awardNumbers = "";
 		for (int i = 0; i < awardNum.size(); i++) {
 			Integer element = awardNum.get(i);
-			awardNumbers+=","+element.toString();
-			
+			//计算中奖金额
 			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element+" and isPay=1", null);
 			for (Flowing flow : flowlist) {
 				if (i == 0) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*2);
+					flow.setHaveAmount(flow.getBuyAmount()*key1.getMvalue());
 				}
 				if (i == 1) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*1.8);
+					flow.setHaveAmount(flow.getBuyAmount()*key2.getMvalue());
 				}
 				if (i == 2) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*1.6);
+					flow.setHaveAmount(flow.getBuyAmount()*key3.getMvalue());
 				}
 				if (i == 3) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*1.4);
+					flow.setHaveAmount(flow.getBuyAmount()*key4.getMvalue());
 				}
 				if (i == 4) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*1);
+					flow.setHaveAmount(flow.getBuyAmount()*key5.getMvalue());
 				}
 				flowService.update(flow);
 			}
+			//拼接中奖号码
+			awardNumbers+=","+element.toString();
 		}
 		awardNumbers = awardNumbers.substring(1);
 		return awardNumbers;

@@ -1,5 +1,6 @@
 package com.hello.zhifu.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,22 @@ public class FlowingServiceImpl implements IFlowingService {
 
 	@Override
 	public Map<Integer, Integer> getNumberMap(Long termNum) {
-		return flowingMapper.getNumberMap(termNum);
+		List<Map<String, Integer>> list = flowingMapper.getNumberMap(termNum);
+		Map<Integer, Integer> resultMap = new HashMap<Integer, Integer>();
+		for (Map<String, Integer> map : list) {
+			Integer mkey = null;
+			Integer mvalue = null;
+			for (Map.Entry<String, Integer> entry : map.entrySet()) {
+				if("carNum".equals(entry.getKey())){
+					mkey = entry.getValue();
+				}
+				if("buyAmount".equals(entry.getKey())){
+					mvalue = entry.getValue();
+				}
+			}
+			resultMap.put(mkey,mvalue);
+		}
+		return resultMap;
 	}
 
 }
