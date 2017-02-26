@@ -110,7 +110,7 @@ public class AwardController {
 		next.put("periodNumber", award.getTermNum()+1);
 		//页面刷新不需要，开奖动画
 		Long interval = award.getNextTime() - nowTime;
-		next.put("awardTimeInterval", interval>0?interval:interval);
+		next.put("awardTimeInterval", interval>0?interval:0);
 		data.put("next", next);
 		return data;
 	}
