@@ -115,8 +115,7 @@ function initEvent(){
                     alert("您的微信版本低于5.0无法使用微信支付。");
                     return;
                 }
-				layer.open({title: ['第'+$("#period").html()+'期：',
-				'background-color:#f9f9f9; color:#444;'],content:'<div>加油成功！</div>',time: 2});	
+				layer.open({content:'加油成功！',time: 2});	
 				/*callpay({
                     "appId" : ""+data.appId.toString(), //公众号名称，由商户传入  
                     "timeStamp" : ""+data.timeStamp.toString(), //时间戳，自 1970 年以来的秒数  
