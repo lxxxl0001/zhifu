@@ -1,6 +1,7 @@
 package com.hello.zhifu.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class FlowingServiceImpl implements IFlowingService {
 	@Override
 	public List<Flowing> findList(String where, String order) {
 		return flowingMapper.findList(where, order);
+	}
+
+	@Override
+	public Map<Integer, Integer> getNumberMap(Long termNum) {
+		return flowingMapper.getNumberMap(termNum);
 	}
 
 }

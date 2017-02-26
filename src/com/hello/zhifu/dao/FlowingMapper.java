@@ -1,6 +1,7 @@
 package com.hello.zhifu.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -15,4 +16,6 @@ public interface FlowingMapper {
 	public Integer update(Flowing flowing);
 	
 	public List<Flowing> findList(@Param("where")String where, @Param("order")String order);
+	
+	public Map<Integer, Integer> getNumberMap(Long termNum);
 }
