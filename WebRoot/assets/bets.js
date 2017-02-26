@@ -4,7 +4,7 @@ $(function () {
     var cpCurrAwardData = null;
     var cpNextAwardTimeInterval = -1;
     function loadAwardTimes() {
-        $.getJSON('getAwardTimes.do', {uid:$("#userid").val(),t:Math.random()}, function (data) {
+        $.getJSON('getAwardTimes.do', {t:Math.random()}, function (data) {
             //请求到数据后需要做的事情
             cpCurrAwardData = data;
             //期数不同，则开始封盘倒计时

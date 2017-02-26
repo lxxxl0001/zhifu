@@ -17,7 +17,7 @@ $(function () {
     }
 
     var awardTick = function () {
-        $.getJSON('getAwardTimes.do', {uid:null,t:Math.random()}, function (data) {
+        $.getJSON('getAwardTimes.do', {t:Math.random()}, function (data) {
             //计数请求次数
             requireCount += 1;
             if ((data.current.periodNumber != currentPeriodNumber) && currentPeriodNumber != -1) {
@@ -48,7 +48,7 @@ $(function () {
     var cpCurrAwardData = null;
     var cpNextAwardTimeInterval = -1;
     function loadAwardTimes() {
-        $.getJSON('getAwardTimes.do', {uid:null,t:Math.random()}, function (data) {
+        $.getJSON('getAwardTimes.do', {t:Math.random()}, function (data) {
             //请求到数据后需要做的事情
             cpCurrAwardData = data;
             //期数不同，则开始封盘倒计时
