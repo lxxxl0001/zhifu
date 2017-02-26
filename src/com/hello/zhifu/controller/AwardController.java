@@ -95,7 +95,7 @@ public class AwardController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getAwardTimes.do", method = RequestMethod.GET)
-	public Map<String, Object> getAwardTimes(Integer uid) {	
+	public Map<String, Object> getAwardTimes() {	
 		Map<String, Object> data = new HashMap<String, Object>();
 		Long nowTime = System.currentTimeMillis();
 		//当前
