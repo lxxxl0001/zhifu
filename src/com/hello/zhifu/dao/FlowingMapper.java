@@ -17,5 +17,5 @@ public interface FlowingMapper {
 	
 	public List<Flowing> findList(@Param("where")String where, @Param("order")String order);
 	
-	public List<Map<String, Integer>> getNumberMap(Long termNum);
+	public List<Map<String, Object>> getNumberMap(Long termNum);
 }
