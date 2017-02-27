@@ -38,18 +38,18 @@ public class FlowingServiceImpl implements IFlowingService {
 	}
 
 	@Override
-	public Map<Integer, Integer> getNumberMap(Long termNum) {
-		List<Map<String, Integer>> list = flowingMapper.getNumberMap(termNum);
-		Map<Integer, Integer> resultMap = new HashMap<Integer, Integer>();
-		for (Map<String, Integer> map : list) {
-			Integer mkey = null;
-			Integer mvalue = null;
-			for (Map.Entry<String, Integer> entry : map.entrySet()) {
+	public Map<String, Object> getNumberMap(Long termNum) {
+		List<Map<String, Object>> list = flowingMapper.getNumberMap(termNum);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		for (Map<String, Object> map : list) {
+			String mkey = null;
+			Object mvalue = null;
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
 				if("carNum".equals(entry.getKey())){
-					mkey = entry.getValue();
+					mkey = entry.getValue().toString();
 				}
 				if("buyAmount".equals(entry.getKey())){
-					mvalue = entry.getValue();
+					mvalue = entry.getValue().toString();
 				}
 			}
 			resultMap.put(mkey,mvalue);

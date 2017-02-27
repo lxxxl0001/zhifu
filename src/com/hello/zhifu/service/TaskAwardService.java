@@ -67,20 +67,21 @@ public class TaskAwardService {
 		Setting key4 = settingService.selectByPrimaryKey(4);
 		Setting key5 = settingService.selectByPrimaryKey(5);
 		
-		Integer[] temp = {1,2,3,4,5,6,7,8,9,10};
-		List<Integer> temNum = Arrays.asList(temp);
+		String[] temNum = {"1","2","3","4","5","6","7","8","9","10"};
 		
-		List<Integer> awardNum = new ArrayList<Integer>();
-		Map<Integer, Integer> rNumber = flowService.getNumberMap(termNum);
-		//移除买了的没买的放前面
-		for (Map.Entry<Integer, Integer> entry : rNumber.entrySet()) {
-			temNum.remove(entry.getKey());
+		List<String> awardNum = new ArrayList<String>();
+		Map<String, Object> mkey = flowService.getNumberMap(termNum);
+		//购买为零的放前面，没取到即购买为零
+		for (String num : temNum) {
+			if(!mkey.containsKey(num)){
+				awardNum.add(num);
+			}
 		}
-		Collections.shuffle(temNum);
-		//购买为零的放前面
-		awardNum.addAll(temNum);
-		for (Map.Entry<Integer, Integer> entry : rNumber.entrySet()) {
-			awardNum.add(entry.getKey());
+		//购买为零的乱序
+		Collections.shuffle(awardNum);
+		//买了的，从小到大
+		for (Map.Entry<String, Object> entry : mkey.entrySet()) {
+			awardNum.add(entry.getKey().toString());
 		}
 		
 		//根据参数调整位置
@@ -91,7 +92,7 @@ public class TaskAwardService {
 		
 		String awardNumbers = "";
 		for (int i = 0; i < awardNum.size(); i++) {
-			Integer element = awardNum.get(i);
+			String element = awardNum.get(i);
 			//计算中奖金额
 			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element+" and isPay=1", null);
 			for (Flowing flow : flowlist) {

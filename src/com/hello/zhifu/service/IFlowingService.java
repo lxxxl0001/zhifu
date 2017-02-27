@@ -15,5 +15,5 @@ public interface IFlowingService {
 	
 	public List<Flowing> findList(String where, String order);
 	
-	public Map<Integer, Integer> getNumberMap(Long termNum);
+	public Map<String, Object> getNumberMap(Long termNum);
 }
