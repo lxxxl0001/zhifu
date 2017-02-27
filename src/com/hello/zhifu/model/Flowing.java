@@ -6,8 +6,8 @@ public class Flowing {
 	private Integer userid;
 	private Long termNum;
 	private Integer carNum;
-	private Double buyAmount;
-	private Double haveAmount;
+	private Integer buyAmount;
+	private Integer haveAmount;
 	private Integer isPay;
 	private Integer isOpen;
 	private Integer isSend;
@@ -36,16 +36,16 @@ public class Flowing {
 	public void setCarNum(Integer carNum) {
 		this.carNum = carNum;
 	}
-	public Double getBuyAmount() {
+	public Integer getBuyAmount() {
 		return buyAmount;
 	}
-	public void setBuyAmount(Double buyAmount) {
+	public void setBuyAmount(Integer buyAmount) {
 		this.buyAmount = buyAmount;
 	}
-	public Double getHaveAmount() {
+	public Integer getHaveAmount() {
 		return haveAmount;
 	}
-	public void setHaveAmount(Double haveAmount) {
+	public void setHaveAmount(Integer haveAmount) {
 		this.haveAmount = haveAmount;
 	}
 	public Integer getIsPay() {

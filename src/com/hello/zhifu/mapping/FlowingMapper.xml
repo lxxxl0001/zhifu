@@ -6,8 +6,8 @@
     <result column="userid" property="userid" jdbcType="INTEGER" />
     <result column="termNum" property="termNum" jdbcType="BIGINT" />
     <result column="carNum" property="carNum" jdbcType="INTEGER" />
-    <result column="buyAmount" property="buyAmount" jdbcType="DOUBLE" />
-    <result column="haveAmount" property="haveAmount"	jdbcType="DOUBLE" />
+    <result column="buyAmount" property="buyAmount" jdbcType="INTEGER" />
+    <result column="haveAmount" property="haveAmount"	jdbcType="INTEGER" />
     <result column="isPay" property="isPay" jdbcType="INTEGER" />
     <result column="isOpen" property="isOpen" jdbcType="INTEGER" />
     <result column="isSend" property="isSend" jdbcType="INTEGER" />
@@ -64,10 +64,10 @@
         #{carNum,jdbcType=INTEGER},
       </if>
       <if test="buyAmount != null" >
-        #{buyAmount,jdbcType=DOUBLE},
+        #{buyAmount,jdbcType=INTEGER},
       </if>
       <if test="haveAmount != null" >
-        #{haveAmount,jdbcType=DOUBLE},
+        #{haveAmount,jdbcType=INTEGER},
       </if>
       <if test="isPay != null" >
         #{isPay,jdbcType=INTEGER},
@@ -87,16 +87,16 @@
         userid = #{userid,jdbcType=BIGINT},
       </if>
       <if test="termNum != null" >
-        termNum = #{termNum,jdbcType=DOUBLE},
+        termNum = #{termNum,jdbcType=INTEGER},
       </if>
       <if test="buyAmount != null" >
         carNum = #{carNum,jdbcType=INTEGER},
       </if>
       <if test="buyAmount != null" >
-        buyAmount = #{buyAmount,jdbcType=DOUBLE},
+        buyAmount = #{buyAmount,jdbcType=INTEGER},
       </if>
       <if test="haveAmount != null" >
-        haveAmount = #{haveAmount,jdbcType=DOUBLE},
+        haveAmount = #{haveAmount,jdbcType=INTEGER},
       </if>
       <if test="isPay != null" >
         isPay = #{isPay,jdbcType=INTEGER},

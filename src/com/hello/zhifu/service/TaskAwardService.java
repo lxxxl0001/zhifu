@@ -97,23 +97,23 @@ public class TaskAwardService {
 			for (Flowing flow : flowlist) {
 				if (i == 0) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*key1.getMvalue());
+					flow.setHaveAmount(calcAmount(flow.getBuyAmount(),key1.getMvalue()));
 				}
 				if (i == 1) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*key2.getMvalue());
+					flow.setHaveAmount(calcAmount(flow.getBuyAmount(),key2.getMvalue()));
 				}
 				if (i == 2) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*key3.getMvalue());
+					flow.setHaveAmount(calcAmount(flow.getBuyAmount(),key3.getMvalue()));
 				}
 				if (i == 3) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*key4.getMvalue());
+					flow.setHaveAmount(calcAmount(flow.getBuyAmount(),key4.getMvalue()));
 				}
 				if (i == 4) {
 					flow.setIsOpen(1);
-					flow.setHaveAmount(flow.getBuyAmount()*key5.getMvalue());
+					flow.setHaveAmount(calcAmount(flow.getBuyAmount(),key5.getMvalue()));
 				}
 				flowService.update(flow);
 			}
@@ -122,5 +122,11 @@ public class TaskAwardService {
 		}
 		awardNumbers = awardNumbers.substring(1);
 		return awardNumbers;
+	}
+	
+	private Integer calcAmount(Integer buy,Double rate){
+		Double s = 0d;
+		s = buy * rate;
+		return s.intValue();
 	}
 }

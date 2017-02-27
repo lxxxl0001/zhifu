@@ -133,8 +133,8 @@ public class AwardController {
 			poFlow.setTermNum(flow.getTermNum());
 			poFlow.setCarNum(flow.getCarNum());
 			Integer s = WeChatUtils.buildRandom(4);
-			poFlow.setBuyAmount(Double.parseDouble(s.toString()));
-			poFlow.setHaveAmount(0d);
+			poFlow.setBuyAmount(Integer.parseInt(s.toString()));
+			poFlow.setHaveAmount(0);
 			poFlow.setIsPay(0);
 			poFlow.setIsOpen(0);
 			poFlow.setIsSend(0);
