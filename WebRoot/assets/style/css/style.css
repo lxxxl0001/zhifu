@@ -264,3 +264,23 @@ overflow:hidden;
     text-align: right;
     padding-right: 0px;
 }
+.login .content {
+    background-color: #eceef1;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    border-radius: 7px;
+    margin: 40px auto 10px auto;
+    padding: 30px;
+    overflow: hidden;
+    position: relative;
+}
+
+.login .content h3 {
+    color: #009688;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 400 !important;
+    margin-bottom: 20px;
+}
