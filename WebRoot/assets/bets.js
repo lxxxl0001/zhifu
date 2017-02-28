@@ -125,6 +125,8 @@ function initEvent(){
                     "paySign" : ""+data.paySign.toString() //微信签名  
                 });*/
 			});
+		}else{
+			alert("金额 不能为零！");
 		}
 	});
 }
