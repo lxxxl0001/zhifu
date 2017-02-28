@@ -92,7 +92,7 @@ public class FlowingServiceImpl implements IFlowingService {
 	}
 	
 	/**
-	 * 计算中级金额并生成中奖号码
+	 * 计算中奖金额并生成中奖号码
 	 **/
 	@Override
 	public String getNumbers(Long termNum) {
