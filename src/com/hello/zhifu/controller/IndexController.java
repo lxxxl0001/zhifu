@@ -39,6 +39,11 @@ public class IndexController {
 			userInfoService.update(user);
 		}
 		map.put("userid", user.getUserid());
+		Long nowTime = System.currentTimeMillis();
+		Award award = awardService.current();
+		map.put("period", award.getTermNum()+1);
+		Long afterTime = award.getNextTime() - nowTime;
+		map.put("afterTime", afterTime>0?afterTime:0);
 		return "touzhu";
 	}
 	
@@ -71,7 +76,12 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/lishi", method = RequestMethod.GET)
-	public String lishi(HttpServletRequest request, HttpServletResponse response) {
+	public String lishi(ModelMap map, HttpServletRequest request) {
+		Long nowTime = System.currentTimeMillis();
+		Award award = awardService.current();
+		map.put("period", award.getTermNum()+1);
+		Long afterTime = award.getNextTime() - nowTime;
+		map.put("afterTime", afterTime>0?afterTime:0);
 		return "lishi";
 	}
 	
