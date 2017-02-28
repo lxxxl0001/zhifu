@@ -41,6 +41,10 @@
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
+	<session-config>
+		<session-timeout>-1</session-timeout>
+	</session-config>
+	
 	<error-page>
 	  <error-code>500</error-code>
 	  <location>/error404</location>
