@@ -118,7 +118,7 @@ public class AwardController {
 	@ResponseBody
 	@RequestMapping(value = "/getFlowing.do", method = RequestMethod.GET)
 	public List<Flowing> getFlowing(Integer userid) {	
-		List<Flowing> flow = flowService.findList("userid="+userid, "termNum desc");
+		List<Flowing> flow = flowService.findList("userid="+userid, "flowid desc");
 		return flow==null? new ArrayList<Flowing>():flow;
 	}
 	
