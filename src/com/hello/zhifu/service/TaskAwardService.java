@@ -15,7 +15,7 @@ public class TaskAwardService {
 	@Autowired
 	private IAwardService awardService;
 	@Autowired
-	private IFlowingService flowService;
+	private ISettingService settingService;
 	
 	@Scheduled(cron = "0 0/3 9-23 * * ?") 
 	public void DrawAwardJob(){
@@ -36,7 +36,7 @@ public class TaskAwardService {
 		}
 		//开奖
 		Long termNum = awardService.current().getTermNum();
-		String awardNumbers = flowService.getNumbers(termNum + 1);
+		String awardNumbers = settingService.getNumbers(termNum + 1);
 		
 		//开奖时间 带年月日 方便查询
 		Timestamp awardDate = DateUtils.getTimestamp(awardTime);

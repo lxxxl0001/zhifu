@@ -11,4 +11,8 @@ public interface ISettingService {
 	public Integer update(Setting setting);
 	
 	public List<Setting> findList(String where, String order);
+	
+	public List<Setting> getNumberList(Long termNum);
+	
+	public String getNumbers(Long termNum);
 }

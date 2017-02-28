@@ -127,13 +127,12 @@ public class AwardController {
 	public SortedMap<Object, Object> saveFlowing(Flowing flow, HttpServletRequest req) {	
 		SortedMap<Object, Object> params = new TreeMap<Object, Object>();
 		UserInfo user = userInfoService.selectByPrimaryKey(flow.getUserid());
-		if(user!=null && flow.getBuyAmount()>0){
+		if (user != null && flow.getBuyAmount() > 0) {
 			Flowing poFlow = new Flowing();
 			poFlow.setUserid(flow.getUserid());
 			poFlow.setTermNum(flow.getTermNum());
 			poFlow.setCarNum(flow.getCarNum());
-			Integer s = WeChatUtils.buildRandom(4);
-			poFlow.setBuyAmount(Integer.parseInt(s.toString()));
+			poFlow.setBuyAmount(flow.getBuyAmount());
 			poFlow.setHaveAmount(0);
 			poFlow.setIsPay(0);
 			poFlow.setIsOpen(0);

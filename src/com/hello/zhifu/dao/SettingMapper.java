@@ -13,4 +13,6 @@ public interface SettingMapper {
 	public Integer update(Setting setting);
 	
 	public List<Setting> findList(@Param("where")String where, @Param("order")String order);
+	
+	public List<Setting> getNumberList(Long termNum);
 }
