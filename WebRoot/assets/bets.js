@@ -126,7 +126,7 @@ function initEvent(){
                 });*/
 			});
 		}else{
-			alert("金额 不能为零！");
+			layer.open({content:'加油金额 <br/>不能为零！',time: 2});	
 		}
 	});
 }
