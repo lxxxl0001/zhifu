@@ -87,7 +87,7 @@ function initEvent(){
 	$(".decrease").on('click',function(){
 		var input = $(this).parent().find("input");
 		var innum = Number(input.val());
-		if(innum>step){
+		if(innum>0){
 			input.val(innum-step);
 		}
 	});
