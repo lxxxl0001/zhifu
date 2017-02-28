@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>login.html</title>
-	
-    <meta name="keywords" content="keyword1,keyword2,keyword3">
-    <meta name="description" content="this is my page">
-    <meta name="content-type" content="text/html; charset=UTF-8">
-    
-    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+<head>
+<title>登录</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no" />
 
-  </head>
-  
-  <body>
-    This is my HTML page. <br>
-  </body>
+<script type="text/javascript"
+	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
+<link rel="stylesheet" href="${base}/assets/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
+<link rel="stylesheet" href="${base}/assets/style/css/style.css">
+</head>
+
+<body class="container-fluid login">
+	<div class="content">
+		<!-- BEGIN LOGIN FORM -->
+		<form class="loginform" action="" method="post">
+			<h3 class="form-title">登 录</h3>
+			<div class="form-group">
+				<input id="username" name="username" class="required form-control"
+					tabindex="1" placeholder="用户名" type="text" value=""
+					autocomplete="off">
+
+			</div>
+			<div class="form-group">
+				<input id="password" name="password" class="required form-control "
+					tabindex="2" placeholder="密码" type="password" value=""
+					autocomplete="off">
+			</div>
+			<div class="form-actions">
+				<input class="btn btn-success btn-block" name="submit" value="登录"
+					tabindex="3" type="submit">
+			</div>
+		</form>
+	</div>
+</body>
 </html>
