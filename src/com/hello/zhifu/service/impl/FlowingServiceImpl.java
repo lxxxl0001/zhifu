@@ -81,7 +81,7 @@ public class FlowingServiceImpl implements IFlowingService {
 		for (Map.Entry<String, Object> entry : mkey.entrySet()) {
 			awardNum.add(entry.getKey().toString());
 		}
-		
+		System.out.println(awardNum);
 		//根据参数调整位置
 		Setting key9 = settingMapper.selectByPrimaryKey(9);
 		

@@ -75,10 +75,7 @@ public class WeChatUtils {
 			try {
 				client.executeMethod(method);
 				client.setTimeout(3000);
-				// 打印服务器返回的状态
-				System.out.println(method.getStatusLine());
-				// 打印返回的信息
-				System.out.println(method.getResponseBodyAsString());
+				//获取封装返回的信息
 				ObjectMapper objectMapper = new ObjectMapper();
 				map = objectMapper.readValue(method.getResponseBodyAsString(), Map.class);
 				//获取openId
