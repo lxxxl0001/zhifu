@@ -95,8 +95,16 @@ public class IndexController {
 		return "error";
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/login")
+	public String login(String username, String password, HttpServletRequest request) {
+		if("POST".equals(request.getMethod())){
+			String name = SettingsUtil.getInstance().getString("username");
+			String pwd = SettingsUtil.getInstance().getString("password");
+			if(username.equals(name) && password.equals(pwd)){
+				request.getSession().setAttribute("user", name);
+				return "redirect:/adm";
+			}
+		}
 		return "adm/login";
 	}
 	
