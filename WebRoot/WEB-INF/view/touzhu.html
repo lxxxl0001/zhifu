@@ -11,8 +11,11 @@
 
 <script type="text/javascript"
 	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
-<script type="text/javascript" src="${base}/assets/layer/layer.js"></script>
-<script type="text/javascript" src="${base}/assets/bets.js"></script>
+<script type="text/javascript"
+	src="${base}/assets/layui/layui.js"></script>
+<script type="text/javascript"
+	src="${base}/assets/layer/layer.js"></script>
+<script type="text/javascript" src="${base}/assets/award.js"></script>
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
 <link rel="stylesheet" href="${base}/assets/style/css/style.css">
 <link rel="stylesheet" href="${base}/assets/style/css/lishi.css">
@@ -20,7 +23,7 @@
 <body>
 	<div class="daojishi">
 		<div class="fl">
-			<em id="period"></em>期开奖剩余：<span id="time"></span>
+			<em id="period">${period!0}</em>期开奖剩余：<span id="time"></span>
 		</div>
 	</div>
 	<div style="height:40px;">
@@ -230,7 +233,14 @@
 		</ul>
 	</div>
 <script type="text/javascript">
-	
+
+	$(document).ready(function() {
+		showCountDown(${afterTime!0}, ${period!0});
+		
+		window.setTimeout(awardTick, 1000);
+	    //每1秒刷新开奖时间数据
+	    window.setTimeout(loadAwardTimes, 1000);
+	});
 </script>
 </body>
 </html>

@@ -12,8 +12,6 @@
 <script type="text/javascript"
 	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
 <script type="text/javascript"
-	src="${base}/assets/layui/layui.js"></script>
-<script type="text/javascript"
 	src="${base}/assets/layer/layer.js"></script>
 <script type="text/javascript" src="${base}/assets/award.js"></script>
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
@@ -65,26 +63,32 @@
 		</ul>
 	</div>
 <script type="text/javascript">
-function getHistoryData(date) {
-	layer.open({type: 2,time: 1});
-	$.getJSON("getFlowing.do", {userid:${user.userid},t:Math.random()}, function (rows) {
-	    if(rows){
-	    	var html = '';
-	    	for(var i in rows){
-	    		var data = rows[i];
-				html += '<tr>';
-	    		html += '<td style="width:10%;">' + data.termNum +'期</td>';
-				html += '<td style="width:10%;">' + data.carNum+'</td>';	
-				html += '<td style="width:10%;">' + data.buyAmount +'</td>';
-				html += '<td style="width:10%;">' + data.haveAmount +'</td>';
-	            html += '</tr>';
-	    	}
-	    	$("#flowlist tbody").html(html);
-	    }else {
-			$("#flowlist tbody").html("<tr><td>暂无数据！</td></tr>");
-		}
+
+	$(document).ready(function() {
+	    //每1秒刷新开奖时间数据
+	    window.setTimeout(loadAwardTimes, 1000);
+		//提取记录
+		getHistoryData("");
 	});
-}
+
+	function getHistoryData(date) {
+		layer.open({type: 2,time: 1});
+		$.getJSON("getFlowing.do", {userid:${user.userid},t:Math.random()}, function (rows) {
+		    if(rows){
+		    	var html = '';
+		    	for(var i in rows){
+		    		var data = rows[i];
+					html += '<tr>';
+		    		html += '<td style="width:10%;">' + data.termNum +'期</td>';
+					html += '<td style="width:10%;">' + data.carNum+'</td>';	
+					html += '<td style="width:10%;">' + data.buyAmount +'</td>';
+					html += '<td style="width:10%;">' + data.haveAmount +'</td>';
+		            html += '</tr>';
+		    	}
+		    	$("#flowlist tbody").html(html);
+		    }
+		});
+	}
 </script>
 </body>
 </html>

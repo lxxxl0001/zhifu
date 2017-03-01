@@ -15,6 +15,7 @@
 	src="//cdn.bootcss.com/noUiSlider/9.2.0/nouislider.js"></script>
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/noUiSlider/9.2.0/nouislider.css">
+<script type="text/javascript" src="${base}/assets/award.js"></script>
 <link rel="stylesheet" href="${base}/assets/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
 <link rel="stylesheet" href="${base}/assets/style/css/style.css">
@@ -149,79 +150,6 @@
 		    //每1秒刷新开奖时间数据
 		    window.setTimeout(loadAwardTimes, 1000);
 		});
-		
-		
-		var ctimeOfPeriod = -1;
-	    var cpCurrAwardData = null;
-	    var cpNextAwardTimeInterval = -1;
-	    function loadAwardTimes() {
-	        $.getJSON('getAwardTimes.do', {t:Math.random()}, function (data) {
-	            //请求到数据后需要做的事情
-	            cpCurrAwardData = data;
-	            //期数不同，则开始封盘倒计时
-	            if (data.current.periodNumber != cpNumber) {
-	                cpNextAwardTimeInterval = data.next.awardTimeInterval;
-	                if (countDownTimer) {
-	                    window.clearInterval(countDownTimer);
-	                }
-	                countDownTimer = window.setInterval(function () {
-	                    cpNextAwardTimeInterval = Math.max(0, cpNextAwardTimeInterval - 1000);
-	                    showCountDown(cpNextAwardTimeInterval, data.next.periodNumber);
-	                }, 1000);
-	            }
-	            cpNumber = data.current.periodNumber;
-	            if (ctimeOfPeriod == -1) {//判断第一次加载
-	                ctimeOfPeriod = data.current.periodNumber;
-	            }
-	            $(".daojishi #period").html(data.next.periodNumber);
-	            window.setTimeout(loadAwardTimes, data.next.awardTimeInterval < 10 ? 10000 : data.next.awardTimeInterval + 1000);
-	        });
-	    }
-		
-		var cpNumber = -1;
-		var countDownTimer = null;
-		function showCountDown(afterTime, period) {
-		    timeold = afterTime;
-		
-		    sectimeold = timeold / 1000;
-		    secondsold = Math.floor(sectimeold);
-		
-		    msPerDay = 24 * 60 * 60 * 1000
-		    e_daysold = timeold / msPerDay
-		    daysold = Math.floor(e_daysold);
-		    e_hrsold = (e_daysold - daysold) * 24;
-		    hrsold = Math.floor(e_hrsold);
-		    e_minsold = (e_hrsold - hrsold) * 60;
-		    minsold = Math.floor((e_hrsold - hrsold) * 60);
-		    seconds = Math.floor((e_minsold - minsold) * 60);
-		    if (daysold < 0) {
-		        daysold = 0;
-		        hrsold = 0;
-		        minsold = 0;
-		        seconds = 0;
-		    }
-		    if (seconds == 0 && minsold == 0 && hrsold == 0) {
-		        window.clearInterval(countDownTimer);
-		    }
-		    var hh = parseInt(minsold) + parseInt(hrsold * 60);
-			if (hh < 1) {
-		    	$(".sub-btn").addClass("layui-btn-disabled");
-		    	$(".sub-btn").attr("disabled","disabled");
-		    }else{
-		    	$(".sub-btn").removeClass("layui-btn-disabled");
-				$(".sub-btn").removeAttr("disabled");
-		    }
-			if (hh < 10) {
-				hh = "0" + hh;
-			}
-			if (seconds < 10) {
-				seconds = "0" + seconds;
-			}
-			$(".daojishi #time").html(hh+'分'+seconds+'秒');
-		    if (cpNumber == -1 && cpNumber != period) {
-		        cpNumber = period;
-		    }
-		}
 	</script>
 </body>
 </html>
