@@ -92,7 +92,6 @@ public class SettingServiceImpl implements ISettingService {
 			awardNumbers+=","+element.toString();
 		}
 		awardNumbers = awardNumbers.substring(1);
-		System.out.println(awardNumbers);
 		return awardNumbers;
 	}
 	
