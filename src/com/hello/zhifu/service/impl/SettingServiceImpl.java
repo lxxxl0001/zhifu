@@ -71,36 +71,19 @@ public class SettingServiceImpl implements ISettingService {
 	}
 
 	/**
-	 * 计算中奖金额并生成中奖号码
+	 * 生成中奖号码
 	 **/
 	@Override
 	public String getNumbers(Long termNum) {
-		
+
 		List<Setting> awardNum = getNumberList(termNum);
-		
+		//拼接中奖号码
 		String awardNumbers = "";
 		for (int i = 0; i < awardNum.size(); i++) {
 			Integer element = awardNum.get(i).getMkey();
-			//计算中奖金额//+" and isPay=1"
-			List<Flowing> flowlist = flowingMapper.findList("termNum="+termNum+" and carNum="+element, null);
-			for (Flowing flow : flowlist) {
-				//只计算前五名
-				calcAmount(flow, i + 1);
-				flowingMapper.update(flow);
-			}
-			//拼接中奖号码
 			awardNumbers+=","+element.toString();
 		}
 		awardNumbers = awardNumbers.substring(1);
 		return awardNumbers;
-	}
-	
-	private void calcAmount(Flowing flow,Integer num){
-		if (num < 5) {
-			Setting key = selectByPrimaryKey(num);
-			Double s = flow.getBuyAmount() * key.getMvalue();
-			flow.setHaveAmount(s.intValue());
-			flow.setIsOpen(1);
-		}
 	}
 }
