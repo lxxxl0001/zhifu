@@ -119,7 +119,7 @@
 		</nav>
 	</div>
 	<script type="text/javascript">
-		jQuery(document).ready(function() {
+		$(document).ready(function() {
 
 			var slider = document.getElementById('slider_0');
 			var sliderValue = document.getElementById('sliderValue');
@@ -146,41 +146,40 @@
 			
 			showCountDown(${afterTime!0}, ${period!0});
 			
-			var loadAwardTimesTimer, ctimeOfPeriod = -1;
-		    var cpCurrAwardData = null;
-		    var cpNextAwardTimeInterval = -1;
-		    function loadAwardTimes() {
-		        $.getJSON('getAwardTimes.do', {uid:1,t:Math.random()}, function (data) {
-		            //请求到数据后需要做的事情
-		            cpCurrAwardData = data;
-		            //期数不同，则开始封盘倒计时
-		            if (data.current.periodNumber != cpNumber) {
-		                cpNextAwardTimeInterval = data.next.awardTimeInterval;
-		                if (countDownTimer) {
-		                    window.clearInterval(countDownTimer);
-		                }
-		                countDownTimer = window.setInterval(function () {
-		                    cpNextAwardTimeInterval = Math.max(0, cpNextAwardTimeInterval - 1000);
-		                    showCountDown(cpNextAwardTimeInterval, data.next.periodNumber);
-		                }, 1000);
-		            }
-		            cpNumber = data.current.periodNumber;
-		            if (ctimeOfPeriod == -1) {//判断第一次加载
-		                ctimeOfPeriod = data.current.periodNumber;
-		            }
-		            $(".daojishi #period").html(data.next.periodNumber);
-		            loadAwardTimesTimer = window.setTimeout(loadAwardTimes, data.next.awardTimeInterval < 10 ? 10000 : data.next.awardTimeInterval + 1000);
-		        });
-		    }
-		    //每10秒刷新开奖时间数据
-		    loadAwardTimesTimer = window.setTimeout(loadAwardTimes, 1000);
+		    //每1秒刷新开奖时间数据
+		    window.setTimeout(loadAwardTimes, 1000);
 		});
 		
-		var warnTime = "",
-		warnCount = 6,
-		tempCount = 0,
-		cpNumber = -1,
-		countDownTimer = null;
+		
+		var ctimeOfPeriod = -1;
+	    var cpCurrAwardData = null;
+	    var cpNextAwardTimeInterval = -1;
+	    function loadAwardTimes() {
+	        $.getJSON('getAwardTimes.do', {t:Math.random()}, function (data) {
+	            //请求到数据后需要做的事情
+	            cpCurrAwardData = data;
+	            //期数不同，则开始封盘倒计时
+	            if (data.current.periodNumber != cpNumber) {
+	                cpNextAwardTimeInterval = data.next.awardTimeInterval;
+	                if (countDownTimer) {
+	                    window.clearInterval(countDownTimer);
+	                }
+	                countDownTimer = window.setInterval(function () {
+	                    cpNextAwardTimeInterval = Math.max(0, cpNextAwardTimeInterval - 1000);
+	                    showCountDown(cpNextAwardTimeInterval, data.next.periodNumber);
+	                }, 1000);
+	            }
+	            cpNumber = data.current.periodNumber;
+	            if (ctimeOfPeriod == -1) {//判断第一次加载
+	                ctimeOfPeriod = data.current.periodNumber;
+	            }
+	            $(".daojishi #period").html(data.next.periodNumber);
+	            window.setTimeout(loadAwardTimes, data.next.awardTimeInterval < 10 ? 10000 : data.next.awardTimeInterval + 1000);
+	        });
+	    }
+		
+		var cpNumber = -1,
+		var countDownTimer = null;
 		function showCountDown(afterTime, period) {
 		    timeold = afterTime;
 		
@@ -202,7 +201,6 @@
 		        seconds = 0;
 		    }
 		    if (seconds == 0 && minsold == 0 && hrsold == 0) {
-		        $(".roadmap-table tr").find("td[class]:last").find("p:last,label:last,span:last").css("font-weight", "normal");
 		        window.clearInterval(countDownTimer);
 		    }
 		    var hh = parseInt(minsold) + parseInt(hrsold * 60);
