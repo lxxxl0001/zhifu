@@ -86,11 +86,8 @@ public class AwardController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getHistoryData.do", method = RequestMethod.GET)
-	public Map<String, Object> getHistoryData(String date) {	
-		Map<String, Object> data = new HashMap<String, Object>();
-		List<Award> lishi = awardService.findList("awardDate like '"+date+"%'", "awardTime desc");
-		data.put("rows", lishi);
-		return data;
+	public List<Award> getHistoryData(String date) {	
+		return awardService.findList("awardDate like '"+date+"%'", "awardTime desc");
 	}
 	
 	@ResponseBody
