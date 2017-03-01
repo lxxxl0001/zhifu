@@ -1,5 +1,7 @@
 package com.hello.zhifu.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,11 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	@Override
 	public Integer update(UserInfo userInfo) {
 		return userInfoMapper.update(userInfo);
+	}
+
+	@Override
+	public List<UserInfo> findList(String where, String order) {
+		return userInfoMapper.findList(where, order);
 	}
 
 }

@@ -8,6 +8,13 @@
     <result column="agent" property="agent"	jdbcType="INTEGER" />
     <result column="parent" property="parent" jdbcType="INTEGER" />
   </resultMap>
+  <select id="findList" resultMap="BaseResultMap">
+      select * from userinfo
+      <where>${where}</where>
+      <if test="order != null and order != ''" >
+        order by ${order}
+      </if>     
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select * from userinfo where userid = #{userid,jdbcType=INTEGER}
   </select>
