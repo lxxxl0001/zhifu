@@ -154,6 +154,65 @@ public class WeChatUtils {
 		return map;
 	}
 
+	public static Map<String, Object> transfers(String openId, Integer amount, String createIp) {
+		// api
+		String transfers = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		SortedMap<Object, Object> params = new TreeMap<Object, Object>();
+		// ** 公众号APPID *//*
+		params.put("mch_appid", appid);
+		// ** 商户号 *//*
+		params.put("mchid", mchid);
+		// ** 随机字符串 *//*
+		params.put("nonce_str", getNonceStr());
+		// ** 商户订单号 *//*
+		params.put("partner_trade_no", DateUtils.getMillis() + "" + buildRandom(4));
+		// ** 用户微信的openid *//*
+		params.put("openid", openId);
+		// ** 校验用户姓名 *//*
+		params.put("check_name", "NO_CHECK");
+		// ** 企业付款金额，单位为分 *//*
+		params.put("amount", amount);
+		// ** 付款描述信息 *//*
+		params.put("desc", "退货补偿");
+		// ** 客户端本地ip *//*
+		params.put("spbill_create_ip", createIp);
+
+		// ** MD5进行签名，必须为UTF-8编码，注意上面几个参数名称的大小写 *//*
+		String sign = createSign("UTF-8", params);
+		params.put("sign", sign);
+		
+		PostMethod method = new PostMethod(transfers);
+		client.getParams().setSoTimeout(300 * 1000);
+		try {
+			//xml参数
+			XmlMapper xml = new XmlMapper();
+			String paramXML = xml.writeValueAsString(params);
+			
+			method.setRequestEntity(new StringRequestEntity(paramXML, "text/xml", "utf-8"));
+			client.executeMethod(method);
+			client.setTimeout(3000);
+			// 打印服务器返回的状态
+			System.out.println(method.getStatusLine());
+			// 打印返回的信息
+			byte[] b = method.getResponseBody();
+			String response = new String(b, "utf-8");
+			System.out.println(response);
+			//解析xml
+			map = xml.readValue(response, Map.class);
+			
+		} catch (Exception e) {
+			// e.printStackTrace();
+		}
+
+		// 释放连接
+		method.releaseConnection();
+		
+		return map;
+	}
+	
 	public static String getNonceStr() {
         Random random = new Random();
         return MD5Util.MD5Encode(String.valueOf(random.nextInt(10000)), "UTF-8");
