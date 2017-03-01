@@ -240,7 +240,74 @@
 		window.setTimeout(awardTick, 1000);
 	    //每1秒刷新开奖时间数据
 	    window.setTimeout(loadAwardTimes, 1000);
+	    //初始化按钮事件
+    	initEvent();
 	});
+	
+	function initEvent(){
+		var step = 10;
+		//减号
+		$(".decrease").on('click',function(){
+			var input = $(this).parent().find("input");
+			var innum = Number(input.val());
+			if(innum>0){
+				input.val(innum-step);
+			}
+		});
+		//加号
+		$(".increase").on('click',function(){
+			var input = $(this).parent().find("input");
+			var innum = Number(input.val());
+			if(innum<100){
+				input.val(innum+step);
+			}
+		});
+		//提交投注
+		$(".sub-btn").on('click',function(){
+			var input = $(this).parent().find("input");
+			var innum = Number(input.val());
+			var carno = Number(input.attr("data"));
+			if(innum>0 && innum<100){
+				$.post("saveFlowing.do", {
+					userid : $("#userid").val(),
+					termNum : $("#period").html(),
+					carNum : carno,
+					buyAmount : innum
+				}, function(data) {
+					if (parseInt(data.agent) < 5) {
+	                    alert("您的微信版本低于5.0无法使用微信支付。");
+	                    return;
+	                }
+					layer.open({content:'加油成功！',time: 2});	
+					/*callpay({
+	                    "appId" : ""+data.appId.toString(), //公众号名称，由商户传入  
+	                    "timeStamp" : ""+data.timeStamp.toString(), //时间戳，自 1970 年以来的秒数  
+	                    "nonceStr" : ""+data.nonceStr.toString(), //随机串  
+	                    "package" : ""+data.packageValue.toString(), //商品包信息
+	                    "signType" : ""+data.signType.toString(), //微信签名方式:  
+	                    "paySign" : ""+data.paySign.toString() //微信签名  
+	                });*/
+				});
+			}else{
+				layer.open({content:'加油金额 <br/>不能为零！',time: 2});	
+			}
+		});
+	}
+	
+	function callpay(json){
+		WeixinJSBridge.invoke('getBrandWCPayRequest',json,
+	        function(res){
+	            alert(res.err_msg);
+	            if(res){
+					layer.open({title: ['第'+$("#period").html()+'期：',
+					'background-color:#f9f9f9; color:#444;'],content:'<div>加油成功！</div>',time: 2});	
+				}else{
+					layer.open({title: ['第'+$("#period").html()+'期：',
+					'background-color:#f9f9f9; color:#444;'],content:'<div>您来晚了！已经开奖</div>',time: 2});	
+				}
+	        }
+	    );
+	}
 </script>
 </body>
 </html>
