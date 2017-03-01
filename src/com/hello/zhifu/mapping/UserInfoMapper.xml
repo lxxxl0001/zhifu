@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.hello.zhifu.model.UserInfo">
     <id column="userid" property="userid" jdbcType="INTEGER" />
     <result column="openid" property="openid" jdbcType="VARCHAR" />
-    <result column="money" property="money" jdbcType="DOUBLE" />
-    <result column="agent" property="agent"	jdbcType="DOUBLE" />
+    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="agent" property="agent"	jdbcType="INTEGER" />
     <result column="parent" property="parent" jdbcType="INTEGER" />
   </resultMap>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -41,10 +41,10 @@
         #{openid,jdbcType=VARCHAR},
       </if>
       <if test="money != null" >
-        #{money,jdbcType=DOUBLE},
+        #{money,jdbcType=INTEGER},
       </if>
       <if test="agent != null" >
-        #{agent,jdbcType=DOUBLE},
+        #{agent,jdbcType=INTEGER},
       </if>
       <if test="parent != null" >
         #{parent,jdbcType=INTEGER},
@@ -58,10 +58,10 @@
         openid = #{openid,jdbcType=VARCHAR},
       </if>
       <if test="money != null" >
-        money = #{money,jdbcType=DOUBLE},
+        money = #{money,jdbcType=INTEGER},
       </if>
       <if test="agent != null" >
-        agent = #{agent,jdbcType=DOUBLE},
+        agent = #{agent,jdbcType=INTEGER},
       </if>
       <if test="parent != null" >
         parent = #{parent,jdbcType=INTEGER},

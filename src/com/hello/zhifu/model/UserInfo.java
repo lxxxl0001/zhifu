@@ -4,8 +4,8 @@ public class UserInfo {
 
 	private Integer userid;
 	private String openid;
-	private Double money;
-	private Double agent;
+	private Integer money;
+	private Integer agent;
 	private Integer parent;
 	
 	public Integer getUserid() {
@@ -20,16 +20,16 @@ public class UserInfo {
 	public void setOpenid(String openid) {
 		this.openid = openid;
 	}
-	public Double getMoney() {
+	public Integer getMoney() {
 		return money;
 	}
-	public void setMoney(Double money) {
+	public void setMoney(Integer money) {
 		this.money = money;
 	}
-	public Double getAgent() {
+	public Integer getAgent() {
 		return agent;
 	}
-	public void setAgent(Double agent) {
+	public void setAgent(Integer agent) {
 		this.agent = agent;
 	}
 	public Integer getParent() {
