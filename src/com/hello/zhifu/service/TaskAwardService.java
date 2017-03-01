@@ -1,12 +1,16 @@
 package com.hello.zhifu.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.hello.zhifu.model.Award;
+import com.hello.zhifu.model.Flowing;
+import com.hello.zhifu.model.Setting;
+import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.utils.DateUtils;
 
 @Component("taskAward")
@@ -15,7 +19,11 @@ public class TaskAwardService {
 	@Autowired
 	private IAwardService awardService;
 	@Autowired
-	private ISettingService settingService;
+	private IFlowingService flowService;
+	@Autowired
+	private ISettingService settService;
+	@Autowired
+	private IUserInfoService userService;
 	
 	@Scheduled(cron = "0 0/3 9-23 * * ?") 
 	public void DrawAwardJob(){
@@ -35,20 +43,73 @@ public class TaskAwardService {
 			nextTime = awardTime + 546 * 60 * 1000;
 		}
 		//开奖
-		Long termNum = awardService.current().getTermNum();
-		String awardNumbers = settingService.getNumbers(termNum + 1);
-		
-		//开奖时间 带年月日 方便查询
-		Timestamp awardDate = DateUtils.getTimestamp(awardTime);
+		Long termNum = awardService.current().getTermNum() + 1;
+		String awardNumbers = settService.getNumbers(termNum);
 		
 		//生成开奖记录
+		Timestamp awardDate = DateUtils.getTimestamp(awardTime);
 		Award current = new Award();
 		current.setAwardDate(awardDate);
 		current.setAwardTime(awardTime);
 		current.setNextTime(nextTime);
 		current.setAwardNumbers(awardNumbers);
 		awardService.insert(current);
+		
+		//计算中奖金额并计算代理费用
+		String[] awardNum = awardNumbers.split(",");
+		for (int i = 0; i < awardNum.length; i++) {
+			String element = awardNum[i];
+			//计算中奖金额//+" and isPay=1"
+			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element, null);
+			//只计算前五名
+			if (i < 5) {
+				calcAmount(flowlist, i + 1);
+			}
+			calcAgent(flowlist);
+		}
+	}
+
+	//计算代理费
+	private void calcAgent(List<Flowing> flowlist) {
+		for (Flowing flow : flowlist) {
+			UserInfo self = userService.selectByPrimaryKey(flow.getUserid());
+			if (self != null) {
+				//一级代理
+				UserInfo oneuser = userService.selectByPrimaryKey(self.getParent());
+				if (oneuser != null) {
+					Setting key6 = settService.selectByPrimaryKey(6);
+					Double v6 = key6.getMvalue() * 10;
+					oneuser.setAgent(oneuser.getAgent() + v6.intValue());
+					userService.update(oneuser);
+					//二级代理
+					UserInfo towuser = userService.selectByPrimaryKey(oneuser.getParent());
+					if (towuser != null) {
+						Setting key7 = settService.selectByPrimaryKey(7);
+						Double v7 = key7.getMvalue() * 10;
+						towuser.setAgent(towuser.getAgent() + v7.intValue());
+						userService.update(towuser);
+						//三级代理
+						UserInfo threeuser = userService.selectByPrimaryKey(towuser.getParent());
+						if (threeuser != null) {
+							Setting key8 = settService.selectByPrimaryKey(8);
+							Double v8 = key8.getMvalue() * 10;
+							threeuser.setAgent(threeuser.getAgent() + v8.intValue());
+							userService.update(threeuser);
+						}
+					}
+				}
+			}
+		}
 	}
 	
-	
+	//计算中奖金额
+	private void calcAmount(List<Flowing> flowlist, Integer mkey) {
+		Setting key = settService.selectByPrimaryKey(mkey);
+		for (Flowing flow : flowlist) {
+			Double s = flow.getBuyAmount() * key.getMvalue();
+			flow.setHaveAmount(s.intValue());
+			flow.setIsOpen(1);
+			flowService.update(flow);
+		}
+	}
 }
