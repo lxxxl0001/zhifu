@@ -1,6 +1,9 @@
 package com.hello.zhifu.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.net.URLEncoder;
+import java.security.KeyStore;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,10 +13,20 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.net.ssl.SSLContext;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -29,6 +42,8 @@ public class WeChatUtils {
 	private static final String mchid = SettingsUtil.getInstance().getString("wx.mchid");
 	
 	private static final String apikey = SettingsUtil.getInstance().getString("wx.apikey");
+	
+	private static final String certfile = SettingsUtil.getInstance().getString("certfile");
 	
 	private static final HttpClient client = new HttpClient();
 	
@@ -154,7 +169,7 @@ public class WeChatUtils {
 		return map;
 	}
 
-	public static Map<String, Object> transfers(String openId, Integer amount, String createIp) {
+	public static Map<String, Object> transfers(String openId, Integer amount, String createIp) throws Exception {
 		// api
 		String transfers = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
@@ -184,33 +199,59 @@ public class WeChatUtils {
 		String sign = createSign("UTF-8", params);
 		params.put("sign", sign);
 		
-		PostMethod method = new PostMethod(transfers);
-		client.getParams().setSoTimeout(300 * 1000);
+		
+		CloseableHttpClient httpclient = getClient(certfile, mchid);
+
 		try {
-			//xml参数
+			// xml参数
 			XmlMapper xml = new XmlMapper();
 			String paramXML = xml.writeValueAsString(params);
-			
-			method.setRequestEntity(new StringRequestEntity(paramXML, "text/xml", "utf-8"));
-			client.executeMethod(method);
-			client.setTimeout(3000);
-			// 打印服务器返回的状态
-			System.out.println(method.getStatusLine());
-			// 打印返回的信息
-			byte[] b = method.getResponseBody();
-			String response = new String(b, "utf-8");
-			System.out.println(response);
-			//解析xml
-			map = xml.readValue(response, Map.class);
-			
-		} catch (Exception e) {
-			// e.printStackTrace();
-		}
 
-		// 释放连接
-		method.releaseConnection();
+			HttpPost method = new HttpPost(transfers);
+			method.setEntity(new StringEntity(paramXML, "UTF-8"));
+
+			CloseableHttpResponse response = httpclient.execute(method);
+
+			try {
+				String resStr = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+				System.out.println(resStr);
+				// 解析xml
+				map = xml.readValue(resStr, Map.class);
+
+			} finally {
+				response.close();
+			}
+
+		} finally {
+			httpclient.close();
+		}
 		
 		return map;
+	}
+	
+	public static CloseableHttpClient getClient(String file, String mchid) throws Exception {
+		// 指定读取证书格式为PKCS12
+		KeyStore keyStore = KeyStore.getInstance("PKCS12");
+		// 读取本机存放的PKCS12证书文件
+		FileInputStream instream = new FileInputStream(new File(file));
+		try {
+			// 指定PKCS12的密码(商户ID)
+			keyStore.load(instream, mchid.toCharArray());
+		} finally {
+			instream.close();
+		}
+		SSLContext sslcontext = SSLContexts.custom()
+				.loadKeyMaterial(keyStore, mchid.toCharArray()).build();
+		// 指定TLS版本
+		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+				sslcontext, new String[] { "TLSv1" }, null,
+				SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+		// 设置httpclient的SSLSocketFactory
+		CloseableHttpClient httpclient = HttpClients.custom()
+				.setSSLSocketFactory(sslsf).build();
+
+		return httpclient;
 	}
 	
 	public static String getNonceStr() {

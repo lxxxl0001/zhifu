@@ -12,6 +12,7 @@ import com.hello.zhifu.model.Flowing;
 import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.utils.DateUtils;
+import com.hello.zhifu.utils.WeChatUtils;
 
 @Component("taskAward")
 public class TaskAwardService {
@@ -73,7 +74,11 @@ public class TaskAwardService {
 
 	@Scheduled(cron = "0 1/3 9-23 * * ?") 
 	public void GrantBonusJob(){
-		
+		try {
+			WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100, "120.24.94.225");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//计算代理费
