@@ -3,6 +3,7 @@ package com.hello.zhifu.service;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -75,9 +76,16 @@ public class TaskAwardService {
 	@Scheduled(cron = "0 1/3 9-23 * * ?") 
 	public void GrantBonusJob(){
 		try {
-			WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100, "120.24.94.225");
+			List<Flowing> flowlist = flowService.findList("isOpen=1 and isSend=0", null);
+			for (Flowing flow : flowlist) {
+				UserInfo self = userService.selectByPrimaryKey(flow.getUserid());
+				if (self != null && StringUtils.isNotEmpty(self.getOpenid())) {
+					//WeChatUtils.transfers(self.getOpenid(), flow.getHaveAmount());
+				}
+			}
+			WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	

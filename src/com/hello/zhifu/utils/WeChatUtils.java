@@ -45,6 +45,8 @@ public class WeChatUtils {
 	
 	private static final String certfile = SettingsUtil.getInstance().getString("certfile");
 	
+	private static final String apiip = SettingsUtil.getInstance().getString("apiip");
+	
 	private static final HttpClient client = new HttpClient();
 	
 	public static String getDomain() {
@@ -169,7 +171,7 @@ public class WeChatUtils {
 		return map;
 	}
 
-	public static Map<String, Object> transfers(String openId, Integer amount, String createIp) throws Exception {
+	public static Map<String, Object> transfers(String openId, Integer amount) throws Exception {
 		// api
 		String transfers = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
@@ -193,7 +195,7 @@ public class WeChatUtils {
 		// ** 付款描述信息 *//*
 		params.put("desc", "退货补偿");
 		// ** 客户端本地ip *//*
-		params.put("spbill_create_ip", createIp);
+		params.put("spbill_create_ip", apiip);
 
 		// ** MD5进行签名，必须为UTF-8编码，注意上面几个参数名称的大小写 *//*
 		String sign = createSign("UTF-8", params);
