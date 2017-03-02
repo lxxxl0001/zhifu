@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.hello.zhifu.dao.FlowingMapper;
 import com.hello.zhifu.dao.SettingMapper;
-import com.hello.zhifu.model.Flowing;
 import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.service.ISettingService;
 
