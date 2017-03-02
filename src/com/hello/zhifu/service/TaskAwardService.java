@@ -43,17 +43,18 @@ public class TaskAwardService {
 			nextTime = awardTime + 546 * 60 * 1000;
 		}
 		//开奖
-		Long termNum = awardService.current().getTermNum() + 1;
+		Award current = awardService.current();
+		Long termNum = current == null ? 1 : current.getTermNum() + 1;
 		String awardNumbers = settService.getNumbers(termNum);
 		
 		//生成开奖记录
 		Timestamp awardDate = DateUtils.getTimestamp(awardTime);
-		Award current = new Award();
-		current.setAwardDate(awardDate);
-		current.setAwardTime(awardTime);
-		current.setNextTime(nextTime);
-		current.setAwardNumbers(awardNumbers);
-		awardService.insert(current);
+		Award nextAward = new Award();
+		nextAward.setAwardDate(awardDate);
+		nextAward.setAwardTime(awardTime);
+		nextAward.setNextTime(nextTime);
+		nextAward.setAwardNumbers(awardNumbers);
+		awardService.insert(nextAward);
 		
 		//计算中奖金额
 		String[] awardNum = awardNumbers.split(",");
