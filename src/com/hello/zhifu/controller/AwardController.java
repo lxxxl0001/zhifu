@@ -160,7 +160,7 @@ public class AwardController {
 	            params.put("packageValue", "prepay_id=" + map.get("prepay_id"));
 	            
 	            /** 付款成功后，微信会同步请求我们自定义的成功通知页面，通知用户支付成功 */
-	            params.put("sendUrl", WeChatUtils.getDomain() + "pay/paysuccess?totalPrice=1");
+	            params.put("sendUrl", WeChatUtils.getDomain() + "paysuccess");
 	            /** 获取用户的微信客户端版本号，用于前端支付之前进行版本判断，微信版本低于5.0无法使用微信支付 */
 	            String userAgent = req.getHeader("user-agent");
 	            char agent = userAgent.charAt(userAgent.indexOf("MicroMessenger") + 15);
