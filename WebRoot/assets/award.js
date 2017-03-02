@@ -25,8 +25,8 @@ var awardTick = function () {
             currentPeriodNumber = data.current.periodNumber;
             nextPeriodNumber = data.next.periodNumber;
         }
-        var _time = parseInt(parseInt(data.next.awardTimeInterval) + parseInt(Math.random() * 3000));
-        window.setTimeout(awardTick, data.next.awardTimeInterval < 10 ? 1000 : _time);
+        var _time = parseInt(data.next.awardTimeInterval + parseInt(Math.random() * 3000));
+        window.setTimeout(awardTick, data.next.awardTimeInterval < 1000 ? 1000 : _time);
         timeInterval = 0;
     });
 };
@@ -55,7 +55,8 @@ var loadAwardTimes = function () {
             ctimeOfPeriod = data.current.periodNumber;
         }
         $(".daojishi #period").html(data.next.periodNumber);
-        window.setTimeout(loadAwardTimes, data.next.awardTimeInterval < 10 ? 1000 : data.next.awardTimeInterval);
+        var _time = parseInt(data.next.awardTimeInterval + parseInt(Math.random() * 3000));
+        window.setTimeout(loadAwardTimes, data.next.awardTimeInterval < 1000 ? 1000 : _time);
     });
 };
 
