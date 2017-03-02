@@ -55,20 +55,26 @@ public class TaskAwardService {
 		current.setAwardNumbers(awardNumbers);
 		awardService.insert(current);
 		
-		//计算中奖金额并计算代理费用
+		//计算中奖金额
 		String[] awardNum = awardNumbers.split(",");
 		for (int i = 0; i < awardNum.length; i++) {
 			String element = awardNum[i];
-			//计算中奖金额//+" and isPay=1"
+			//获取每个车的下注记录//+" and isPay=1"
 			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element, null);
 			//只计算前五名
 			if (i < 5) {
 				calcAmount(flowlist, i + 1);
 			}
+			//计算代理费用
 			calcAgent(flowlist);
 		}
 	}
 
+	@Scheduled(cron = "0 1/3 9-23 * * ?") 
+	public void GrantBonusJob(){
+		
+	}
+	
 	//计算代理费
 	private void calcAgent(List<Flowing> flowlist) {
 		for (Flowing flow : flowlist) {
