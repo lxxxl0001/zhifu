@@ -1,7 +1,9 @@
 package com.hello.zhifu.service;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,10 +79,14 @@ public class TaskAwardService {
 	public void GrantBonusJob(){
 		try {
 			List<Flowing> flowlist = flowService.findList("isOpen=1 and isSend=0", null);
+			Map<String, Integer> map = new HashMap<String, Integer>();
 			for (Flowing flow : flowlist) {
 				UserInfo self = userService.selectByPrimaryKey(flow.getUserid());
-				if (self != null && StringUtils.isNotEmpty(self.getOpenid())) {
-					//WeChatUtils.transfers(self.getOpenid(), flow.getHaveAmount());
+				if(map.containsKey(self.getOpenid())){
+					Integer haveAmount = map.get(self.getOpenid())+flow.getHaveAmount();
+					map.put(self.getOpenid(), haveAmount);
+				}else{
+					map.put(self.getOpenid(), flow.getHaveAmount());
 				}
 			}
 			WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100);
