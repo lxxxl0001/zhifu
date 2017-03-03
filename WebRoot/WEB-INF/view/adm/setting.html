@@ -29,10 +29,7 @@
 			</div>
 		</div>
 		<div class="row" style="height:40px;"></div>
-		<div class="row">
-			<div id="numlist" class="col-xs-12">
-			</div>
-		</div>
+		<div id="numlist"></div>
 		<div class="row" style="height:20px;"></div>
 		<div>
 			<div class="col-xs-offset-2 col-xs-10" style="text-align: center;">
@@ -88,16 +85,24 @@
 						t : Math.random()
 					}, function(rows) {
 						if(rows){
+							var maxval = 0;
+					    	for(var n in rows){
+					    		if(parseInt(rows[n].mvalue)>maxval){
+					    			maxval = parseInt(rows[n].mvalue);
+					    		}
+					    	}
 					    	var html = '';
 					    	for(var i in rows){
 					    		var data = rows[i];
-					    		var mkey = data.mkey;
-					    		var mvalue = data.mvalue;
-								html += '<div class="progress nums">';
-					    		html += '<i class="ui-logo no'+mkey+'">'+mkey+'</i>';
-								html += '<div class="progress-bar no'+mkey+'" style="width:'+mvalue+'%">';	
-								html += '<span class="sr-only" '+(mvalue==0?"style='color:black'":"")+'>￥'+mvalue+'</span>';
-								html += '</div></div>';
+					    		var mvalue = parseInt(data.mvalue);
+					    		mvalue = parseInt(mvalue/(maxval==0?1:maxval)*100);
+					    		html += '<div class="row col-xs-12" style="padding:0;margin:0;">';
+								html += '<div class="nums" style="float:left;margin:4px 0;">';
+					    		html += '<i class="ui-logo no'+data.mkey+'">'+data.mkey+'</i>';
+					    		html += '</div><div class="progress nums">';
+								html += '<div class="progress-bar no'+data.mkey+'" style="width:'+mvalue+'%">';	
+								html += '<span class="sr-only">￥'+data.mvalue+'</span>';
+								html += '</div></div></div>';
 					    	}
 					    	$('#numlist').html(html);
 					    }
