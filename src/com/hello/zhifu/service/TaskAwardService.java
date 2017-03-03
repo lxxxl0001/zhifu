@@ -83,10 +83,20 @@ public class TaskAwardService {
 			return;
 		}
 		try {
-			
-			WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100);
+			//企业付款标记
+			Setting key10 = settService.selectByPrimaryKey(10);
+			Map<String, Object> map = new HashMap<String, Object>();
+			if(key10.getMvalue()==0){
+				
+				map = WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100);
+			}
+			//余额不足，关闭企业付款
+			if("FAIL".equals(map.get("result_code"))){
+				key10.setMvalue(1d);
+				settService.update(key10);
+			}
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 	
