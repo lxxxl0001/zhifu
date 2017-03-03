@@ -11,9 +11,11 @@
 
 <script type="text/javascript"
 	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
+<script type="text/javascript" src="${base}/assets/style/js/switch.js"></script>
 <link rel="stylesheet" href="${base}/assets/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
 <link rel="stylesheet" href="${base}/assets/style/css/style.css">
+<link rel="stylesheet" href="${base}/assets/style/css/switch.css">
 </head>
 <body>
 	<div class="container-fluid">
@@ -66,6 +68,25 @@
 						<input id="btn5" class="sub-btn layui-btn layui-btn-small"
 							type="button" value="保存">
 					</div>
+					<div class="form-group">
+						<div class="col-xs-offset-4 col-xs-8">
+							<div>
+								<label style="color:red">注：余额不足时自动关闭</label>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-4 control-label">自动发奖：</label>
+						<div class="col-xs-5">
+							<div class="switch">
+								<#if key5=0>
+								<input id="switch" type="checkbox" checked="checked"/>
+								<#else>
+								<input id="switch" type="checkbox" />
+								</#if>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -96,6 +117,15 @@
 						content : '<div>保存成功！</div>',
 						time : 2
 					});
+				});
+			});
+			$("#switch").bootstrapSwitch();
+			$("#switch").on('switchChange.bootstrapSwitch', function(event, state) {
+				$.post("savevalue.do", {
+					'mkey' : 10,
+					'mvalue' : state?0:1
+				}, function(data) {
+					console.log(state,'保存成功！');
 				});
 			});
 		});
