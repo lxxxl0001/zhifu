@@ -72,6 +72,11 @@ public class TaskAwardService {
 			//计算代理费用
 			calcAgent(flowlist);
 		}
+		
+		//恢复比率参数值
+		Setting key9 = settService.selectByPrimaryKey(9);
+		key9.setMvalue(0d);
+		settService.update(key9);
 	}
 
 	@Scheduled(cron = "0 1/3 9-23 * * ?") 

@@ -30,67 +30,7 @@
 		</div>
 		<div class="row" style="height:40px;"></div>
 		<div class="row">
-			<div class="col-xs-12">
-				<div class="progress nums">
-					<i class="ui-logo no1">1</i>
-					<div class="progress-bar no1" style="width: 40%">
-						<span class="sr-only"> 40% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no2">2</i>
-					<div class="progress-bar no2" style="width: 20%">
-						<span class="sr-only"> 20% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no3">3</i>
-					<div class="progress-bar no3" style="width: 60%">
-						<span class="sr-only"> 60% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no4">4</i>
-					<div class="progress-bar no4" style="width: 80%">
-						<span class="sr-only"> 80% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no5">5</i>
-					<div class="progress-bar no5" style="width: 40%">
-						<span class="sr-only"> 40% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no6">6</i>
-					<div class="progress-bar no6" style="width: 20%">
-						<span class="sr-only"> 20% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no7">7</i>
-					<div class="progress-bar no7" style="width: 60%">
-						<span class="sr-only"> 60% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no8">8</i>
-					<div class="progress-bar no8" style="width: 80%">
-						<span class="sr-only"> 80% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no9">9</i>
-					<div class="progress-bar no9" style="width: 60%">
-						<span class="sr-only"> 60% </span>
-					</div>
-				</div>
-				<div class="progress nums">
-					<i class="ui-logo no10">10</i>
-					<div class="progress-bar no10" style="width: 80%">
-						<span class="sr-only"> 80% </span>
-					</div>
-				</div>
+			<div id="numlist" class="col-xs-12">
 			</div>
 		</div>
 		<div class="row" style="height:20px;"></div>
@@ -137,18 +77,38 @@
 			
 			slider.noUiSlider.on('update', function( values, handle ){
 				var mvalue = Number(values[handle]);
-				$.post("savevalue.do", {
+				$.post('savevalue.do', {
 					'mkey' : 9,
 					'mvalue' : mvalue
 				}, function(data) {
 					sliderValue.innerHTML = mvalue;
+					//更新数据
+					$.getJSON('getNumbers.do', {
+						termNum : ${period!0},
+						t : Math.random()
+					}, function(rows) {
+						if(rows){
+					    	var html = '';
+					    	for(var i in rows){
+					    		var data = rows[i];
+					    		var mkey = data.mkey;
+					    		var mvalue = data.mvalue;
+								html += '<div class="progress nums">';
+					    		html += '<i class="ui-logo no'+mkey+'">'+mkey+'</i>';
+								html += '<div class="progress-bar no'+mkey+'" style="width:'+mvalue+'%">';	
+								html += '<span class="sr-only" '+(mvalue==0?"style='color:black'":"")+'>￥'+mvalue+'</span>';
+								html += '</div></div>';
+					    	}
+					    	$('#numlist').html(html);
+					    }
+					});
 				});
 			});
-			
+
 			showCountDown(${afterTime!0}, ${period!0});
-			
-		    //每1秒刷新开奖时间数据
-		    window.setTimeout(loadAwardTimes, 1000);
+
+			//每1秒刷新开奖时间数据
+			window.setTimeout(loadAwardTimes, 1000);
 		});
 	</script>
 </body>

@@ -76,9 +76,6 @@ public class SettingServiceImpl implements ISettingService {
 			Collections.reverse(awardNum);
 		}
 		
-		key9.setMvalue(0d);
-		settingMapper.update(key9);
-		
 		return awardNum;
 	}
 

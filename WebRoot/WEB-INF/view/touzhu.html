@@ -267,7 +267,7 @@
 			var input = $(this).parent().find("input");
 			var innum = Number(input.val());
 			var carno = Number(input.attr("data"));
-			if(innum>0 && innum<100){
+			if(innum>0){
 				$.post("saveFlowing.do", {
 					userid : $("#userid").val(),
 					termNum : $("#period").html(),
