@@ -63,8 +63,8 @@ public class TaskAwardService {
 		String[] awardNum = awardNumbers.split(",");
 		for (int i = 0; i < awardNum.length; i++) {
 			String element = awardNum[i];
-			//获取每个车的下注记录//+" and isPay=1"
-			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element, null);
+			//获取每个车的下注记录//
+			List<Flowing> flowlist = flowService.findList("termNum="+termNum+" and carNum="+element+" and isPay=1", null);
 			//只计算前五名
 			if (i < 5) {
 				calcAmount(flowlist, i + 1);
