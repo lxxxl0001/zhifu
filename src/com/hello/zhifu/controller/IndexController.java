@@ -155,6 +155,8 @@ public class IndexController {
 		map.put("key4", key4.getMvalue());
 		Setting key5= settingService.selectByPrimaryKey(5);
 		map.put("key5", key5.getMvalue());
+		Setting key10= settingService.selectByPrimaryKey(10);
+		map.put("key10", key10.getMvalue());
 		return "adm/setrate";
 	}
 	
