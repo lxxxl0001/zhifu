@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -29,16 +28,10 @@ public class TaskAwardService {
 	@Autowired
 	private IUserInfoService userService;
 	
-	@Scheduled(cron = "0 0/3 9-23 * * ?") 
+	@Scheduled(cron = "0 3/3 9-23 * * ?") 
 	public void DrawAwardJob(){
 		//系统当前时间
 		Long awardTime = System.currentTimeMillis();
-		//获取短时间HH:mm
-		String shortTime = DateUtils.formatShortTime(awardTime);
-		//每天9点开始12点结束
-		if("09:00".equals(shortTime)){
-			return;
-		}
 		//下次开奖时间
 		Long nextTime = awardTime + 3 * 60 * 1000;
 		String nextShort = DateUtils.formatShortTime(nextTime);
@@ -75,20 +68,10 @@ public class TaskAwardService {
 		}
 	}
 
-	@Scheduled(cron = "0 1/3 9-23 * * ?") 
+	@Scheduled(cron = "0 4/3 9-23 * * ?") 
 	public void GrantBonusJob(){
 		try {
-			List<Flowing> flowlist = flowService.findList("isOpen=1 and isSend=0", null);
-			Map<String, Integer> map = new HashMap<String, Integer>();
-			for (Flowing flow : flowlist) {
-				UserInfo self = userService.selectByPrimaryKey(flow.getUserid());
-				if(map.containsKey(self.getOpenid())){
-					Integer haveAmount = map.get(self.getOpenid())+flow.getHaveAmount();
-					map.put(self.getOpenid(), haveAmount);
-				}else{
-					map.put(self.getOpenid(), flow.getHaveAmount());
-				}
-			}
+			
 			WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100);
 		} catch (Exception e) {
 			//e.printStackTrace();
