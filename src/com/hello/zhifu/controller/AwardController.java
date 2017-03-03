@@ -172,9 +172,16 @@ public class AwardController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/getNumbers.do", method = RequestMethod.GET)
+	public List<Setting> getFlowing(Long termNum) {	
+		List<Setting> nums = settingService.getNumberList(termNum);
+		return nums==null? new ArrayList<Setting>():nums;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/savevalue.do", method = RequestMethod.POST)
-	public Boolean savevalue(Setting data) {	
-		return settingService.update(data)>0;
+	public Boolean savevalue(Setting data) {
+		return settingService.update(data) > 0;
 	}
 	
 	@ResponseBody
