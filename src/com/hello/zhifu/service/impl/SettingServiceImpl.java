@@ -55,13 +55,26 @@ public class SettingServiceImpl implements ISettingService {
 		}
 		//购买为零的乱序
 		Collections.shuffle(awardNum);
-		//买了的，从小到大
-		for (Setting mkey : mkeyList) {
-			awardNum.add(mkey);
-		}
+		//买了的放后面
+		awardNum.addAll(mkeyList);
 
 		//根据参数调整位置
 		Setting key9 = settingMapper.selectByPrimaryKey(9);
+		if (key9.getMvalue() == 20) {
+			Collections.rotate(awardNum, 8);
+		}
+		if (key9.getMvalue() == 40) {
+			Collections.rotate(awardNum, 6);
+		}
+		if (key9.getMvalue() == 60) {
+			Collections.rotate(awardNum, 4);
+		}
+		if (key9.getMvalue() == 80) {
+			Collections.rotate(awardNum, 2);
+		}
+		if (key9.getMvalue() == 100) {
+			Collections.reverse(awardNum);
+		}
 		
 		key9.setMvalue(0d);
 		settingMapper.update(key9);
