@@ -240,6 +240,8 @@ public class WeChatUtils {
 		try {
 			// 指定PKCS12的密码(商户ID)
 			keyStore.load(instream, mchid.toCharArray());
+		} catch (Exception e) {
+			System.out.println(file + "证书不存在");
 		} finally {
 			instream.close();
 		}
