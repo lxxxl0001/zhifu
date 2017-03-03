@@ -92,13 +92,22 @@ public class TaskAwardService {
 			Setting key10 = settService.selectByPrimaryKey(10);
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (key10 != null && key10.getMvalue() == 0) {
-				
-				map = WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100);
-			}
-			//余额不足，关闭企业付款
-			if(key10 != null && "FAIL".equals(map.get("result_code"))){
-				key10.setMvalue(1d);
-				settService.update(key10);
+				//获取用户中奖金额
+				List<Flowing> flowlist = flowService.findHaveAmount();
+				for (Flowing flow : flowlist) {
+					UserInfo self = userService.selectByPrimaryKey(flow.getUserid());
+					if (self != null) {
+						map = WeChatUtils.transfers(self.getOpenid(), flow.getHaveAmount()*100);
+						if("SUCCESS".equals(map.get("result_code"))){
+							flowService.updateIsSend(self.getUserid());
+						}
+						//余额不足，关闭企业付款
+						if("FAIL".equals(map.get("result_code"))){
+							key10.setMvalue(1d);
+							settService.update(key10);
+						}
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

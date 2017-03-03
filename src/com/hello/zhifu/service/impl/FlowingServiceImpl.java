@@ -34,4 +34,14 @@ public class FlowingServiceImpl implements IFlowingService {
 	public List<Flowing> findList(String where, String order) {
 		return flowingMapper.findList(where, order);
 	}
+
+	@Override
+	public List<Flowing> findHaveAmount() {
+		return flowingMapper.findHaveAmount();
+	}
+
+	@Override
+	public Integer updateIsSend(Integer userid) {
+		return flowingMapper.updateIsSend(userid);
+	}
 }

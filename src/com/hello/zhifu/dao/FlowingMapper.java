@@ -15,4 +15,8 @@ public interface FlowingMapper {
 	public Integer update(Flowing flowing);
 	
 	public List<Flowing> findList(@Param("where")String where, @Param("order")String order);
+	
+	public List<Flowing> findHaveAmount();
+	
+	public Integer updateIsSend(Integer userid);
 }

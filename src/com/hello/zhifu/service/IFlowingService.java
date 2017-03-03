@@ -13,4 +13,8 @@ public interface IFlowingService {
 	public Integer update(Flowing flowing);
 	
 	public List<Flowing> findList(String where, String order);
+	
+	public List<Flowing> findHaveAmount();
+	
+	public Integer updateIsSend(Integer userid);
 }

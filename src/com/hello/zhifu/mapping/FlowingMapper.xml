@@ -19,6 +19,9 @@
         order by ${order}
       </if>     
   </select>
+  <select id="findHaveAmount" resultMap="BaseResultMap">
+	  select userid,sum(haveAmount)haveAmount from flowing where isOpen=1 and isSend=1 group by userid
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
       select * from flowing where flowid = #{flowid,jdbcType=BIGINT}
   </select>
@@ -106,5 +109,8 @@
       </if>
     </set>
     where flowid = #{flowid,jdbcType=BIGINT}
+  </update>
+  <update id="update" parameterType="java.lang.Integer" >
+    update flowing set isSend=1 where userid = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>
