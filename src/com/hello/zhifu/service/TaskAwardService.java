@@ -1,7 +1,9 @@
 package com.hello.zhifu.service;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,10 +28,16 @@ public class TaskAwardService {
 	@Autowired
 	private IUserInfoService userService;
 	
-	@Scheduled(cron = "0 3/3 9-23 * * ?") 
+	@Scheduled(cron = "0 0/3 9-23 * * ?") 
 	public void DrawAwardJob(){
 		//系统当前时间
 		Long awardTime = System.currentTimeMillis();
+		//获取短时间HH:mm
+		String shortTime = DateUtils.formatShortTime(awardTime);
+		//每天9点开始12点结束
+		if("09:00".equals(shortTime)){
+			return;
+		}
 		//下次开奖时间
 		Long nextTime = awardTime + 3 * 60 * 1000;
 		String nextShort = DateUtils.formatShortTime(nextTime);
@@ -66,8 +74,14 @@ public class TaskAwardService {
 		}
 	}
 
-	@Scheduled(cron = "0 4/3 9-23 * * ?") 
+	@Scheduled(cron = "0 1/3 9-23 * * ?") 
 	public void GrantBonusJob(){
+		Long nowTime = System.currentTimeMillis();
+		String nextShort = DateUtils.formatShortTime(nowTime);
+		Integer sTime = Integer.parseInt(nextShort.replace(":", ""));
+		if(sTime < 903){
+			return;
+		}
 		try {
 			
 			WeChatUtils.transfers("ooxPTw2wHNgHHFgdpHSbXHTlG34U", 100);
