@@ -116,7 +116,7 @@
     </set>
     where flowid = #{flowid,jdbcType=BIGINT}
   </update>
-  <update id="update" parameterType="java.lang.Integer" >
+  <update id="updateIsSend" parameterType="java.lang.Integer" >
     update flowing set isSend=1 where userid = #{userid,jdbcType=INTEGER}
   </update>
 </mapper>
