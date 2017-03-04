@@ -1,6 +1,8 @@
 package com.hello.zhifu.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,20 +18,22 @@ import com.hello.zhifu.model.Award;
 import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.service.IAwardService;
+import com.hello.zhifu.service.IFlowingService;
 import com.hello.zhifu.service.ISettingService;
 import com.hello.zhifu.service.IUserInfoService;
 import com.hello.zhifu.utils.CookieUtils;
 import com.hello.zhifu.utils.SettingsUtil;
+import com.hello.zhifu.utils.WeChatUtils;
 
 @Controller
 public class IndexController {
 
 	@Autowired
+	private IAwardService awardService;
+	@Autowired
 	private IUserInfoService userInfoService;
 	@Autowired
 	private ISettingService settingService;
-	@Autowired
-	private IAwardService awardService;
 	
 	@RequestMapping(value = "/touzhu", method = RequestMethod.GET)
 	public String touzhu(Integer pid, ModelMap map, HttpServletRequest request) {
@@ -173,6 +177,33 @@ public class IndexController {
 		Setting key10= settingService.selectByPrimaryKey(10);
 		map.put("key10", key10.getMvalue());
 		return "adm/setrate";
+	}
+	
+	@RequestMapping(value = "/grant.do", method = RequestMethod.POST)
+	public String grantAgent(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			Setting key10 = settingService.selectByPrimaryKey(10);
+			if (key10 != null && key10.getMvalue() == 0) {
+				List<UserInfo> grantlist = userInfoService.findList("agent>100 or agent=100", null);
+				Map<String, Object> map = new HashMap<String, Object>();
+				for (UserInfo self : grantlist) {
+					map = WeChatUtils.transfers(self.getOpenid(), self.getAgent());
+					if ("SUCCESS".equals(map.get("result_code"))) {
+						self.setMoney(self.getMoney() + self.getAgent());
+						self.setAgent(0);
+						userInfoService.update(self);
+					}
+					// 余额不足，关闭企业付款
+					if ("FAIL".equals(map.get("result_code"))) {
+						key10.setMvalue(1d);
+						settingService.update(key10);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/setagent";
 	}
 	
 	@ResponseBody

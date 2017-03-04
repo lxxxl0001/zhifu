@@ -62,9 +62,9 @@
 						<th>未发放</th>
 					</tr>
 					<tr>
-						<td>123</td>
-						<td>1</td>
-						<td>1</td>
+						<td>${usernum!}</td>
+						<td>${money!}</td>
+						<td>${agent!}</td>
 					</tr>
 				</table>
 			</div>
@@ -72,8 +72,9 @@
 		<div class="row" style="height:10px;"></div>
 		<div class="row">
 			<div class="col-xs-12 text-center">
-				<input class="layui-btn layui-btn-small" type="button"
-					value="发放佣金">
+				<form class="form" action="grant.do" method="post">
+					<input class="layui-btn layui-btn-small" type="submit" value="发放佣金">
+				</form>
 			</div>
 		</div>
 		<nav class="navbar navbar-default navbar-fixed-bottom">
