@@ -289,7 +289,7 @@
 	                });*/
 				});
 			}else{
-				layer.open({content:'加油金额不能为零！',time: 2});	
+				layer.open({content:'加油数量不能为零！',time: 2});	
 			}
 		});
 	}
@@ -297,13 +297,10 @@
 	function callpay(json){
 		WeixinJSBridge.invoke('getBrandWCPayRequest',json,
 	        function(res){
-	            alert(res.err_msg);
-	            if(res){
-					layer.open({title: ['第'+$("#period").html()+'期：',
-					'background-color:#f9f9f9; color:#444;'],content:'<div>加油成功！</div>',time: 2});	
+	            if(res.err_msg == "get_brand_wcpay_request：ok"){
+					layer.open({content:'加油成功！',time: 2});		
 				}else{
-					layer.open({title: ['第'+$("#period").html()+'期：',
-					'background-color:#f9f9f9; color:#444;'],content:'<div>您来晚了！已经开奖</div>',time: 2});	
+					layer.open({content:'本期已开奖！',time: 2});	
 				}
 	        }
 	    );
