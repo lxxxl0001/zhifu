@@ -17,4 +17,6 @@ public interface UserInfoMapper {
 	public Integer update(UserInfo userInfo);
 	
 	public List<UserInfo> findList(@Param("where")String where, @Param("order")String order);
+	
+	public UserInfo selectAllAmount();
 }

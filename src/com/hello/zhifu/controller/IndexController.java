@@ -147,6 +147,10 @@ public class IndexController {
 		map.put("key7", key7.getMvalue());
 		Setting key8= settingService.selectByPrimaryKey(8);
 		map.put("key8", key8.getMvalue());
+		UserInfo allAmount = userInfoService.selectAllAmount();
+		map.put("usernum", allAmount.getUserid());
+		map.put("money", allAmount.getMoney()*0.01);
+		map.put("agent", allAmount.getAgent()*0.01);
 		return "adm/setagent";
 	}
 	

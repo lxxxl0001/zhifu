@@ -21,6 +21,9 @@
   <select id="selectByOpendId" resultMap="BaseResultMap" parameterType="java.lang.String">
     select * from userinfo where openid = #{openid,jdbcType=VARCHAR}
   </select>
+  <select id="selectAllAmount" resultMap="BaseResultMap">
+    select count(1)userid,sum(money)money,sum(agent)agent from userinfo
+  </select>
   <insert id="insert" parameterType="com.hello.zhifu.model.UserInfo" useGeneratedKeys="true" keyProperty="userid">
     insert into userinfo
     <trim prefix="(" suffix=")" suffixOverrides="," >

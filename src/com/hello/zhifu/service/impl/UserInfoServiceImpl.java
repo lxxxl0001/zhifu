@@ -52,4 +52,9 @@ public class UserInfoServiceImpl implements IUserInfoService {
 		return userInfoMapper.findList(where, order);
 	}
 
+	@Override
+	public UserInfo selectAllAmount() {
+		return userInfoMapper.selectAllAmount();
+	}
+
 }

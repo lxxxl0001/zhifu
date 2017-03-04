@@ -15,4 +15,6 @@ public interface IUserInfoService {
 	public Integer update(UserInfo userInfo);
 	
 	public List<UserInfo> findList(String where, String order);
+	
+	public UserInfo selectAllAmount();
 }
