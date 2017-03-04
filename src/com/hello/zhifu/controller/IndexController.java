@@ -79,9 +79,10 @@ public class IndexController {
 			usernum+=1;
 			usernum+=userInfoService.findList("parent="+tow.getUserid(), null).size();
 		}
-		map.put("user", user);
 		map.put("usernum", usernum);
 		map.put("userid", user.getUserid());
+		map.put("money", user.getMoney()*0.01);
+		map.put("agent", user.getAgent()*0.01);
 		return "geren";
 	}
 	
