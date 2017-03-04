@@ -79,34 +79,8 @@
 					'mvalue' : mvalue
 				}, function(data) {
 					sliderValue.innerHTML = mvalue;
-					//更新数据
-					$.getJSON('getNumbers.do', {
-						termNum : ${period!0},
-						t : Math.random()
-					}, function(rows) {
-						if(rows){
-							var maxval = 0;
-					    	for(var n in rows){
-					    		if(parseInt(rows[n].mvalue)>maxval){
-					    			maxval = parseInt(rows[n].mvalue);
-					    		}
-					    	}
-					    	var html = '';
-					    	for(var i in rows){
-					    		var data = rows[i];
-					    		var mvalue = parseInt(data.mvalue);
-					    		mvalue = parseInt(mvalue/(maxval==0?1:maxval)*100);
-					    		html += '<div class="row col-xs-12" style="padding:0;margin:0;">';
-								html += '<div class="nums" style="float:left;margin:4px 0;">';
-					    		html += '<i class="ui-logo no'+data.mkey+'">'+data.mkey+'</i>';
-					    		html += '</div><div class="progress nums">';
-								html += '<div class="progress-bar no'+data.mkey+'" style="width:'+mvalue+'%">';	
-								html += '<span class="sr-only">￥'+data.mvalue+'</span>';
-								html += '</div></div></div>';
-					    	}
-					    	$('#numlist').html(html);
-					    }
-					});
+					
+					getNumbers();
 				});
 			});
 
@@ -114,7 +88,42 @@
 
 			//每1秒刷新开奖时间数据
 			window.setTimeout(loadAwardTimes, 1000);
+			
+			//每10秒刷新开奖时间数据
+			window.setTimeout(getNumbers, 10000);
 		});
+		
+		var getNumbers = function(){
+			//更新数据
+			$.getJSON('getNumbers.do', {
+				termNum : ${period!0},
+				t : Math.random()
+			}, function(rows) {
+				if(rows){
+					var maxval = 0;
+			    	for(var n in rows){
+			    		if(parseInt(rows[n].mvalue)>maxval){
+			    			maxval = parseInt(rows[n].mvalue);
+			    		}
+			    	}
+			    	var html = '';
+			    	for(var i in rows){
+			    		var data = rows[i];
+			    		var mvalue = parseInt(data.mvalue);
+			    		mvalue = parseInt(mvalue/(maxval==0?1:maxval)*100);
+			    		html += '<div class="row col-xs-12" style="padding:0;margin:0;">';
+						html += '<div class="nums" style="float:left;margin:4px 0;">';
+			    		html += '<i class="ui-logo no'+data.mkey+'">'+data.mkey+'</i>';
+			    		html += '</div><div class="progress nums">';
+						html += '<div class="progress-bar no'+data.mkey+'" style="width:'+mvalue+'%">';	
+						html += '<span class="sr-only">￥'+data.mvalue+'</span>';
+						html += '</div></div></div>';
+			    	}
+			    	$('#numlist').html(html);
+			    }
+			});
+			window.setTimeout(getNumbers, 10000);
+		};
 	</script>
 </body>
 </html>
