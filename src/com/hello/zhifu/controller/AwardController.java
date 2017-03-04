@@ -218,14 +218,19 @@ public class AwardController {
             String checkSign = WeChatUtils.createSign("UTF-8", params);
             if (checkSign.equals(map.get("sign"))) {
             	// 如果签名和服务器返回的签名一致，说明数据没有被篡改过
-                
+				String s = map.get("out_trade_no").toString();
+				Flowing flow = flowService.selectByPrimaryKey(Long.parseLong(s));
+				if (flow != null) {
+					flow.setIsPay(1);
+					flowService.update(flow);
+				}
                 /** 告诉微信服务器，我收到信息了，不要再调用回调方法了 */
                 /** 如果不返回SUCCESS的信息给微信服务器，则微信服务器会在一定时间内，多次调用该回调方法，如果最终还未收到回馈，微信默认该订单支付失败*/
                 /** 微信默认会调用8次该回调地址 */
-            	return setXML("SUCCESS", ""); 
+            	return setXML("SUCCESS", "我收到信息了"); 
             }
         }
-        return setXML("FAIL", "失败原因");
+        return setXML("FAIL", "发错了吧");
     }
 
     public static String setXML(String return_code, String return_msg) {
