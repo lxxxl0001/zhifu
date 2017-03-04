@@ -1,5 +1,7 @@
 package com.hello.zhifu.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -71,7 +73,15 @@ public class IndexController {
 			user.setParent(pid);
 			userInfoService.update(user);
 		}
+		int usernum = 0;
+		List<UserInfo> towlist = userInfoService.findList("parent="+user.getUserid(), null);
+		for (UserInfo tow : towlist) {
+			usernum+=1;
+			usernum+=userInfoService.findList("parent="+tow.getUserid(), null).size();
+		}
 		map.put("user", user);
+		map.put("usernum", usernum);
+		map.put("userid", user.getUserid());
 		return "geren";
 	}
 	
@@ -112,7 +122,7 @@ public class IndexController {
 	public String admin(ModelMap map, HttpServletRequest request) {
 		Object user = request.getSession().getAttribute("user");
 		if (user == null) {
-			//return "adm/login";
+			return "adm/login";
 		}
 		Long nowTime = System.currentTimeMillis();
 		Award award = awardService.current();
@@ -128,7 +138,7 @@ public class IndexController {
 	public String setagent(ModelMap map, HttpServletRequest request) {
 		Object user = request.getSession().getAttribute("user");
 		if (user == null) {
-			//return "adm/login";
+			return "adm/login";
 		}
 		Setting key6= settingService.selectByPrimaryKey(6);
 		map.put("key6", key6.getMvalue());
@@ -143,7 +153,7 @@ public class IndexController {
 	public String setrate(ModelMap map, HttpServletRequest request) {
 		Object user = request.getSession().getAttribute("user");
 		if (user == null) {
-			//return "adm/login";
+			return "adm/login";
 		}
 		Setting key1= settingService.selectByPrimaryKey(1);
 		map.put("key1", key1.getMvalue());
