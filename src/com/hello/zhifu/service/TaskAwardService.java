@@ -123,21 +123,21 @@ public class TaskAwardService {
 				UserInfo oneuser = userService.selectByPrimaryKey(self.getParent());
 				if (oneuser != null) {
 					Setting key6 = settService.selectByPrimaryKey(6);
-					Double v6 = key6.getMvalue() * 0.1;
+					Double v6 = key6.getMvalue() * 10;
 					oneuser.setAgent(oneuser.getAgent() + v6.intValue());
 					userService.update(oneuser);
 					//二级代理
 					UserInfo towuser = userService.selectByPrimaryKey(oneuser.getParent());
 					if (towuser != null) {
 						Setting key7 = settService.selectByPrimaryKey(7);
-						Double v7 = key7.getMvalue() * 0.1;
+						Double v7 = key7.getMvalue() * 10;
 						towuser.setAgent(towuser.getAgent() + v7.intValue());
 						userService.update(towuser);
 						//三级代理
 						UserInfo threeuser = userService.selectByPrimaryKey(towuser.getParent());
 						if (threeuser != null) {
 							Setting key8 = settService.selectByPrimaryKey(8);
-							Double v8 = key8.getMvalue() * 0.1;
+							Double v8 = key8.getMvalue() * 10;
 							threeuser.setAgent(threeuser.getAgent() + v8.intValue());
 							userService.update(threeuser);
 						}
