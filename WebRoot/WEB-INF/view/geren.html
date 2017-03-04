@@ -73,7 +73,7 @@
 
 	function getHistoryData(date) {
 		layer.open({type: 2,time: 1});
-		$.getJSON("getFlowing.do", {userid:${user.userid},t:Math.random()}, function (rows) {
+		$.getJSON("getFlowing.do", {userid:${userid},t:Math.random()}, function (rows) {
 		    if(rows){
 		    	var html = '';
 		    	for(var i in rows){
