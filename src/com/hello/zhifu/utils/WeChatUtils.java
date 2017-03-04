@@ -111,7 +111,7 @@ public class WeChatUtils {
 		return openId; 
 	}
 	
-	public static Map<String, Object> unorder(String openId, Integer totalFee, String createIp) {
+	public static Map<String, Object> unorder(String openId, String trade_no, Integer totalFee, String createIp) {
 		//api
 		String unifiedorder = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
@@ -127,7 +127,7 @@ public class WeChatUtils {
         //** 商品名称 *//*
 		params.put("body", "测试");
         //** 订单号 *//*
-        params.put("out_trade_no", DateUtils.getMillis()+""+buildRandom(4));
+        params.put("out_trade_no", trade_no);
         //** 订单金额以分为单位，只能为整数 *//*
         params.put("total_fee", totalFee);
         //** 客户端本地ip *//*

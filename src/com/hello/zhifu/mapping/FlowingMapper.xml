@@ -25,9 +25,12 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
       select * from flowing where flowid = #{flowid,jdbcType=BIGINT}
   </select>
-  <insert id="insert" parameterType="com.hello.zhifu.model.Flowing" useGeneratedKeys="true" keyProperty="flowid">
+  <insert id="insert" parameterType="com.hello.zhifu.model.Flowing">
     insert into flowing
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flowid != null" >
+        flowid,
+      </if>
       <if test="userid != null" >
         userid,
       </if>
@@ -54,6 +57,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flowid != null" >
+        #{flowid,jdbcType=BIGINT},
+      </if>
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>

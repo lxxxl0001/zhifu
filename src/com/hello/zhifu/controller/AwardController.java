@@ -23,11 +23,11 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.hello.zhifu.model.Award;
 import com.hello.zhifu.model.Flowing;
 import com.hello.zhifu.model.Setting;
-import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.service.IAwardService;
 import com.hello.zhifu.service.IFlowingService;
 import com.hello.zhifu.service.ISettingService;
 import com.hello.zhifu.service.IUserInfoService;
+import com.hello.zhifu.utils.CookieUtils;
 import com.hello.zhifu.utils.DateUtils;
 import com.hello.zhifu.utils.WeChatUtils;
 
@@ -123,20 +123,26 @@ public class AwardController {
 	@RequestMapping(value = "/saveFlowing.do", method = RequestMethod.POST)
 	public SortedMap<Object, Object> saveFlowing(Flowing flow, HttpServletRequest req) {	
 		SortedMap<Object, Object> params = new TreeMap<Object, Object>();
-		UserInfo user = userInfoService.selectByPrimaryKey(flow.getUserid());
-		if (user != null && flow.getBuyAmount() > 0) {
-			Flowing poFlow = new Flowing();
-			poFlow.setUserid(flow.getUserid());
-			poFlow.setTermNum(flow.getTermNum());
-			poFlow.setCarNum(flow.getCarNum());
-			poFlow.setBuyAmount(flow.getBuyAmount());
-			poFlow.setHaveAmount(0);
-			poFlow.setIsPay(0);
-			poFlow.setIsOpen(0);
-			poFlow.setIsSend(0);
-			Map<String, Object> map = WeChatUtils.unorder(user.getOpenid(), 1, req.getRemoteAddr());
+		String openId = CookieUtils.getCookieValue(req, "openId");
+		if (flow != null && flow.getBuyAmount() > 0) {
+			int totalFee = flow.getBuyAmount()*100;
+			int rand = WeChatUtils.buildRandom(3);
+			String trade_no = DateUtils.getMillis()+""+rand;
+			Map<String, Object> map = WeChatUtils.unorder(openId, trade_no, totalFee, req.getRemoteAddr());
 			if(map.get("result_code").toString().equalsIgnoreCase("SUCCESS")){
+				Flowing poFlow = new Flowing();
+				poFlow.setFlowid(Long.parseLong(trade_no));
+				poFlow.setUserid(flow.getUserid());
+				poFlow.setTermNum(flow.getTermNum());
+				poFlow.setCarNum(flow.getCarNum());
+				poFlow.setBuyAmount(flow.getBuyAmount());
+				poFlow.setHaveAmount(0);
+				poFlow.setIsPay(0);
+				poFlow.setIsOpen(0);
+				poFlow.setIsSend(0);
 				flowService.insert(poFlow);
+				
+				//封装前台参数
 	            params.put("appId", WeChatUtils.getAppid());
 	            params.put("timeStamp", ""+DateUtils.getMillis()/1000);
 	            params.put("nonceStr", WeChatUtils.getNonceStr());
@@ -145,7 +151,6 @@ public class AwardController {
 	             * 微信支付最新接口中，要求package的值的固定格式为prepay_id=... 
 	             */
 	            params.put("package", "prepay_id=" + map.get("prepay_id"));
-
 	            /** 微信支付新版本签名算法使用MD5，不是SHA1 */
 	            params.put("signType", "MD5");
 	            /**
@@ -155,17 +160,14 @@ public class AwardController {
 	             */
 	            String paySign = WeChatUtils.createSign("UTF-8", params);
 	            params.put("paySign", paySign);
-	            
 	            /** 预支付单号，前端ajax回调获取。由于js中package为关键字，所以，这里使用packageValue作为key。 */
 	            params.put("packageValue", "prepay_id=" + map.get("prepay_id"));
-	            
 	            /** 付款成功后，微信会同步请求我们自定义的成功通知页面，通知用户支付成功 */
 	            params.put("sendUrl", WeChatUtils.getDomain() + "paysuccess");
 	            /** 获取用户的微信客户端版本号，用于前端支付之前进行版本判断，微信版本低于5.0无法使用微信支付 */
 	            String userAgent = req.getHeader("user-agent");
 	            char agent = userAgent.charAt(userAgent.indexOf("MicroMessenger") + 15);
 	            params.put("agent", new String(new char[] { agent }));
-	            
 			}
 		}
 		return params;
