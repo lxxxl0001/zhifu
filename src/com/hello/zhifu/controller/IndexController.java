@@ -206,8 +206,8 @@ public class IndexController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/MP_verify_1yfOUvVbbuMnR3UR.txt", method = RequestMethod.GET)
+	@RequestMapping(value = "/MP_verify_AEwvLOCdHYB3KMka.txt", method = RequestMethod.GET)
 	public String verify(HttpServletRequest request, HttpServletResponse response) {
-		return "1yfOUvVbbuMnR3UR";
+		return "AEwvLOCdHYB3KMka";
 	}
 }
