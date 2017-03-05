@@ -297,7 +297,7 @@
 	function callpay(json){
 		WeixinJSBridge.invoke('getBrandWCPayRequest',json,
 	        function(res){
-	            if(res.err_msg == "get_brand_wcpay_request：ok"){
+	            if(res.err_msg == "get_brand_wcpay_request:ok"){
 					layer.open({content:'加油成功！',time: 2});		
 				}else{
 					layer.open({content:'支付失败！',time: 2});	
