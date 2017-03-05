@@ -18,7 +18,6 @@ import com.hello.zhifu.model.Award;
 import com.hello.zhifu.model.Setting;
 import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.service.IAwardService;
-import com.hello.zhifu.service.IFlowingService;
 import com.hello.zhifu.service.ISettingService;
 import com.hello.zhifu.service.IUserInfoService;
 import com.hello.zhifu.utils.CookieUtils;
