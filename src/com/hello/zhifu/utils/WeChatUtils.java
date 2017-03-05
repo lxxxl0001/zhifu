@@ -125,7 +125,7 @@ public class WeChatUtils {
         //** 随机字符串 *//*
 		params.put("nonce_str", getNonceStr());
         //** 商品名称 *//*
-		params.put("body", "测试");
+		params.put("body", "玩具汽车模型"+totalFee);
         //** 订单号 *//*
         params.put("out_trade_no", trade_no);
         //** 订单金额以分为单位，只能为整数 *//*
