@@ -153,11 +153,11 @@ public class WeChatUtils {
 			method.setRequestEntity(new StringRequestEntity(paramXML, "text/xml", "utf-8"));
 			client.executeMethod(method);
 			client.setTimeout(3000);
-			// 打印服务器返回的状态
-			System.out.println(method.getStatusLine());
 			// 打印返回的信息
 			byte[] b = method.getResponseBody();
 			String response = new String(b, "utf-8");
+			// 打印服务器返回的状态
+			System.out.println(method.getStatusLine());
 			//解析xml
 			map = xml.readValue(response, Map.class);
 			
