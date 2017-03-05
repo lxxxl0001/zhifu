@@ -157,7 +157,7 @@ public class WeChatUtils {
 			byte[] b = method.getResponseBody();
 			String response = new String(b, "utf-8");
 			// 打印服务器返回的状态
-			System.out.println(method.getStatusLine());
+			System.out.println(response);
 			//解析xml
 			map = xml.readValue(response, Map.class);
 			
