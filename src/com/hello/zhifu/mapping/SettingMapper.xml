@@ -13,7 +13,7 @@
       </if>     
   </select>
   <select id="getNumberList" resultMap="BaseResultMap" parameterType="java.lang.Long">
-      select carNum mkey,sum(buyAmount) mvalue from flowing where termNum = #{termNum,jdbcType=BIGINT} group by carNum order by mvalue     
+      select carNum mkey,sum(buyAmount) mvalue from flowing where termNum = #{termNum,jdbcType=BIGINT} and isPay=1 group by carNum order by mvalue     
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
       select * from setting where mkey = #{mkey,jdbcType=INTEGER}
