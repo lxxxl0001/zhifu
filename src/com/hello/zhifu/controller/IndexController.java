@@ -100,7 +100,17 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/zhibo", method = RequestMethod.GET)
-	public String zhibo(HttpServletRequest request, HttpServletResponse response) {
+	public String zhibo(ModelMap map, HttpServletRequest request) {
+		Setting key1= settingService.selectByPrimaryKey(1);
+		map.put("key1", key1.getMvalue());
+		Setting key2= settingService.selectByPrimaryKey(2);
+		map.put("key2", key2.getMvalue());
+		Setting key3= settingService.selectByPrimaryKey(3);
+		map.put("key3", key3.getMvalue());
+		Setting key4= settingService.selectByPrimaryKey(4);
+		map.put("key4", key4.getMvalue());
+		Setting key5= settingService.selectByPrimaryKey(5);
+		map.put("key5", key5.getMvalue());
 		return "zhibo";
 	}
 	

@@ -20,11 +20,14 @@
 	<div style="text-align: center; font-size: 0">
 		<canvas id="gameCanvas" width="980" height="640"></canvas>
 	</div>
-	<div style="text-align:center;font-size:300%;">
-		<p style="padding:5% 0;">游戏规则</p>
-		<p style="padding:5% 0;">第一名：4.5</p>
-		<p style="padding:5% 0;">第二名：2.6</p>
-		<p style="padding:5% 0;">第三名：2.4</p>
+	<div style="text-align:center;font-size:300%;padding-top:3%">
+		<p style="padding:3% 0;">游戏规则</p>
+		<p style="padding:3% 0;">本娱乐平台每3分钟开奖一次。2分钟后停止下注，第3分钟开奖。</p>
+		<#if key1!=0><p style="padding:3% 0;">第一名：${key1!}</p></#if>
+		<#if key2!=0><p style="padding:3% 0;">第二名：${key2!}</p></#if>
+		<#if key3!=0><p style="padding:3% 0;">第三名：${key3!}</p></#if>
+		<#if key4!=0><p style="padding:3% 0;">第四名：${key4!}</p></#if>
+		<#if key5!=0><p style="padding:3% 0;">第五名：${key5!}</p></#if>
 	</div>
 	<div class="footer-nav">
 		<ul class="layui-nav">
