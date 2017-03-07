@@ -79,7 +79,7 @@ public class TaskAwardService {
 		settService.update(key9);*/
 	}
 
-	@Scheduled(cron = "0 1/3 9-23 * * ?") 
+	@Scheduled(cron = "30 0/3 9-23 * * ?") 
 	public void GrantBonusJob(){
 		Long nowTime = System.currentTimeMillis();
 		String nextShort = DateUtils.formatShortTime(nowTime);
