@@ -496,17 +496,17 @@ var firstTopDisLayer = cc.Layer.extend({
 				d = a.awardNumbers.split(",");
 			this.midLayer = new MidActionLayer;
 			this.midLayer.init();
-			this.midLayer.setPosition(cc.p(.5 * c.width - 50, .5 * c.height));
+			this.midLayer.setPosition(cc.p(.5 * c.width, .5 * c.height));
 			this.addChild(this.midLayer, 0);
 			this.midLayer.initCarSprite(d);
 			this.midLayer.runFirstAction();
 			this.topLayer = new firstTopDisLayer;
 			this.topLayer.init();
-			this.topLayer.setPosition(cc.p(.5 * c.width - 75, c.height - 40 - 4));
+			this.topLayer.setPosition(cc.p(.5 * c.width, c.height - 40 - 4));
 			this.addChild(this.topLayer, 1);
 			this.btmLayer = new firstBtmDisLayer;
 			this.btmLayer.init();
-			this.btmLayer.setPosition(cc.p(.5 * c.width - 75, 48));
+			this.btmLayer.setPosition(cc.p(.5 * c.width, 48));
 			this.addChild(this.btmLayer, 1);
 			this.btmLayer.setCurData(d);
 			for (c = 0; c < d.length; ++c) {
