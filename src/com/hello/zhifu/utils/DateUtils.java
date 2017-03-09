@@ -100,7 +100,8 @@ public class DateUtils extends PropertyEditorSupport {
 		if (null != time) {
 			date = new Date(time.getTime());
 		}
-		return date2Str(date_sdf);
+		return date_sdf.format(date);
+		
 	}
 
 	/**
@@ -191,10 +192,7 @@ public class DateUtils extends PropertyEditorSupport {
 	 * @return 字符串
 	 */
 	public static String getDate(String format) {
-		Date date=new Date();
-		if (null == date) {
-			return null;
-		}
+		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(date);
 	}
