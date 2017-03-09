@@ -34,7 +34,7 @@ public class ImageController {
 			int width = ImageOne.getWidth();// 图片宽度
 			int height = ImageOne.getHeight();// 图片高度
 			
-			BufferedImage ImageTwo = QRCodeUtil.createImage("http://www.baidu.com", null,	false);
+			BufferedImage ImageTwo = QRCodeUtil.createImage("http://app.ittun.com/zhifu/touzhu?pid"+pid, null,	false);
 			
 			Graphics2D graph = ImageOne.createGraphics();
 
