@@ -23,10 +23,9 @@ import com.hello.zhifu.utils.QRCodeUtil;
 public class ImageController {
 
 	@RequestMapping(value = "qrcode")
-	public static void todownpic(HttpServletRequest request,
+	public static void todownpic(String pid, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
-		BufferedImage ImageTwo = null;
 		try {
 			// 背景
 			File fileOne = new File("C:\\Users\\Administrator\\Pictures\\timg1.jpg");
@@ -34,20 +33,13 @@ public class ImageController {
 			ImageOne = ImageIO.read(fileOne);
 			int width = ImageOne.getWidth();// 图片宽度
 			int height = ImageOne.getHeight();// 图片高度
-			// 从图片中读取RGB
-			int[] ImageArrayOne = new int[width * height];
-			ImageArrayOne = ImageOne.getRGB(0, 0, width, height, ImageArrayOne,	0, width);
-
-			ImageTwo = QRCodeUtil.createImage("http://www.baidu.com", null,	false);
-			int widthTwo = ImageTwo.getWidth();// 图片宽度
-			int heightTwo = ImageTwo.getHeight();// 图片高度
-			int[] ImageArrayTwo = new int[widthTwo * heightTwo];
-			ImageArrayTwo = ImageTwo.getRGB(0, 0, widthTwo, heightTwo, ImageArrayTwo, 0, widthTwo);
-
+			
+			BufferedImage ImageTwo = QRCodeUtil.createImage("http://www.baidu.com", null,	false);
+			
 			Graphics2D graph = ImageOne.createGraphics();
 
 			graph.drawImage(ImageTwo, (width - 150) / 2, ((height - 150) / 3) * 2, 150, 150, null);
-			String markContent = "ID:666";
+			String markContent = "ID:" + (pid == null ? "" : pid);
 			AttributedString ats = new AttributedString(markContent);
 			Font font = new Font("方正楷体简体", Font.BOLD, 15);
 			graph.setFont(font);
