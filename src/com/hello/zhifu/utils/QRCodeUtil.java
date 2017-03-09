@@ -13,16 +13,10 @@ import java.util.Hashtable;
 
 import javax.imageio.ImageIO;
 
-import com.hello.zhifu.utils.BufferedImageLuminanceSource;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.DecodeHintType;
 import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatReader;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.Result;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 public class QRCodeUtil {
@@ -211,45 +205,4 @@ public class QRCodeUtil {
         QRCodeUtil.encode(content, null, output, false);
     }
 
-    /**
-     * 解析二维码
-     * 
-     * @param file
-     *            二维码图片
-     * @return
-     * @throws Exception
-     */
-    public static String decode(File file) throws Exception {
-        BufferedImage image;
-        image = ImageIO.read(file);
-        if (image == null) {
-            return null;
-        }
-        BufferedImageLuminanceSource source = new BufferedImageLuminanceSource(
-                image);
-        BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-        Result result;
-        Hashtable<DecodeHintType, Object> hints = new Hashtable<DecodeHintType, Object>();
-        hints.put(DecodeHintType.CHARACTER_SET, CHARSET);
-        result = new MultiFormatReader().decode(bitmap, hints);
-        String resultStr = result.getText();
-        return resultStr;
-    }
-
-    /**
-     * 解析二维码
-     * 
-     * @param path
-     *            二维码图片地址
-     * @return
-     * @throws Exception
-     */
-    public static String decode(String path) throws Exception {
-        return QRCodeUtil.decode(new File(path));
-    }
-
-    public static void main(String[] args) throws Exception {
-    
-        //String ui = QRCodeUtil.decode("E:/qrcode1.png");
-    }
 }
