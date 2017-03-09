@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript">
+	function GetQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return unescape(r[2]);
+		return null;
+	}
+	
+	var myurl = GetQueryString("url");
+	var mypid = GetQueryString("pid");
+	if (myurl != null && myurl.toString().length > 1 
+		&& mypid != null && mypid.toString().length > 1) {
+		window.location.href = "app.ittun.com/zhifu/" + myurl + "?pid=" + mypid	+ "&t=" + Math.random();
+	}
+</script>
+</html>
