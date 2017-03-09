@@ -36,6 +36,9 @@ public class IndexController {
 	
 	@RequestMapping(value = "/touzhu", method = RequestMethod.GET)
 	public String touzhu(Integer pid, ModelMap map, HttpServletRequest request) {
+		if(request.getHeader("Referer")==null){
+			return "error";
+		}
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
 		//更新上级id上级id不能是自己
@@ -54,6 +57,9 @@ public class IndexController {
 	
 	@RequestMapping(value = "/erweima", method = RequestMethod.GET)
 	public String erweima(Integer pid, ModelMap map, HttpServletRequest request) {
+		if(request.getHeader("Referer")==null){
+			return "error";
+		}
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
 		//更新上级id上级id不能是自己
@@ -69,6 +75,9 @@ public class IndexController {
 	
 	@RequestMapping(value = "/geren", method = RequestMethod.GET)
 	public String geren(Integer pid, ModelMap map, HttpServletRequest request) {
+		if(request.getHeader("Referer")==null){
+			return "error";
+		}
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
 		//更新上级id上级id不能是自己
@@ -91,6 +100,9 @@ public class IndexController {
 	
 	@RequestMapping(value = "/lishi", method = RequestMethod.GET)
 	public String lishi(ModelMap map, HttpServletRequest request) {
+		if(request.getHeader("Referer")==null){
+			return "error";
+		}
 		Long nowTime = System.currentTimeMillis();
 		Award award = awardService.current();
 		map.put("period", award.getTermNum()+1);
@@ -101,6 +113,9 @@ public class IndexController {
 	
 	@RequestMapping(value = "/zhibo", method = RequestMethod.GET)
 	public String zhibo(ModelMap map, HttpServletRequest request) {
+		if(request.getHeader("Referer")==null){
+			return "error";
+		}
 		Setting key1= settingService.selectByPrimaryKey(1);
 		map.put("key1", key1.getMvalue());
 		Setting key2= settingService.selectByPrimaryKey(2);
