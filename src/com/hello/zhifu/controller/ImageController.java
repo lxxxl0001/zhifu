@@ -1,11 +1,15 @@
 package com.hello.zhifu.controller;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Shape;
 import java.awt.font.TextAttribute;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -40,26 +44,24 @@ public class ImageController {
 
 	private final static String BASE = "";
 
-	@RequestMapping(value = "todownpic")
+	@RequestMapping(value = "qrcode")
 	public static void todownpic(HttpServletRequest request,
 			HttpServletResponse response, String qrcodeurl, String qrcodeId)
 			throws IOException {
-		if (qrcodeurl != null && "".equals(qrcodeurl)) {
+		if (qrcodeurl != null && !"".equals(qrcodeurl)) {
 			BufferedImage ImageTwo = null;
 			try {
 				// 背景
-				File fileOne = new File(BASE);
+				File fileOne = new File("C:\\Program Files\\apache-tomcat-7.0\\webapps\\zhifu\\assets\\style\\images\\timg.jpg");
 				BufferedImage ImageOne;
 				ImageOne = ImageIO.read(fileOne);
 				int width = ImageOne.getWidth();// 图片宽度
 				int height = ImageOne.getHeight();// 图片高度
 				// 从图片中读取RGB
 				int[] ImageArrayOne = new int[width * height];
-				ImageArrayOne = ImageOne.getRGB(0, 0, width, height,
-						ImageArrayOne, 0, width);
+				ImageArrayOne = ImageOne.getRGB(0, 0, width, height,ImageArrayOne, 0, width);
 
-				QRCodeUtil QrcodeUtil = new QRCodeUtil();
-				ImageTwo = ImageIO.read(fileOne);//QrcodeUtil.genBarcode(qrcodeurl, width - 10,	width + 10);
+				ImageTwo = QRCodeUtil.createImage("http://www.baidu.com", null, false);
 				int widthTwo = ImageTwo.getWidth();// 图片宽度
 				int heightTwo = ImageTwo.getHeight();// 图片高度
 				int[] ImageArrayTwo = new int[widthTwo * heightTwo];
@@ -67,11 +69,22 @@ public class ImageController {
 						ImageArrayTwo, 0, widthTwo);
 
 				// 生成新图片
-				BufferedImage ImageNew = new BufferedImage(width, height,
+				/*BufferedImage ImageNew = new BufferedImage(width, height,
 						BufferedImage.TYPE_INT_RGB);
 				ImageNew.setRGB(0, 0, width, height, ImageArrayOne, 0, width);// 设置左半部分的RGB
-				ImageNew.setRGB(20, 180, widthTwo, heightTwo, ImageArrayTwo, 0, widthTwo);// 设置右半部分的RGB
-				createMark(response, ImageNew, "ID:" + qrcodeId, null, 1,	"方正楷体简体", 30, 1150, 30, Color.WHITE);
+				ImageNew.setRGB(0, 0, width, height, ImageArrayTwo, 0, width);// 设置右半部分的RGB
+*/				
+				Graphics2D graph = ImageOne.createGraphics();
+
+		        graph.drawImage(ImageTwo, 50, 180, 180, 180, null);
+		        graph.drawString("ID:1", 150, 400);
+		        graph.dispose();
+				
+				
+				response.setContentType("image/jpg");
+				ImageIO.write(ImageOne, "jpg", response.getOutputStream());
+				
+				//createMark(response, ImageNew, "ID:" + qrcodeId, null, 1,	"方正楷体简体", 30, 1150, 30, Color.WHITE);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
