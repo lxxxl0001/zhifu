@@ -18,23 +18,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hello.zhifu.utils.QRCodeUtil;
+import com.hello.zhifu.utils.SettingsUtil;
 
 @Controller
 public class ImageController {
 
 	@RequestMapping(value = "qrcode")
-	public static void todownpic(String pid, HttpServletRequest request,
+	public static void qrcode(String pid, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
 		try {
-			// 背景
-			File fileOne = new File("C:\\Users\\Administrator\\Pictures\\timg1.jpg");
+			String realPath = request.getServletContext().getRealPath("/");
+			File fileOne = new File(realPath+"assets\\style\\images\\timg1.jpg");
 			BufferedImage ImageOne;
 			ImageOne = ImageIO.read(fileOne);
 			int width = ImageOne.getWidth();// 图片宽度
 			int height = ImageOne.getHeight();// 图片高度
 			
-			BufferedImage ImageTwo = QRCodeUtil.createImage("http://app.ittun.com/zhifu/touzhu?pid"+pid, null,	false);
+			String domain = SettingsUtil.getInstance().getString("domain");
+			BufferedImage ImageTwo = QRCodeUtil.createImage(domain+"/touzhu?pid"+pid, null,	false);
 			
 			Graphics2D graph = ImageOne.createGraphics();
 
