@@ -86,7 +86,7 @@ var showCountDown = function (afterTime, period) {
         window.clearInterval(countDownTimer);
     }
     var hh = parseInt(minsold) + parseInt(hrsold * 60);
-	if (hh < 1) {
+	if (hh < 1 && hh > 3) {
     	$(".sub-btn").addClass("layui-btn-disabled");
     	$(".sub-btn").attr("disabled","disabled");
     }else{
