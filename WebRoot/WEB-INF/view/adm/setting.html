@@ -53,6 +53,9 @@
 				<div class="btn-group">
 					<a class="btn btn-default" href="setagent">代理设置</a>
 				</div>
+				<div class="btn-group">
+					<a class="btn btn-default" href="record">消费记录</a>
+				</div>
 			</div>
 		</nav>
 	</div>
@@ -90,7 +93,7 @@
 			window.setTimeout(loadAwardTimes, 1000);
 			
 			//每10秒刷新开奖时间数据
-			window.setTimeout(getNumbers, 10000);
+			window.setTimeout(getNumbers, 6000);
 		});
 		
 		var getNumbers = function(){
@@ -122,7 +125,7 @@
 			    	$('#numlist').html(html);
 			    }
 			});
-			window.setTimeout(getNumbers, 10000);
+			window.setTimeout(getNumbers, 6000);
 		};
 	</script>
 </body>

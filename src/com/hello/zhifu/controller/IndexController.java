@@ -203,6 +203,16 @@ public class IndexController {
 		return "adm/setrate";
 	}
 	
+	@RequestMapping(value = "/record", method = RequestMethod.GET)
+	public String record(ModelMap map, HttpServletRequest request) {
+		Object user = request.getSession().getAttribute("user");
+		if (user == null) {
+			return "adm/login";
+		}
+
+		return "adm/record";
+	}
+	
 	@RequestMapping(value = "/grant.do", method = RequestMethod.POST)
 	public String grantAgent(HttpServletRequest request, HttpServletResponse response) {
 		try {
