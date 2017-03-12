@@ -53,13 +53,21 @@ public class OAuth2Controller {
 					userInfo.setOpenid(openId);
 					userInfo.setMoney(0);
 					userInfo.setAgent(0);
-					userInfo.setNickname(map.get("nickname").toString());
-					userInfo.setSex(map.get("sex").toString());
-					userInfo.setCity(map.get("city").toString());
-					userInfo.setProvince(map.get("province").toString());
-					userInfo.setCountry(map.get("country").toString());
-					userInfo.setHeadimgurl(map.get("headimgurl").toString());
+					userInfo.setNickname(map.get("nickname")==null?"":map.get("nickname").toString());
+					userInfo.setSex(map.get("sex")==null?"":map.get("sex").toString());
+					userInfo.setCity(map.get("city")==null?"":map.get("city").toString());
+					userInfo.setProvince(map.get("province")==null?"":map.get("province").toString());
+					userInfo.setCountry(map.get("country")==null?"":map.get("country").toString());
+					userInfo.setHeadimgurl(map.get("headimgurl")==null?"":map.get("headimgurl").toString());
 					userInfoService.insert(userInfo);
+				}else{
+					userInfo.setNickname(map.get("nickname")==null?"":map.get("nickname").toString());
+					userInfo.setSex(map.get("sex")==null?"":map.get("sex").toString());
+					userInfo.setCity(map.get("city")==null?"":map.get("city").toString());
+					userInfo.setProvince(map.get("province")==null?"":map.get("province").toString());
+					userInfo.setCountry(map.get("country")==null?"":map.get("country").toString());
+					userInfo.setHeadimgurl(map.get("headimgurl")==null?"":map.get("headimgurl").toString());
+					userInfoService.update(userInfo);
 				}
 			}
 		} else {
