@@ -2,7 +2,6 @@ package com.hello.zhifu.service.impl;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,18 +22,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
 	
 	@Override
 	public UserInfo selectByOpendId(String openid) {
-		UserInfo userInfo = null;
-		if (StringUtils.isNotEmpty(openid)){
-			userInfo = userInfoMapper.selectByOpendId(openid);
-			if (userInfo == null) {
-				userInfo = new UserInfo();
-				userInfo.setOpenid(openid);
-				userInfo.setMoney(0);
-				userInfo.setAgent(0);
-				userInfoMapper.insert(userInfo);
-			}
-		}
-		return userInfo;
+		return userInfoMapper.selectByOpendId(openid);
 	}
 
 	@Override
