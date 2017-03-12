@@ -96,6 +96,18 @@ public class WeChatUtils {
 				//获取封装返回的信息
 				ObjectMapper objectMapper = new ObjectMapper();
 				map = objectMapper.readValue(method.getResponseBodyAsString(), Map.class);
+				
+				//获取用户昵称，头像等
+				String getinfourl = "https://api.weixin.qq.com/sns/userinfo?access_token="+map.get("access_token")+"&openid="+map.get("openid")+"&lang=zh_CN";
+				GetMethod usermethod = new GetMethod(getinfourl);
+				client.executeMethod(usermethod);
+				client.setTimeout(3000);
+				byte[] b = usermethod.getResponseBody();
+				String response = new String(b, "utf-8");
+				if(!response.contains("errcode")){
+					map = objectMapper.readValue(response, Map.class);
+				}
+				
 			} catch (Exception e) {
 				// e.printStackTrace();
 			}
