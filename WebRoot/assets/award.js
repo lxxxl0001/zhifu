@@ -86,12 +86,12 @@ var showCountDown = function (afterTime, period) {
         window.clearInterval(countDownTimer);
     }
     var hh = parseInt(minsold) + parseInt(hrsold * 60);
-	if (hh < 1 || hh > 3) {
+	if (1 < hh && hh < 3) {
+		$(".sub-btn").removeClass("layui-btn-disabled");
+		$(".sub-btn").removeAttr("disabled");
+    }else{
     	$(".sub-btn").addClass("layui-btn-disabled");
     	$(".sub-btn").attr("disabled","disabled");
-    }else{
-    	$(".sub-btn").removeClass("layui-btn-disabled");
-		$(".sub-btn").removeAttr("disabled");
     }
 	if (hh < 10) {
 		hh = "0" + hh;
