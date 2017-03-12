@@ -67,15 +67,15 @@ public class WeChatUtils {
 		
 		String paramet = "?appid=" + appid
 				+ "&redirect_uri=" + URLEncoder.encode(returnUrl)
-				+ "&response_type=code&scope=snsapi_base&state=1#wechat_redirect";
+				+ "&response_type=code&scope=snsapi_userinfo&state=1#wechat_redirect";
 		return oauth2url + paramet;
 	}
 	
-	public static String getOpenId(String code) {
+	public static Map<String, Object> getUserInfo(String code) {
 		//api
 		String tokenurl = "https://api.weixin.qq.com/sns/oauth2/access_token"; 
 		
-		String openId = null;
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if (code != null) {
 
@@ -88,7 +88,6 @@ public class WeChatUtils {
 			GetMethod method = new GetMethod(tokenurl + paramet);
 			// 使用POST方法
 			// HttpMethod method = new PostMethod("http://java.sun.com");
-			Map<String, Object> map = new HashMap<String, Object>();
 			try {
 				client.executeMethod(method);
 				client.setTimeout(3000);
@@ -97,18 +96,14 @@ public class WeChatUtils {
 				//获取封装返回的信息
 				ObjectMapper objectMapper = new ObjectMapper();
 				map = objectMapper.readValue(method.getResponseBodyAsString(), Map.class);
-				//获取openId
-				openId = map.get("openid").toString();
-				
 			} catch (Exception e) {
 				// e.printStackTrace();
 			}
-
 			// 释放连接
 			method.releaseConnection();
 		}
 		
-		return openId; 
+		return map; 
 	}
 	
 	public static Map<String, Object> unorder(String openId, String trade_no, Integer totalFee, String createIp) {
