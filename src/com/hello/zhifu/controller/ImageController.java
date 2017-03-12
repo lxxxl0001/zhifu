@@ -36,7 +36,7 @@ public class ImageController {
 			int height = ImageOne.getHeight();// 图片高度
 			
 			String domain = SettingsUtil.getInstance().getString("domain");
-			BufferedImage ImageTwo = QRCodeUtil.createImage(domain+"/touzhu?pid"+pid, null,	false);
+			BufferedImage ImageTwo = QRCodeUtil.createImage(domain+"/touzhu?pid="+pid, null,	false);
 			
 			Graphics2D graph = ImageOne.createGraphics();
 
