@@ -12,18 +12,40 @@
 <script type="text/javascript"
 	src="//cdn.css.net/libs/jquery/2.2.3/jquery.min.js"></script>
 <script type="text/javascript" src="${base}/assets/layer/layer.js"></script>
-<script type="text/javascript" src="${base}/assets/style/js/switch.js"></script>
+<script type="text/javascript" src="${base}/assets/laypage/laypage.js"></script>
 <link rel="stylesheet" href="${base}/assets/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="${base}/assets/layui/css/layui.css">
 <link rel="stylesheet" href="${base}/assets/style/css/style.css">
-<link rel="stylesheet" href="${base}/assets/style/css/switch.css">
+<link rel="stylesheet" href="${base}/assets/laypage/skin/laypage.css">
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row" style="height:30px;"></div>
 		<div class="row">
-			<div class="col-xs-12"></div>
+			<div class="col-xs-12">
+
+			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<table id="histor" class="layui-table" lay-skin="line">
+					<thead>
+						<tr>
+							<th>头像</th>
+							<th>昵称</th>
+							<th>消费记录</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row text-right">
+			<div class="col-xs-12">
+				<div id="demo1"></div>
+			</div>
+		</div>
+		<div class="row" style="height:40px;"></div>
 		<nav class="navbar navbar-default navbar-fixed-bottom">
 			<div class="btn-group btn-group-justified">
 				<div class="btn-group">
@@ -42,9 +64,41 @@
 		</nav>
 	</div>
 	<script type="text/javascript">
-		jQuery(document).ready(function() {
-			
+		
+		$(document).ready(function() {
+			laypage({
+				cont : 'demo1',
+				pages : 100,
+				groups : 3,
+				first : 1,
+				last : 100,
+				prev : '<em><</em>',
+				next : '<em>></em>'
+			});
+			getHistoryData(1);
 		});
+		
+		function getHistoryData(page) {
+			$.getJSON("getPageFlowing.do", {page:page,t:Math.random()}, function (rows) {
+			    if(rows){
+			    	var html = '';
+			    	for(var i in rows){
+			    		var data = rows[i];
+			    		var user = data.user;
+			    		var headimgurl = user.headimgurl==null?"":user.headimgurl;
+			    		var nickname = user.nickname==null?user.userid:user.nickname;
+			    		var province = user.province==null?"":user.province;
+			    		var city = user.city==null?"":user.city;
+						html += '<tr>';
+			    		html += '<td><img src="'+headimgurl+'" width="40px" height="40px"></td>';
+						html += '<td><label>'+nickname+'</label><br/><label>'+province+'·'+city+'</label></td>';	
+						html += '<td><label>第'+data.termNum+'期'+data.carNum+'号车</label><br/><label>投入：￥'+data.buyAmount+'</label></td>';
+			            html += '</tr>';	
+			    	}
+			    	$("#histor tbody").html(html);
+			    }
+			});
+		}
 	</script>
 </body>
 </html>
