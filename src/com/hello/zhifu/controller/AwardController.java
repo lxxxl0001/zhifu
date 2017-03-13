@@ -120,6 +120,13 @@ public class AwardController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/getPageFlowing.do", method = RequestMethod.GET)
+	public List<Flowing> getPageFlowing(Integer page) {	
+		List<Flowing> flow = flowService.findList("isPay=1", "flowid desc");
+		return flow==null? new ArrayList<Flowing>():flow;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/saveFlowing.do", method = RequestMethod.POST)
 	public SortedMap<Object, Object> saveFlowing(Flowing flow, HttpServletRequest req) {	
 		SortedMap<Object, Object> params = new TreeMap<Object, Object>();

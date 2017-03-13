@@ -11,6 +11,9 @@
     <result column="isPay" property="isPay" jdbcType="INTEGER" />
     <result column="isOpen" property="isOpen" jdbcType="INTEGER" />
     <result column="isSend" property="isSend" jdbcType="INTEGER" />
+    <association column="userid" property="user" javaType="com.hello.zhifu.model.UserInfo" 
+    	select="com.hello.zhifu.dao.UserInfoMapper.selectByPrimaryKey">  
+    </association>
   </resultMap>
   <select id="findList" resultMap="BaseResultMap">
       select * from flowing
