@@ -12,6 +12,8 @@ public class Flowing {
 	private Integer isOpen;
 	private Integer isSend;
 	
+	private UserInfo user;
+	
 	public Long getFlowid() {
 		return flowid;
 	}
@@ -66,4 +68,12 @@ public class Flowing {
 	public void setIsSend(Integer isSend) {
 		this.isSend = isSend;
 	}
+	
+	public UserInfo getUser() {
+		return user;
+	}
+	public void setUser(UserInfo user) {
+		this.user = user;
+	}
+	
 }
