@@ -36,7 +36,7 @@ public class ImageController {
 			int height = ImageOne.getHeight();// 图片高度
 			
 			String rukou = SettingsUtil.getInstance().getString("rukou");
-			BufferedImage ImageTwo = QRCodeUtil.createImage(rukou+"/me?pid="+pid, null,	false);
+			BufferedImage ImageTwo = QRCodeUtil.createImage(rukou + "?pid="	+ pid, null, false);
 			
 			Graphics2D graph = ImageOne.createGraphics();
 
