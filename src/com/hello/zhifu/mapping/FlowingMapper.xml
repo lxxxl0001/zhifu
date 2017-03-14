@@ -15,6 +15,20 @@
     	select="com.hello.zhifu.dao.UserInfoMapper.selectByPrimaryKey">  
     </association>
   </resultMap>
+  <select id="getCount" resultType="java.lang.Integer">
+      select count(*) from flowing 
+      <where>${where}</where>
+  </select>
+  <select id="findPagerList" resultMap="BaseResultMap">
+      select * from flowing
+      <where>${where}</where>
+      <if test="order != null and order != ''" >
+        order by ${order}
+      </if>
+      <if test="length != null and length != -1" >
+        limit ${start},${length}
+      </if>
+  </select>
   <select id="findList" resultMap="BaseResultMap">
       select * from flowing
       <where>${where}</where>

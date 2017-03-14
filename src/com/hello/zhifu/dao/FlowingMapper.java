@@ -14,6 +14,10 @@ public interface FlowingMapper {
 	
 	public Integer update(Flowing flowing);
 	
+	public Integer getCount(@Param("where")String where);
+	
+	public List<Flowing> findPagerList(@Param("start")Integer start, @Param("length")Integer length, @Param("where")String where, @Param("order")String order);
+	
 	public List<Flowing> findList(@Param("where")String where, @Param("order")String order);
 	
 	public List<Flowing> findHaveAmount();
