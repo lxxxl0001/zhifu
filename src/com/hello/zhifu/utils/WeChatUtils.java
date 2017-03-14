@@ -211,7 +211,7 @@ public class WeChatUtils {
 		// ** 企业付款金额，单位为分 *//*
 		params.put("amount", amount);
 		// ** 付款描述信息 *//*
-		params.put("desc", "退货补偿");
+		params.put("desc", "退货");
 		// ** 客户端本地ip *//*
 		params.put("spbill_create_ip", apiip);
 
