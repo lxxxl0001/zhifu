@@ -121,9 +121,18 @@ public class AwardController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getPageFlowing.do", method = RequestMethod.GET)
-	public List<Flowing> getPageFlowing(Integer page) {	
-		List<Flowing> flow = flowService.findList("isPay=1", "flowid desc");
-		return flow==null? new ArrayList<Flowing>():flow;
+	public Map<String, Object> getPageFlowing(Integer page) {
+		Map<String, Object> data = new HashMap<String, Object>();
+		String where = "isPay=1";
+		Integer count = flowService.getCount(where);
+		Integer start = (page - 1) * 8;
+		Integer length = 8;
+		Integer pages = count % length == 0 ? count / length : count / length + 1;
+		List<Flowing> flow = flowService.findPagerList(start, length, where, "flowid desc");
+		flow = flow==null? new ArrayList<Flowing>():flow;
+		data.put("pages", pages);
+		data.put("rows", flow);
+		return data;
 	}
 	
 	@ResponseBody

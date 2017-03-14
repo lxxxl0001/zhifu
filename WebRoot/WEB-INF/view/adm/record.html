@@ -66,24 +66,15 @@
 	<script type="text/javascript">
 		
 		$(document).ready(function() {
-			laypage({
-				cont : 'demo1',
-				pages : 100,
-				groups : 3,
-				first : 1,
-				last : 100,
-				prev : '<em><</em>',
-				next : '<em>></em>'
-			});
 			getHistoryData(1);
 		});
 		
 		function getHistoryData(page) {
-			$.getJSON("getPageFlowing.do", {page:page,t:Math.random()}, function (rows) {
-			    if(rows){
+			$.getJSON("getPageFlowing.do", {page:page,t:Math.random()}, function (map) {
+			    if(map.rows){
 			    	var html = '';
-			    	for(var i in rows){
-			    		var data = rows[i];
+			    	for(var i in map.rows){
+			    		var data = map.rows[i];
 			    		var user = data.user;
 			    		var headimgurl = user.headimgurl==null?"":user.headimgurl;
 			    		var nickname = user.nickname==null?user.userid:user.nickname;
@@ -96,6 +87,23 @@
 			            html += '</tr>';	
 			    	}
 			    	$("#histor tbody").html(html);
+			    }
+			    if(map.pages){
+				    laypage({
+						cont : 'demo1',
+						pages : map.pages,
+						curr : page,
+						groups : 3,
+						first : 1,
+						last : map.pages,
+						prev : '<em><</em>',
+						next : '<em>></em>',
+					    jump: function(obj, first){
+					      if(!first){
+					        getHistoryData(obj.curr);
+					      }
+					    }
+					});
 			    }
 			});
 		}
