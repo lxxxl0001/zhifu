@@ -90,18 +90,29 @@ public class WeChatUtils {
 			// HttpMethod method = new PostMethod("http://java.sun.com");
 			try {
 				client.executeMethod(method);
-				client.setTimeout(3000);
 				// 打印服务器返回的状态
 				System.out.println(method.getResponseBodyAsString());
 				//获取封装返回的信息
 				ObjectMapper objectMapper = new ObjectMapper();
 				map = objectMapper.readValue(method.getResponseBodyAsString(), Map.class);
 				
+				//检验授权凭证（access_token）是否有效
+				Map<String, Object> authmap = new HashMap<String, Object>();
+				String authurl = "https://api.weixin.qq.com/sns/auth?access_token="+map.get("access_token")+"&openid="+map.get("openid");
+				GetMethod authmethod = new GetMethod(authurl);
+				client.executeMethod(authmethod);
+				authmap = objectMapper.readValue(authmethod.getResponseBodyAsString(), Map.class);
+				//刷新access_token（如果需要）
+				if(!"ok".equals(authmap.get("errmsg"))){
+					String refreshurl = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid="+appid+"&grant_type=refresh_token&refresh_token="+map.get("refresh_token");
+					GetMethod refreshmethod = new GetMethod(refreshurl);
+					client.executeMethod(refreshmethod);
+					map = objectMapper.readValue(refreshmethod.getResponseBodyAsString(), Map.class);
+				}
 				//获取用户昵称，头像等
 				String getinfourl = "https://api.weixin.qq.com/sns/userinfo?access_token="+map.get("access_token")+"&openid="+map.get("openid")+"&lang=zh_CN";
 				GetMethod usermethod = new GetMethod(getinfourl);
 				client.executeMethod(usermethod);
-				client.setTimeout(3000);
 				byte[] b = usermethod.getResponseBody();
 				String response = new String(b, "utf-8");
 				if(!response.contains("errcode")){
