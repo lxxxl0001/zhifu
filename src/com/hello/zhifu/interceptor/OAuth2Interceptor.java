@@ -18,7 +18,7 @@ public class OAuth2Interceptor extends HandlerInterceptorAdapter {
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		
 		if (StringUtils.isEmpty(openId)) {
-			String sourceUrl = request.getRequestURL().toString();
+			String sourceUrl = request.getRequestURL() + "?" + request.getQueryString();
             response.sendRedirect(WeChatUtils.getDomain() + "/oauth2Url?sourceUrl=" + sourceUrl);
 			return false;
 		} else {
