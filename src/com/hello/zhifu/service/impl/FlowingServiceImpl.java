@@ -44,4 +44,15 @@ public class FlowingServiceImpl implements IFlowingService {
 	public Integer updateIsSend(Integer userid) {
 		return flowingMapper.updateIsSend(userid);
 	}
+
+	@Override
+	public Integer getCount(String where) {
+		return flowingMapper.getCount(where);
+	}
+
+	@Override
+	public List<Flowing> findPagerList(Integer start, Integer length,
+			String where, String order) {
+		return flowingMapper.findPagerList(start, length, where, order);
+	}
 }

@@ -17,4 +17,8 @@ public interface IFlowingService {
 	public List<Flowing> findHaveAmount();
 	
 	public Integer updateIsSend(Integer userid);
+	
+	public Integer getCount(String where);
+	
+	public List<Flowing> findPagerList(Integer start, Integer length, String where, String order);
 }
