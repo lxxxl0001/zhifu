@@ -37,7 +37,7 @@
       </if>     
   </select>
   <select id="findHaveAmount" resultMap="BaseResultMap">
-	  select userid,sum(haveAmount)haveAmount from flowing where isOpen=1 and isSend=1 group by userid
+	  select userid,sum(haveAmount)haveAmount from flowing where isOpen=1 and isSend=0 group by userid
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
       select * from flowing where flowid = #{flowid,jdbcType=BIGINT}
