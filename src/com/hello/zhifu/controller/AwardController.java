@@ -23,6 +23,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.hello.zhifu.model.Award;
 import com.hello.zhifu.model.Flowing;
 import com.hello.zhifu.model.Setting;
+import com.hello.zhifu.model.UserInfo;
 import com.hello.zhifu.service.IAwardService;
 import com.hello.zhifu.service.IFlowingService;
 import com.hello.zhifu.service.ISettingService;
@@ -39,7 +40,7 @@ public class AwardController {
 	@Autowired
 	private IFlowingService flowService;
 	@Autowired
-	private IUserInfoService userInfoService;
+	private IUserInfoService userService;
 	@Autowired
 	private ISettingService settingService;
 	
@@ -239,6 +240,8 @@ public class AwardController {
 				if (flow != null) {
 					flow.setIsPay(1);
 					flowService.update(flow);
+					//计算代理
+					calcAgent(flow);
 				}
                 /** 告诉微信服务器，我收到信息了，不要再调用回调方法了 */
                 /** 如果不返回SUCCESS的信息给微信服务器，则微信服务器会在一定时间内，多次调用该回调方法，如果最终还未收到回馈，微信默认该订单支付失败*/
@@ -254,4 +257,34 @@ public class AwardController {
                 + "]]></return_code><return_msg><![CDATA[" + return_msg
                 + "]]></return_msg></xml>";
     }
+    
+    private void calcAgent(Flowing flow) {
+		UserInfo self = userService.selectByPrimaryKey(flow.getUserid());
+		if (self != null) {
+			//一级代理
+			UserInfo oneuser = userService.selectByPrimaryKey(self.getParent());
+			if (oneuser != null) {
+				Setting key6 = settingService.selectByPrimaryKey(6);
+				Double v6 = key6.getMvalue() * 10;
+				oneuser.setAgent(oneuser.getAgent() + v6.intValue());
+				userService.update(oneuser);
+				//二级代理
+				UserInfo towuser = userService.selectByPrimaryKey(oneuser.getParent());
+				if (towuser != null) {
+					Setting key7 = settingService.selectByPrimaryKey(7);
+					Double v7 = key7.getMvalue() * 10;
+					towuser.setAgent(towuser.getAgent() + v7.intValue());
+					userService.update(towuser);
+					//三级代理
+					UserInfo threeuser = userService.selectByPrimaryKey(towuser.getParent());
+					if (threeuser != null) {
+						Setting key8 = settingService.selectByPrimaryKey(8);
+						Double v8 = key8.getMvalue() * 10;
+						threeuser.setAgent(threeuser.getAgent() + v8.intValue());
+						userService.update(threeuser);
+					}
+				}
+			}
+		}
+	}
 }

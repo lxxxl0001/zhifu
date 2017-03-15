@@ -69,14 +69,7 @@ public class TaskAwardService {
 			if (i < 5) {
 				calcAmount(flowlist, i + 1);
 			}
-			//计算代理费用
-			calcAgent(flowlist);
 		}
-		
-		//恢复比率参数值
-		/*Setting key9 = settService.selectByPrimaryKey(9);
-		key9.setMvalue(0d);
-		settService.update(key9);*/
 	}
 
 	@Scheduled(cron = "30 0/3 9-23 * * ?") 
@@ -111,39 +104,6 @@ public class TaskAwardService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-	
-	//计算代理费
-	private void calcAgent(List<Flowing> flowlist) {
-		for (Flowing flow : flowlist) {
-			UserInfo self = userService.selectByPrimaryKey(flow.getUserid());
-			if (self != null) {
-				//一级代理
-				UserInfo oneuser = userService.selectByPrimaryKey(self.getParent());
-				if (oneuser != null) {
-					Setting key6 = settService.selectByPrimaryKey(6);
-					Double v6 = key6.getMvalue() * 10;
-					oneuser.setAgent(oneuser.getAgent() + v6.intValue());
-					userService.update(oneuser);
-					//二级代理
-					UserInfo towuser = userService.selectByPrimaryKey(oneuser.getParent());
-					if (towuser != null) {
-						Setting key7 = settService.selectByPrimaryKey(7);
-						Double v7 = key7.getMvalue() * 10;
-						towuser.setAgent(towuser.getAgent() + v7.intValue());
-						userService.update(towuser);
-						//三级代理
-						UserInfo threeuser = userService.selectByPrimaryKey(towuser.getParent());
-						if (threeuser != null) {
-							Setting key8 = settService.selectByPrimaryKey(8);
-							Double v8 = key8.getMvalue() * 10;
-							threeuser.setAgent(threeuser.getAgent() + v8.intValue());
-							userService.update(threeuser);
-						}
-					}
-				}
-			}
 		}
 	}
 	
