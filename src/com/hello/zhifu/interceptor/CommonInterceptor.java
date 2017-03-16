@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.hello.zhifu.utils.SettingsUtil;
+
 public class CommonInterceptor extends HandlerInterceptorAdapter {
 
 	/**
@@ -25,6 +27,10 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		if (modelAndView != null ) {
 			modelAndView.addObject(CONTEXT_PATH, request.getContextPath());
+			String domain = SettingsUtil.getInstance().getString("domain");
+			modelAndView.addObject("domain", domain);
+			String rukou = SettingsUtil.getInstance().getString("rukou");
+			modelAndView.addObject("rukou", rukou);
 		}
 	}
 }
