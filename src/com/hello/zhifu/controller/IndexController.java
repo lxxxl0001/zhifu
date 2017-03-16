@@ -239,10 +239,4 @@ public class IndexController {
 		}
 		return "redirect:/setagent";
 	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/MP_verify_AEwvLOCdHYB3KMka.txt", method = RequestMethod.GET)
-	public String verify(HttpServletRequest request, HttpServletResponse response) {
-		return "AEwvLOCdHYB3KMka";
-	}
 }
