@@ -61,14 +61,7 @@ public class IndexController {
 		}
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
-		//更新上级id上级id不能是自己
-		if (user.getParent() == null && user.getUserid() != pid) {
-			user.setParent(pid);
-			userInfoService.update(user);
-		}
 		map.put("userid", user.getUserid());
-		String domain = SettingsUtil.getInstance().getString("domain");
-		map.put("domain", domain);
 		return "erweima";
 	}
 	
@@ -79,11 +72,6 @@ public class IndexController {
 		}
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
-		//更新上级id上级id不能是自己
-		if (user.getParent() == null && user.getUserid() != pid) {
-			user.setParent(pid);
-			userInfoService.update(user);
-		}
 		int usernum = 0;
 		List<UserInfo> towlist = userInfoService.findList("parent="+user.getUserid(), null);
 		for (UserInfo tow : towlist) {
