@@ -116,6 +116,7 @@ public class WeChatUtils {
 				byte[] b = usermethod.getResponseBody();
 				String response = new String(b, "utf-8");
 				if(!response.contains("errcode")){
+					System.out.println(response);
 					map = objectMapper.readValue(response, Map.class);
 				}
 				
