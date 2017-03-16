@@ -13,16 +13,13 @@
 		return null;
 	}
 	var pid = GetQueryString("pid");
+	var myurl = GetQueryString("url");
 	if (pid != null && pid.toString().length > 0) {
 		window.location.href = "http://app.ittun.com/zhifu/lishi?pid="+pid;
-	}else{
-		window.location.href = "error.html";
-	}
-	/* var myurl = GetQueryString("url");
-	if (myurl != null && myurl.toString().length > 1) {
+	}else if(myurl != null && myurl.toString().length > 1){
 		window.location.href = myurl;
 	}else{
 		window.location.href = "error.html";
-	} */
+	}
 </script>
 </html>
