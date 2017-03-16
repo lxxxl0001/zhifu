@@ -41,7 +41,7 @@ public class IndexController {
 		String openId = CookieUtils.getCookieValue(request, "openId");
 		UserInfo user = userInfoService.selectByOpendId(openId);
 		//更新上级id上级id不能是自己
-		if (user.getParent() == null && user.getUserid() != pid) {
+		if (pid != null && user != null && user.getParent() == null && user.getUserid() != pid) {
 			user.setParent(pid);
 			userInfoService.update(user);
 		}
@@ -55,7 +55,7 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/erweima", method = RequestMethod.GET)
-	public String erweima(Integer pid, ModelMap map, HttpServletRequest request) {
+	public String erweima(ModelMap map, HttpServletRequest request) {
 		if(request.getHeader("Referer")==null){
 			return "error";
 		}
@@ -66,7 +66,7 @@ public class IndexController {
 	}
 	
 	@RequestMapping(value = "/geren", method = RequestMethod.GET)
-	public String geren(Integer pid, ModelMap map, HttpServletRequest request) {
+	public String geren(ModelMap map, HttpServletRequest request) {
 		if(request.getHeader("Referer")==null){
 			return "error";
 		}
