@@ -237,7 +237,7 @@ public class AwardController {
             	// 如果签名和服务器返回的签名一致，说明数据没有被篡改过
 				String s = map.get("out_trade_no").toString();
 				Flowing flow = flowService.selectByPrimaryKey(Long.parseLong(s));
-				if (flow != null) {
+				if (flow != null && flow.getIsPay() == 0) {
 					flow.setIsPay(1);
 					flowService.update(flow);
 					//计算代理
