@@ -74,7 +74,7 @@ public class AwardController {
 		next.put("fullPeriodNumber", null);
 		next.put("periodNumberStr", null);
 		//提前一分钟开始，开奖动画
-		Long interval = award.getNextTime() - nowTime;
+		Long interval = award.getNextTime() - nowTime - (30 * 1000);
 		next.put("awardTimeInterval", interval);
 		next.put("awardNumbers", null);
 		next.put("delayTimeInterval", null);
